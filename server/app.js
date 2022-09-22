@@ -3,6 +3,9 @@ import express from "express"
 const app = express()
 const PORT = 3000
 
+import connection from "./database/mongodbConnection.mjs"
+connection
+
 import accountsRouter from "./routers/accountsRouter.mjs"
 app.use(accountsRouter)
 
