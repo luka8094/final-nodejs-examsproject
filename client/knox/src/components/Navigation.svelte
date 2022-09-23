@@ -16,7 +16,9 @@
     </nav>
     <Route path="/" component={Main}/>    
     <Route path="market" component={Market}/>    
-    <PrivateRoute path="account" component={Account}/>    
+    <PrivateRoute path="account">
+        <Account/>
+    </PrivateRoute>   
     <Route path="chatrooms" component={Chatrooms}/>    
 </Router>
 
