@@ -3,7 +3,8 @@
     import Main from '../pages/Main.svelte'
     import Account from '../pages/Account.svelte'
     import Chatrooms from '../pages/Chatrooms.svelte'
-    import Market from '../pages/Market.svelte';
+    import Market from '../pages/Market.svelte'
+    import PrivateRoute from './authorization/PrivateRoute.svelte'
 </script>
 
 <Router>
@@ -15,7 +16,7 @@
     </nav>
     <Route path="/" component={Main}/>    
     <Route path="market" component={Market}/>    
-    <Route path="account" component={Account}/>    
+    <PrivateRoute path="account" component={Account}/>    
     <Route path="chatrooms" component={Chatrooms}/>    
 </Router>
 
