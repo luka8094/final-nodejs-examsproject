@@ -18,6 +18,7 @@
         height: 100vh;
         width: 100%;
         background: rgba(10,250,150,.5);
+        padding-top: var(--menu-padding);
         align-items: center;
         justify-content: center;
     }

@@ -8,6 +8,7 @@
         height: 100vh;
         width: 100%;
         background: rgba(100,200,250,.5);
+        padding-top: var(--menu-padding);
         align-items: center;
         justify-content: center;
     }
