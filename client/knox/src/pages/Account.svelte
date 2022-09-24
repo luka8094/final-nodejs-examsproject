@@ -1,5 +1,15 @@
+<script>
+    import {navigate} from "svelte-navigator"
+    import {user} from "../../stores/systemd"
+
+    function logout(){
+        $user = null    
+        navigate("/")
+    }
+</script>
 <section>
-    Account
+    <p>Account</p>
+    <button on:click={logout}>logout</button>
 </section>
 
 <style>

@@ -12,15 +12,20 @@
 
 <Router>
     <nav>
-        <Link to="/">Main</Link>
-        <Link to="market">Market</Link>
-        {#if !$user}
-            <Link to="login">Login</Link>
-            <Link to="register">Register</Link>
-        {:else}
-            <Link to="account">Account</Link>
-        {/if}
-        <Link to="chatrooms">Chatrooms</Link>
+        <picture>
+
+        </picture>
+        <div>
+            <Link to="/">Main</Link>
+            <Link to="market">Market</Link>
+            {#if !$user}
+                <Link to="login">Login</Link>
+                <Link to="register">Register</Link>
+            {:else}
+                <Link to="account">Account</Link>
+            {/if}
+            <Link to="chatrooms">Chatrooms</Link>
+        </div>
     </nav>
     <Route path="/" component={Main}/>    
     <Route path="market" component={Market}/>
@@ -32,13 +37,29 @@
     <Route path="chatrooms" component={Chatrooms}/>    
 </Router>
 
-
 <style>
     nav{
         display: flex;
-        height: 100px;
+        height: 150px;
+        width: 100%;
+        margin-left: auto;
+        align-items: center;
+    }
+
+    picture{
+        display: flex;
+        height: 50px;
+        width: 50px;
+        margin-left: 10px;
+        background: cadetblue;
+    }
+
+    div{
+        display: flex;
+        height: 100%;
         width: 50%;
         margin-left: auto;
+        background: rgba(100,50,10,.5);
         align-items: center;
         justify-content: space-evenly;
     }
