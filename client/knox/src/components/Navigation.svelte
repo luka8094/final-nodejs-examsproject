@@ -25,7 +25,6 @@
             const duration = 1
             
             timeline
-            .set("body",{overflow: "hidden"})
             .set(navigationBar, {position: "absolute", boxShadow: "0"})
             .set(menuOverlay, {height: "100%"})
             .set(menuMain, {top: "-100%"})
@@ -49,7 +48,6 @@
             .to(menuOverlay, {duration: .5, opacity: 0}, "+=1", 'overlay')
             .to(menuOverlay, {display: "none", zIndex: "-10"}, "+=1", 'overlay')
             .to(navigationBar, {duration, position: "fixed", boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
-            .set("body", {overflow: "visible"})
             .add('menu-rollout', 5)
             .to(menuMain, {duration: 1, top: "0%", ease: "power2.easeOut", delay: 1}, "-=.970", 'menu-rollout')
             .to(menuMarket, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .9}, "-=.975", 'menu-rollout')

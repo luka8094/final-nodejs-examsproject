@@ -21,7 +21,6 @@
         Main
     </div>
 </section>
-<Trends/>
 
 <style>
     section{
