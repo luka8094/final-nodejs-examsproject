@@ -14,6 +14,7 @@
     import LoginForm from "./account/LoginForm.svelte";
 
     let navigationBar, logo, logoName, logoImage, menuOverlay
+    let menuMain, menuMarket, menuLogin, menuRegister, menuChatrooms
     let screenWidth = window.innerWidth / 2
     let screenHeight = window.innerHeight / 2
 
@@ -21,23 +22,38 @@
         if(!$visited){
             const timeline = gsap.timeline()
             const duration = 1
+            
             timeline
-            .set(navigationBar, {position:"absolute"}, "+=1")
-            .set(logo, {display: "none", width: 0, alpha: "0", x: screenWidth , y: screenHeight, xPercent:"-150", yPercent:"-50", zIndex: 10}, "+=1")
+            .set(navigationBar, {position: "absolute", boxShadow: "0"})
+            .set(menuOverlay, {height: "100%"})
+            .set(menuMain, {top: "-100%"})
+            .set(menuMarket, {top: "-100%"})
+            .set(menuLogin, {top: "-100%"})
+            .set(menuRegister, {top: "-100%"})
+            .set(menuChatrooms, {top: "-100%"})
+            .set(logo, {display: "none", width: 0, alpha: "0", x: screenWidth , y: screenHeight, xPercent:"-50", yPercent:"-50", zIndex: 10}, "+=1")
             .set(logoName, {display: "none", width: 0, fontSize: "2em", opacity: 0}, "+=1")
-            .to(logo, {display: "flex", duration: 2, width: 100, opacity: 1, x: screenWidth , y: screenHeight, xPercent:"-150", yPercent:"-50"}, "+=1")
+            .to(logo, {display: "flex", duration: 2, width: 100, opacity: 1, x: screenWidth , y: screenHeight, xPercent:"-100", yPercent:"-50"}, "+=1")
             .delay(1)
             .to(logoImage, {duration, marginRight: "auto"}, "+=1")
             .to(logo, {duration, width: "200px"}, "+=1")
-            .to(logoName, {duration: 1.5, display: "flex", width: "100%", alpha: "1"}, "+=1")
+            .to(logoName, {duration: 1.5, display: "flex", width: "100%", alpha: "1", ease: "power2.easeIn"}, "+=1")
             .set(logo, {duration, opacity: 1, x: screenWidth , y: screenHeight}, "+=1")
             .delay(1)
             .fromTo(logo, {opacity: 1, fontSize: "2em", x: screenWidth , y: screenHeight}, {duration: 2, fontSize: "8px", x: 0 , y:0, xPercent:"0", yPercent:"0"}, "+=1")
             .delay(1)
             .add('overlay')
-            .to(menuOverlay, {duration, opacity: 0}, "+=1", 'overlay')
+            .to(menuOverlay, {duration: .5, opacity: 0}, "+=1", 'overlay')
             .to(menuOverlay, {display: "none", zIndex: "-10"}, "+=1", 'overlay')
-            .to(navigationBar, {position: "fixed"}, "+=1", 'overlay')
+            .to(navigationBar, {duration, position: "fixed", boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
+            .add('menu-rollout', 5)
+            .to(menuMain, {duration: 1, top: "0%", ease: "power2.easeOut", delay: 1}, "-=.98", 'menu-rollout')
+            .to(menuMarket, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .9}, "-=.975", 'menu-rollout')
+            .to(menuLogin, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .7}, "-=.95", 'menu-rollout')
+            .to(menuRegister, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .5}, "-=.925", 'menu-rollout')
+            .to(menuChatrooms, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .3},"-=.9", 'menu-rollout')
+
+            
         }
         return () => { 
             visited.set(true)
@@ -57,15 +73,25 @@
             <p bind:this={logoName}>KNOX</p>
         </div>
         <div id="menu-container">
-            <Link to="/">Main</Link>
-            <Link to="market">Market</Link>
+            <div class="menu-element" bind:this={menuMain}>
+                <Link to="/">Main</Link>
+            </div>
+            <div class="menu-element" bind:this={menuMarket}>
+                <Link customBinding={menuMarket} to="market">Market</Link>
+            </div>
             {#if !$user}
-                <Link to="login">Login</Link>
-                <Link to="register">Register</Link>
+                <div class="menu-element" bind:this={menuLogin}>
+                    <Link customBinding={menuLogin} to="login">Login</Link>
+                </div>
+                <div class="menu-element" bind:this={menuRegister}>
+                    <Link customBinding={menuRegister} to="register">Register</Link>
+                </div>
             {:else}
                 <Link to="account">Account</Link>
             {/if}
-            <Link to="chatrooms">Chatrooms</Link>
+            <div class="menu-element" bind:this={menuChatrooms}>
+                <Link customBinding={menuChatrooms} to="chatrooms">Chatrooms</Link>
+            </div>
         </div>
     </nav>
     <div bind:this={menuOverlay} id="menu-overlay">
@@ -129,15 +155,22 @@
         display: flex;
         height: 100%;
         width: 50%;
-        margin-left: auto;
+        margin: 0 50px 0 auto;
         background: rgba(100,50,10,.5);
         align-items: center;
         justify-content: space-evenly;
     }
 
+    .menu-element{
+        display: flex;
+        position: relative;
+        height: 20px;
+        width: fit-content;
+    }
+
     #menu-overlay{
         display: flex;
-        position: absolute;
+        position: fixed;
         height: 100%;
         width: 100%;
         background: white;
