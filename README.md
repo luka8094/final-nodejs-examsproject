@@ -21,4 +21,4 @@ WIP
 WIP
 
 ---
-By luka8094 with care.
+Made by luka8094 with care.
