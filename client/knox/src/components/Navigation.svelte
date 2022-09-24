@@ -3,7 +3,7 @@
     import {onMount} from "svelte"
     import {Router, Link, Route} from 'svelte-navigator'
     import PrivateRoute from './authorization/PrivateRoute.svelte'
-    import {user} from "../../stores/systemd"
+    import {user, visited} from "../../stores/systemd"
     import Main from '../pages/Main.svelte'
     import Account from '../pages/Account.svelte'
     import Chatrooms from '../pages/Chatrooms.svelte'
@@ -12,17 +12,30 @@
     import Market from '../pages/Market.svelte'
     import AccessDenied from './authorization/AccessDenied.svelte'
 
-    let logo
-    onMount(() => {
-        const timeline = gsap.timeline()
-        const duration = 1
-        timeline
-        .set(logo, {display: "none", opacity: 0, x: 200, y: 200}, "+=1")
-        .to(logo, {display: "flex", duration: 2, opacity: 1, x: 200, y: 200}, "+=1")
-        .set(logo, {duration,  x: 200, y: 200}, "+=1")
-        .delay(1)
-        .fromTo(logo, {opacity: 1, x: 200, y: 200},{opacity: 1, x: 0, y:0}, "+=1")
-    })
+    let logo, logoName
+    let screenWidth = window.innerWidth / 2
+    let screenHeight = window.innerHeight / 2
+
+    $: if(!$visited){
+        onMount(() => {
+            const timeline = gsap.timeline()
+            const duration = 1
+            timeline
+            .set(logo, {display: "none", width: 0, opacity: 0, x: screenWidth , y: screenHeight, xPercent:"-150", yPercent:"-50"}, "+=1")
+            .set(logoName, {display: "none", opacity: 0}, "+=1")
+            .to(logo, {display: "flex", duration: 2, width: 100, opacity: 1, x: screenWidth , y: screenHeight, xPercent:"-150", yPercent:"-50"}, "+=1")
+            .delay(1)
+            .set(logoName, {display: "flex", opacity: 1}, "+=1")
+            .delay(3)
+            .set(logo, {duration, opacity: 1, x: screenWidth , y: screenHeight}, "+=1")
+            .delay(1)
+            .set(logoName, {display: "flex", opacity: 1}, "+=1")
+            .fromTo(logo, {opacity: 1, x: screenWidth , y: screenHeight}, {duration: 2, x: 0 , y:0, xPercent:"0", yPercent:"0"}, "+=1")
+        })
+    }else{ 
+        $visited = true
+        logo.style.opacity = "1;"
+    }
 </script>
 
 <Router>
@@ -31,7 +44,7 @@
             <picture>
 
             </picture>
-            <p>KNOX</p>
+            <p bind:this={logoName}>KNOX</p>
         </div>
         <div>
             <Link to="/">Main</Link>
@@ -66,12 +79,17 @@
     }
 
     .logo{
-        display: none;
+        display: flex;
+        position: absolute;
         height: 50px;
         width: 120px;
         margin-left: 100px;
         background: rgba(5,100,50,.5);
         opacity: 0;
+    }
+
+    p{
+        display: flex;
     }
 
     picture{
