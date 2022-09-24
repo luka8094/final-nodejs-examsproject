@@ -1,21 +1,64 @@
 <script>
     import {navigate} from "svelte-navigator"   
 
-    function register(){
+    const register = () => {
         navigate("/")
     }
 </script>
 
 <form on:submit={register}>
+    <div id="fullname-row">
+        <div>
+            <label for="firstName">First name:</label>
+            <input type="text" name="firstName" placeholder="your firstname...">
+        </div>  
+        <div>
+            <label for="lastName">Last name:</label>
+            <input type="text" name="lastName" placeholder="..and your lastname">
+        </div>
+    </div>
+    <label for="userName">Username:</label>
+    <input type="text" name="userName" placeholder="choose an username">
+    <label for="userEmail">Email:</label>
+    <input type="email" name="userEmail" placeholder="type your email"> 
+    <label for="userpassword">Password:</label>
+    <input type="password" name="userpassword" placeholder="">
     <button type="submit">register</button>
 </form>
 
 <style>
     form{
         display: flex;
-        height: 100px;
-        width: 200px;
+        flex-direction: column;
+        height: 380px;
+        width: 370px;
         align-items: center;
+        padding: 10px;
         justify-content: center;
+        border: dashed 1px black;
+    }
+
+    label{
+        margin: 5px 0;
+    }
+
+    form *{
+        width: 100%;
+    }
+
+    #fullname-row{
+        display: flex;
+    }
+
+    #fullname-row > div:nth-child(odd){
+        margin-right: 10px;
+    }
+
+    #fullname-row > div:nth-child(even){
+        margin-left: 10px;
+    }
+
+    button{
+        margin-top: auto;
     }
 </style>

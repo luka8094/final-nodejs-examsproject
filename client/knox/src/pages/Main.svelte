@@ -1,10 +1,11 @@
 <script>
     import {useNavigate} from "svelte-navigator"
+    import Trends from "../components/main/Trends.svelte"
 
     const navigate = useNavigate()
 
     function joinRedirect(){
-        navigate("/register")
+        navigate("/register", {replace: true})
     }
 </script>  
 
@@ -15,11 +16,12 @@
             <article>
             A new social platform for the cryptoenthusiast.
             </article>
-            <button type="submit" on:submit={joinRedirect}>Join the new era</button>
+            <button on:click={joinRedirect}>Join the new era</button>
         </aside>
         Main
     </div>
 </section>
+<Trends/>
 
 <style>
     section{
@@ -68,6 +70,8 @@
         width: 150px;
         border: none;
         border-radius: 0;
-        margin: 30px auto auto 0;
+        margin: 30px auto auto 0;;
+        background: rgba(100,50,50,.5);
+        color: white;
     }
 </style>
