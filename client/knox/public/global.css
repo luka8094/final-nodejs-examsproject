@@ -1,11 +1,11 @@
 :root{
-	--menu-padding: 150px;
+	--menu-padding: 60px;
 }
 
 html, body {
 	display: flex;
 	flex-direction: column;
-	height: fit;
+	height: fit-content;
 	width: 100%;
 	margin: 0;
 	padding: 0;
