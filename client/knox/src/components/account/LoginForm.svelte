@@ -1,6 +1,5 @@
 <script>
     import {useNavigate} from "svelte-navigator"
-    import {fly} from "svelte/transition"
     import {user} from "../../../stores/systemd"
     
     let email, password, message
@@ -17,8 +16,7 @@
         if(result.status === 401 ){ 
             const {data} = await result.json()
             console.log(data)
-            message = data
-            return message
+            return message = data
         } 
         if(result.status === 202){
             $user = true
@@ -36,14 +34,14 @@
     <input bind:value={password} type="password" name="userpassword" placeholder="">
     <button type="submit">Log in</button>
 </form>
-<span id="login-error-box" transition:fly={{delay: 1, duration: 2}}>{message === undefined ? "": message}</span>
+<span id="login-error-box">{message === undefined ? "": message}</span>
 
 
 <style>
     form{
         display: flex;
         flex-direction: column;
-        height: 250px;
+        min-height: 250px;
         width: 370px;
         align-items: center;
         padding: 20px;

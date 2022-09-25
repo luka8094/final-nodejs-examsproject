@@ -49,7 +49,7 @@
     form{
         display: flex;
         flex-direction: column;
-        height: 380px;
+        min-height: 380px;
         width: 370px;
         align-items: center;
         padding: 10px;

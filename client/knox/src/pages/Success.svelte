@@ -10,7 +10,7 @@
 </script>
 
 <section>
-    <h1 transition:fade>Account registered!</h1>
+    <h1 transition:fade>Account registered</h1>
     <p transition:fade={{delay: 500}}>Hang on! We'll redirect you shortly..</p>
 </section>
 
