@@ -11,33 +11,37 @@ accountsRouter.get("/api/users", async (req, res) => {
 import jsonwebtoken from "jsonwebtoken"
 const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
 accountsRouter.get("/api/user", async (req, res) =>{
-    const cookie = req.cookies('jwt')
+    console.log(req.cookies, req.signedCookies)
+    const cookie = req.cookies['jwt']
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
-
+    
+    console.log("claims: %s",claims)
+    debugger
     if(!claims) return res.status(401).send({message: "unauthenticated"})
 
     const user = await Account.findOne({_id: claims._id})
-
+    
+    console.log("user %s", user)
+    debugger
     if(!user) return res.status(401).send({message: "unauthenticated"})
     const {password,...data} = user.toJSON()
-
-    return res.status(205).send({data})
+    console.log(data)
+    return res.status(201).send({data})
 })
 
 import CryptoJS from "crypto-js"
 accountsRouter.post("/api/login", async (req, res) => {
     const account = await Account.findOne({email: req.body.email})
 
-    if(!account) return res.status(401).send({data: "user not valid."})
+    if(!account) return res.status(401).send({data: "user not valid"})
     if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){ 
         return res.status(401).send({data: "your email or password doesn't match"})
     }else{
-        const {password,...data}= account.toJSON()
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
 
-        res.cookie('jwt', token, {httpOnly: true, maxAge: 60 * 1000}).status(202)
+        res.cookie('jwt', token, {httpOnly: true, maxAge: 2 * 60 * 1000})
+        res.status(202).send({})
     }
-    return res.status(503).send({})
 })
 
 import emailDispatch from "../utils/nodemailer.mjs"
@@ -52,12 +56,11 @@ accountsRouter.post("/api/register", async (req, res) => {
             email: req.body.email, 
             password: CryptoJS.AES.encrypt(req.body.password, AES_KEY_C).toString()
         })
-        const sent = await emailDispatch(req.body.email).catch(console.error)
-
+        //emailDispatch(req.body.email).catch(console.error)
         delete req.body
         const saved = await newAccount.save()
 
-        if(saved && sent)res.status(201).send({data: saved})
+        if(saved)res.status(201).send({data: saved})
         else res.status(503).send({})
     }
     else res.status(409).send({})
