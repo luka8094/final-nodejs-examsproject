@@ -107,9 +107,9 @@
         height: 20px;
         width: 50px;
         margin-right: 60px;
-        background: rgba(100,10,150,.5);
+        background: rgba(100,10,150,0);
         top: 50%;
-        z-index: 0;
+        z-index: -1;
         transition: margin .2s ease-in;
     }
 
@@ -133,6 +133,7 @@
     .line-one,
     .line-two{
         width: 10px;
+        border-radius: 10px 0 0 10px;
     }
 
     .line-one{
@@ -143,13 +144,14 @@
 
     .line-two{
         transform: rotate(-45deg);
-        top: -19%;
+        top: -15%;
         left: -2%;
     }
 
     .line-three{
-        left: 5%;
-        top: 2%;
+        border-radius: 10px 0 0 10px;
+        left: 1%;
+        top: 3%;
     }
 
     @media screen and (max-width: 1000px){ 
