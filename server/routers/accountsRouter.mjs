@@ -51,8 +51,10 @@ accountsRouter.post("/api/register", async (req, res) => {
     else res.status(409).send({})
 })  
 
-accountsRouter.post("/api/logout", (req, res) => {
+accountsRouter.delete("/api/logout", (req, res) => {
     console.log("logout endpoint")
+    res.cookie('jwt', {maxAge: 0})
+    res.status(202).send({data:"no content."})
 })
 
 export default accountsRouter
