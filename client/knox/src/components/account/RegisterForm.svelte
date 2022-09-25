@@ -1,8 +1,15 @@
 <script>
     import {navigate} from "svelte-navigator"   
 
-    const register = () => {
-        navigate("/")
+    const register = async () => {
+        const response = await fetch("/api/register")
+        const result = response.json()
+
+        if(response.status === 201){ 
+            console.log("registration successful.")
+            navigate("/")
+        }
+        else console.log("an error occured.")
     }
 </script>
 
@@ -22,7 +29,7 @@
     <label for="userEmail">Email:</label>
     <input type="email" name="userEmail" placeholder="type your email"> 
     <label for="userpassword">Password:</label>
-    <input type="password" name="userpassword" placeholder="">
+    <input type="password" name="userpassword" placeholder="pick a nice password">
     <button type="submit">register</button>
 </form>
 

@@ -3,5 +3,3 @@
 	import Footer from "./components/Footer.svelte"
 </script>
 <Navigation/>
-
-<Footer/>

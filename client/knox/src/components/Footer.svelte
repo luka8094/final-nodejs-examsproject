@@ -6,10 +6,10 @@
         <aside></aside>
     </div>
     <div id="socials">
-
+        Social media
     </div>
     <div id="signature">
-
+        Signature
     </div>
 </section>
 
@@ -26,7 +26,7 @@
     #footer-container{
         display: flex;
         height: 300px;
-        width: calc(100% - 200px);
+        width: calc(100% - 450px);
         margin: 0 auto;
         justify-content: space-evenly;
     }
@@ -35,9 +35,14 @@
         display: flex;
         flex-direction: column;
         height: 250px;
-        width: 200px;
+        width: 300px;
+        margin-left: 10px;
         border-top: solid 2px black;
         border-bottom: solid 2px black;
+    }
+
+    #footer-container > aside:first-child{
+        margin-left: auto;
     }
 
     #socials{
@@ -52,5 +57,11 @@
         height: 20px;
         width: 100%;
         background: rgba(20,30,40,.5);
+    }
+
+    @media screen and (max-width: 1000px){
+        #footer-container{
+            width: calc(100% - 200px);
+        }
     }
 </style>

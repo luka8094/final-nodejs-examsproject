@@ -24,6 +24,7 @@
             const timeline = gsap.timeline()
             const duration = 1
             
+            window.scroll(0,-60)
             timeline
             .set(navigationBar, {position: "absolute", boxShadow: "0"})
             .set(menuOverlay, {height: "100%"})
@@ -42,18 +43,17 @@
             .to(logoName, {duration: 1.5, display: "flex", width: "100%", lineHeight: "15px", alpha: "1", ease: "power2.easeIn"}, "+=1")
             .set(logo, {duration, opacity: 1, x: screenWidth , y: screenHeight}, "+=1")
             .delay(1)
-            .fromTo(logo, {opacity: 1, fontSize: "2em", x: screenWidth , y: screenHeight}, {duration: 2, height: 60, fontSize: "8px", x: 0 , y:0, xPercent:"0", yPercent:"0"}, "+=1")
-            .delay(1)
+            .fromTo(logo, {opacity: 1, fontSize: "2em", x: screenWidth , y: screenHeight}, {duration: 2, height: 60, fontSize: "1.2em", x: 0 , y:0, xPercent:"0", yPercent:"0"}, "+=1")
             .add('overlay')
             .to(menuOverlay, {duration: .5, opacity: 0}, "+=1", 'overlay')
             .to(menuOverlay, {display: "none", zIndex: "-10"}, "+=1", 'overlay')
-            .to(navigationBar, {duration, position: "fixed", boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
+            .to(navigationBar, {duration: .5, position: "fixed", boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
             .add('menu-rollout', 5)
             .to(menuMain, {duration: 1, top: "0%", ease: "power2.easeOut", delay: 1}, "-=.970", 'menu-rollout')
             .to(menuMarket, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .9}, "-=.975", 'menu-rollout')
             .to(menuLogin, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .7}, "-=.95", 'menu-rollout')
             .to(menuRegister, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .5}, "-=.925", 'menu-rollout')
-            .to(menuChatrooms, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .3},"-=.9", 'menu-rollout')   
+            .to(menuChatrooms, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .3},"-=.9", 'menu-rollout')
         }
         return () => { 
             visited.set(true)
@@ -67,7 +67,7 @@
         <div bind:this={logo} class="logo">
             <a href="/">
                 <picture bind:this={logoImage}>
-                    <img src="images/knox-logo.svg.svg" alt="knox logo"/>
+                    <img src="images/knox-logo-2.svg" alt="knox logo"/>
                 </picture>
             </a>
             <p bind:this={logoName}>KNOX</p>
@@ -140,8 +140,9 @@
     p{
         display: none;
         opacity: 0;
+        align-self: center;
+        font-family: "Saira Stencil One";
         color: black;
-        align-self: center;;
     }
 
     picture{
