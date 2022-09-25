@@ -1,7 +1,7 @@
 <script>
     import gsap from "gsap/dist/gsap"
-    import {onMount, onDestroy} from "svelte"
-    import {Router, Link, Route} from 'svelte-navigator'
+    import {onMount} from "svelte"
+    import {Router, Link, Route, createHistory, createMemorySource} from 'svelte-navigator'
     import PrivateRoute from './authorization/PrivateRoute.svelte'
     import {user, visited} from "../../stores/systemd"
     import Main from '../pages/Main.svelte'
@@ -13,6 +13,8 @@
     import AccessDenied from './authorization/AccessDenied.svelte'
     import Success from '../pages/Success.svelte'
 
+    const history = createHistory(createMemorySource())
+
     let navigationBar, logo, logoName, logoImage, menuOverlay
     let menuMain, menuMarket, menuLogin, menuRegister, menuChatrooms
 
@@ -21,11 +23,13 @@
 
     onMount(() => {     
         if(!$visited){
+            window.scroll(0,0)
+
             const timeline = gsap.timeline()
             const duration = 1
             
-            window.scroll(0,-60)
             timeline
+            .set("body", {overflow: "hidden"})
             .set(navigationBar, {position: "absolute", boxShadow: "0"})
             .set(menuOverlay, {height: "100%"})
             .set(menuMain, {top: "-100%"})
@@ -38,7 +42,7 @@
             .set(logoName, {display: "none", width: 0, fontSize: "1.8em", opacity: 0}, "+=1")
             .to(logo, {display: "flex", duration: 2, width: 150, height: 75, opacity: 1, x: screenWidth , y: screenHeight, xPercent:"-100", yPercent:"-50"}, "+=1")
             .delay(1)
-            .to(logoImage, {duration, height: "45px", width: "45px", marginRight: "auto"}, "+=1")
+            .to(logoImage, {duration, height: "55px", width: "55px", marginRight: "auto"}, "+=1")
             .to(logo, {duration, width: "200px"}, "+=1")
             .to(logoName, {duration: 1.5, display: "flex", width: "100%", lineHeight: "15px", alpha: "1", ease: "power2.easeIn"}, "+=1")
             .set(logo, {duration, opacity: 1, x: screenWidth , y: screenHeight}, "+=1")
@@ -54,6 +58,7 @@
             .to(menuLogin, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .7}, "-=.95", 'menu-rollout')
             .to(menuRegister, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .5}, "-=.925", 'menu-rollout')
             .to(menuChatrooms, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .3},"-=.9", 'menu-rollout')
+            .set("body",{overflow:"visible"})
         }
         return () => { 
             visited.set(true)
@@ -62,7 +67,7 @@
     
 </script>
 
-<Router>
+<Router history={history}>
     <nav bind:this={navigationBar}>
         <div bind:this={logo} class="logo">
             <a href="/">

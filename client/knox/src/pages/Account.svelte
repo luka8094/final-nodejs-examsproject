@@ -12,9 +12,9 @@
         if(result.status === 201){
             const {data} = await result.json()
             console.log(data)
-            $account = [...data]
+            return $account = data
         }
-        if(result.status === 401 || result.status === 403){ navigate("/", {replace: true})}
+        if(result.status === 401 || result.status === 403){ navigate("/")}
     })
 
     const logout = async () => {
@@ -26,7 +26,7 @@
         {   
             $user = null  
             $account = []
-            navigate("/",{replace: true})
+            navigate("/")
         }
     }
 </script>

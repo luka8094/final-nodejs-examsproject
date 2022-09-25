@@ -72,7 +72,7 @@
         font-size: 3em;
         font-weight: 700;
         margin: 0;
-        border-bottom: solid 4.5px black;
+        border-bottom: 6.5px double black;
     }
 
     article{

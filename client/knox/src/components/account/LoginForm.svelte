@@ -1,8 +1,10 @@
 <script>
-    import {navigate} from "svelte-navigator"
+    import {useNavigate} from "svelte-navigator"
+    import {fly} from "svelte/transition"
     import {user} from "../../../stores/systemd"
     
     let email, password, message
+    const navigate = useNavigate()
 
     const login = async () => {
         const result = await fetch("/api/login",{
@@ -20,7 +22,7 @@
         } 
         if(result.status === 202){
             $user = true
-            navigate("/account", {replace: true})
+            navigate("/account")
         }
         else return message = "the server is unavailable at the moment."
     }
@@ -29,12 +31,12 @@
 
 <form on:submit|preventDefault={login}>
     <label for="userEmail">Email:</label>
-    <input bind:value={email} type="email" name="userEmail" placeholder="type your email"> 
+    <input bind:value={email} type="email" name="userEmail" placeholder=""> 
     <label for="userpassword">Password:</label>
-    <input bind:value={password} type="password" name="userpassword" placeholder="pick a nice password">
+    <input bind:value={password} type="password" name="userpassword" placeholder="">
     <button type="submit">Log in</button>
 </form>
-<span id="login-error-box">{message === undefined ? "": message}</span>
+<span id="login-error-box" transition:fly={{delay: 1, duration: 2}}>{message === undefined ? "": message}</span>
 
 
 <style>
@@ -51,17 +53,23 @@
     }
 
     label{
+        font-weight: 600;
         margin: 5px 0;
     }
 
     input{
         width: 90%;
         border: none;
+        background: rgba(100,100,100,.1);
         border-bottom: solid 1px black;
     }
 
     form *{
         width: 100%;
+    }
+
+    ::placeholder{
+        border-bottom: solid 1px black;
     }
 
     button{

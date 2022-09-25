@@ -1,7 +1,8 @@
 <script>
-    import {navigate} from "svelte-navigator"   
+    import {useNavigate} from "svelte-navigator"   
 
     let firstname, lastname, username, email, password
+    const navigate = useNavigate()
 
     const register = async () => {
         const response = await fetch("/api/register", {
@@ -61,7 +62,9 @@
     }
 
     input{
+        width: 90%;
         border: none;
+        background: rgba(100,100,100,.1);
         border-bottom: solid 1px black;
     }
 

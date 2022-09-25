@@ -1,5 +1,6 @@
 <script>
     import {useNavigate} from "svelte-navigator"
+    import {fade} from "svelte/transition"
 
     const navigate = useNavigate()
 
@@ -9,8 +10,8 @@
 </script>
 
 <section>
-    <h1>Account registered!</h1>
-    <p>Hang on! We'll redirected you in a just few..</p>
+    <h1 transition:fade>Account registered!</h1>
+    <p transition:fade={{delay: 500}}>Hang on! We'll redirect you shortly..</p>
 </section>
 
 <style>

@@ -19,7 +19,7 @@ accountsRouter.get("/api/user", async (req, res) =>{
     const user = await Account.findOne({_id: claims._id})
 
     if(!user) return res.status(401).send({message: "unauthenticated"})
-    const {password, createdAt, updatedAt,...data} = user.toJSON()
+    const {password, createdAt, updatedAt,_id,__v,...data} = user.toJSON()
 
     data.name = CryptoJS.AES.decrypt(data.name, AES_KEY_A).toString(CryptoJS.enc.Utf8)
     data.username = CryptoJS.AES.decrypt(data.username, AES_KEY_B).toString(CryptoJS.enc.Utf8)
@@ -35,6 +35,7 @@ accountsRouter.post("/api/login", async (req, res) => {
     if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){ 
         return res.status(401).send({data: "your email or password doesn't match"})
     }else{
+        delete req.body
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
 
         res.cookie('jwt', token, {httpOnly: true, maxAge: 2 * 60 * 1000})
@@ -67,7 +68,6 @@ accountsRouter.post("/api/register", async (req, res) => {
 })  
 
 accountsRouter.delete("/api/logout", (req, res) => {
-    console.log("logout endpoint")
     res.cookie('jwt', {maxAge: 0})
     res.status(202).send({data:"no content"})
 })
