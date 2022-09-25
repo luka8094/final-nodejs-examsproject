@@ -10,7 +10,8 @@
         const result = await fetch("/api/user")
 
         if(result.status === 201){
-            const {data} = result.json()
+            const {data} = await result.json()
+            console.log(data)
             $account = [...data]
         }
         if(result.status === 401 || result.status === 403){ navigate("/", {replace: true})}

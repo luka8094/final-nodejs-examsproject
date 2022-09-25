@@ -1,7 +1,7 @@
 <script>
     import {navigate} from "svelte-navigator"
     import {user} from "../../../stores/systemd"
-
+    
     let email, password, message
 
     const login = async () => {
@@ -13,16 +13,18 @@
         })
 
         if(result.status === 401 ){ 
-            const {data} = result.json()
+            const {data} = await result.json()
             console.log(data)
             message = data
+            return message
         } 
         if(result.status === 202){
             $user = true
             navigate("/account", {replace: true})
         }
-        else message = "the server is unavailable at the moment."
+        else return message = "the server is unavailable at the moment."
     }
+
 </script>
 
 <form on:submit|preventDefault={login}>
@@ -32,6 +34,8 @@
     <input bind:value={password} type="password" name="userpassword" placeholder="pick a nice password">
     <button type="submit">Log in</button>
 </form>
+<span id="login-error-box">{message === undefined ? "": message}</span>
+
 
 <style>
     form{
@@ -64,5 +68,14 @@
         margin-top: auto;
         background: var(--button-background);
         color: var(--button-text)
+    }
+
+    #login-error-box{
+        display: flex;
+        color: red;
+        height: 50px;
+        width: 300px;
+        align-items: center;
+        justify-content: center;
     }
 </style>
