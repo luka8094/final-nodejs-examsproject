@@ -1,5 +1,8 @@
 :root{
 	--menu-padding: 60px;
+	--form-button-width: 250px;
+	--button-background: rgba(100,50,50,.5);
+	--button-text: white;
 }
 
 html, body {

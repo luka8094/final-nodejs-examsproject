@@ -46,7 +46,7 @@
             .fromTo(logo, {opacity: 1, fontSize: "2em", x: screenWidth , y: screenHeight}, {duration: 2, height: 60, fontSize: "1.2em", x: 0 , y:0, xPercent:"0", yPercent:"0"}, "+=1")
             .add('overlay')
             .to(menuOverlay, {duration: .5, opacity: 0}, "+=1", 'overlay')
-            .to(menuOverlay, {display: "none", zIndex: "-10"}, "+=1", 'overlay')
+            .to(menuOverlay, {display: "none", zIndex: "1"}, "+=1", 'overlay')
             .to(navigationBar, {duration: .5, position: "fixed", boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
             .add('menu-rollout', 5)
             .to(menuMain, {duration: 1, top: "0%", ease: "power2.easeOut", delay: 1}, "-=.970", 'menu-rollout')
@@ -81,7 +81,7 @@
             </div>
             {#if !$user}
                 <div class="menu-element" bind:this={menuLogin}>
-                    <Link customBinding={menuLogin} to="login">Login</Link>
+                    <Link customBinding={menuLogin} to="login">Log in</Link>
                 </div>
                 <div class="menu-element" bind:this={menuRegister}>
                     <Link customBinding={menuRegister} to="register">Register</Link>

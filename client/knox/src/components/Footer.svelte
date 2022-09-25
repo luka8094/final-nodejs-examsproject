@@ -34,7 +34,8 @@
     #footer-container *{
         display: flex;
         flex-direction: column;
-        height: 250px;
+        min-height: 250px;
+        height: fit-content;
         width: 300px;
         margin-left: 10px;
         border-top: solid 2px black;

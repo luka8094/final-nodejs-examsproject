@@ -17,7 +17,14 @@
             <article>
                 <p>A new social platform for the cryptoenthusiast.</p>
             </article>
-            <button on:click={joinRedirect}>Join the community</button>
+            <div id="button-container">
+                <button on:click={joinRedirect}>Join the community</button>
+                <div id="arrow">
+                    <div class="line line-one"></div>
+                    <div class="line line-two"></div>
+                    <div class="line line-three"></div>
+                </div>
+            </div>
         </aside>
         Main
     </div>
@@ -80,14 +87,69 @@
         font-size: 0.81em;
     }
 
+    #button-container{
+        display: flex;
+    }
+
     button{
         height: 50px;
         width: 170px;
         border: none;
         border-radius: 0;
         margin: 0 auto auto 0;;
-        background: rgba(100,50,50,.5);
-        color: white;
+        background: var(--button-background);
+        color: var(--button-text);
+    }
+
+    #arrow{
+        display: flex;
+        position: relative;
+        height: 20px;
+        width: 50px;
+        margin-right: 60px;
+        background: rgba(100,10,150,.5);
+        top: 50%;
+        z-index: 0;
+        transition: margin .2s ease-in;
+    }
+
+    #button-container:hover > #arrow{
+        margin-right: 70px;
+    }
+
+    .line{
+        display: flex;
+        width: 30px;
+        height: 2px;
+        background: black;
+    }
+
+    .line-one,
+    .line-two,
+    .line-three{
+        position: absolute;
+    }
+
+    .line-one,
+    .line-two{
+        width: 10px;
+    }
+
+    .line-one{
+        transform: rotate(45deg);
+        top: 19%;
+        left: -2%;
+    }
+
+    .line-two{
+        transform: rotate(-45deg);
+        top: -19%;
+        left: -2%;
+    }
+
+    .line-three{
+        left: 5%;
+        top: 2%;
     }
 
     @media screen and (max-width: 1000px){ 
