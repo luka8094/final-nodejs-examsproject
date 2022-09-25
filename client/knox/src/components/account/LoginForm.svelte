@@ -2,17 +2,34 @@
     import {navigate} from "svelte-navigator"
     import {user} from "../../../stores/systemd"
 
-    const login = () => {
-        $user = true
-        navigate("/account", {replace: true})
+    let email, password, message
+
+    const login = async () => {
+        const result = await fetch("/api/login",{
+            method:'POST',
+            headers: {'Content-Type':'application/json'},
+            credentials: 'include',
+            body: JSON.stringify({email,password})
+        })
+
+        if(result.status === 401 ){ 
+            const {data} = result.json()
+            message = data
+        } 
+        if(result.status === 202){
+            const {data} = result.json()
+            $user = true
+            navigate("/account", {replace: true})
+        }
+        else message = "the server is unavailable at the moment."
     }
 </script>
 
 <form on:submit={login}>
     <label for="userEmail">Email:</label>
-    <input type="email" name="userEmail" placeholder="type your email"> 
+    <input bind:value={email} type="email" name="userEmail" placeholder="type your email"> 
     <label for="userpassword">Password:</label>
-    <input type="password" name="userpassword" placeholder="pick a nice password">
+    <input bind:value={password} type="password" name="userpassword" placeholder="pick a nice password">
     <button type="submit">Log in</button>
 </form>
 

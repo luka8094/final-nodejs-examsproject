@@ -1,13 +1,24 @@
 <script>
     import {navigate} from "svelte-navigator"   
 
+    let firstname, lastname, username, email, password
+
     const register = async () => {
-        const response = await fetch("/api/register")
-        const result = response.json()
+        const response = await fetch("/api/register", {
+            method: 'POST',
+            headers: { 'Content-Type' : 'application/json'},
+            body: JSON.stringify({
+                firstname, 
+                lastname, 
+                username, 
+                email, 
+                password
+            })
+        })
 
         if(response.status === 201){ 
             console.log("registration successful.")
-            navigate("/")
+            navigate("/success",{replace: true})
         }
         else console.log("an error occured.")
     }
@@ -17,19 +28,19 @@
     <div id="fullname-row">
         <div>
             <label for="firstName">First name:</label>
-            <input type="text" name="firstName" placeholder="your firstname...">
+            <input bind:value={firstname} type="text" name="firstName" placeholder="your firstname...">
         </div>  
         <div>
             <label for="lastName">Last name:</label>
-            <input type="text" name="lastName" placeholder="..and your lastname">
+            <input bind:value={lastname} type="text" name="lastName" placeholder="..and your lastname">
         </div>
     </div>
     <label for="userName">Username:</label>
-    <input type="text" name="userName" placeholder="choose an username">
+    <input bind:value={username} type="text" name="userName" placeholder="choose an username">
     <label for="userEmail">Email:</label>
-    <input type="email" name="userEmail" placeholder="type your email"> 
+    <input bind:value={email} type="email" name="userEmail" placeholder="type your email"> 
     <label for="userpassword">Password:</label>
-    <input type="password" name="userpassword" placeholder="pick a nice password">
+    <input bind:value={password} type="password" name="userpassword" placeholder="pick a nice password">
     <button type="submit">Register</button>
 </form>
 

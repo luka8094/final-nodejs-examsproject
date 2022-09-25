@@ -13,6 +13,5 @@
         width: 100%;
         align-items: center;
         justify-content: center;
-        padding-top: var(--menu-padding);
     }
 </style>

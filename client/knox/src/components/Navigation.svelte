@@ -11,7 +11,7 @@
     import Register from '../pages/Register.svelte'
     import Market from '../pages/Market.svelte'
     import AccessDenied from './authorization/AccessDenied.svelte'
-    import LoginForm from "./account/LoginForm.svelte";
+    import Success from '../pages/Success.svelte'
 
     let navigationBar, logo, logoName, logoImage, menuOverlay
     let menuMain, menuMarket, menuLogin, menuRegister, menuChatrooms
@@ -105,6 +105,7 @@
         <Account/>
     </PrivateRoute>   
     <Route path="chatrooms" component={Chatrooms}/>
+    <Route path="success" component={Success}/>
     <Route path="unauthorized" component={AccessDenied}/>    
 </Router>
 

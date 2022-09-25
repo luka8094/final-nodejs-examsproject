@@ -14,11 +14,11 @@ accountsRouter.get("/api/user", async (req, res) =>{
     const cookie = req.cookies('jwt')
     const claims = jsonwebtoken.verify(cookie,JWT_TOKEN_KEY)
 
-    if(!claims) return res.status(401).send({message: "unauthenticated."})
+    if(!claims) return res.status(401).send({message: "unauthenticated"})
 
     const user = await Account.findOne({_id: claims._id})
 
-    if(!user) return res.status(401).send({message: "unauthenticated."})
+    if(!user) return res.status(401).send({message: "unauthenticated"})
     const {password,...data} = user.toJSON()
 
     return res.status(205).send({data})
@@ -30,7 +30,7 @@ accountsRouter.post("/api/login", async (req, res) => {
 
     if(!account) return res.status(401).send({data: "user not valid."})
     if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){ 
-        return res.status(401).send({data: "your email or password doesn't match."})
+        return res.status(401).send({data: "your email or password doesn't match"})
     }else{
         const {password,...data}= account.toJSON()
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
@@ -67,7 +67,7 @@ accountsRouter.post("/api/register", async (req, res) => {
 accountsRouter.delete("/api/logout", (req, res) => {
     console.log("logout endpoint")
     res.cookie('jwt', {maxAge: 0})
-    res.status(202).send({data:"no content."})
+    res.status(202).send({data:"no content"})
 })
 
 export default accountsRouter

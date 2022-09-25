@@ -1,7 +1,6 @@
 import "dotenv/config"
-const {SESSION_KEY} = process.env
-
 import session from "express-session"
+const {SESSION_KEY} = process.env
 const sessionMiddleware = session({
     secret: SESSION_KEY,
     resave: false,
