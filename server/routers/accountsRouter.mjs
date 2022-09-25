@@ -11,21 +11,19 @@ accountsRouter.get("/api/users", async (req, res) => {
 import jsonwebtoken from "jsonwebtoken"
 const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
 accountsRouter.get("/api/user", async (req, res) =>{
-    console.log(req.cookies, req.signedCookies)
     const cookie = req.cookies['jwt']
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
-    
-    console.log("claims: %s",claims)
-    debugger
+
     if(!claims) return res.status(401).send({message: "unauthenticated"})
 
     const user = await Account.findOne({_id: claims._id})
-    
-    console.log("user %s", user)
-    debugger
+
     if(!user) return res.status(401).send({message: "unauthenticated"})
-    const {password,...data} = user.toJSON()
-    console.log(data)
+    const {password, createdAt, updatedAt,...data} = user.toJSON()
+
+    data.name = CryptoJS.AES.decrypt(data.name, AES_KEY_A).toString(CryptoJS.enc.Utf8)
+    data.username = CryptoJS.AES.decrypt(data.username, AES_KEY_B).toString(CryptoJS.enc.Utf8)
+
     return res.status(201).send({data})
 })
 
