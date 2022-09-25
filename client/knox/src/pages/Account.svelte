@@ -14,9 +14,16 @@
         else navigate("/", {replace: true})
     })()
 
-    function logout(){
-        $user = null    
-        navigate("/",{replace: true})
+    const logout = async () => {
+        const result = await fetch("/api/logout",{
+            method: 'DELETE'
+        })
+
+        if(result.status === 202)
+        {
+            $user = null  
+            navigate("/",{replace: true})
+        }
     }
 </script>
 <section>

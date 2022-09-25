@@ -54,7 +54,9 @@ accountsRouter.post("/api/register", async (req, res) => {
             email: req.body.email, 
             password: CryptoJS.AES.encrypt(req.body.password, AES_KEY_C).toString()
         })
-        //emailDispatch(req.body.email).catch(console.error)
+        
+        //TODO: emailDispatch(req.body.email).catch(console.error)
+
         delete req.body
         const saved = await newAccount.save()
 
