@@ -8,13 +8,23 @@ accountsRouter.get("/api/users", async (req, res) => {
     res.send({data: result})
 })
 
+import jsonwebtoken from "jsonwebtoken"
+const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
 accountsRouter.get("/api/user", async (req, res) =>{
-    console.log("get data for one account.")
+    const cookie = req.cookies('jwt')
+    const claims = jsonwebtoken.verify(cookie,JWT_TOKEN_KEY)
+
+    if(!claims) return res.status(401).send({message: "unauthenticated."})
+
+    const user = await Account.findOne({_id: claims._id})
+
+    if(!user) return res.status(401).send({message: "unauthenticated."})
+    const {password,...data} = user.toJSON()
+
+    return res.status(205).send({data})
 })
 
-import jsonwebtoken from "jsonwebtoken"
 import CryptoJS from "crypto-js"
-const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
 accountsRouter.post("/api/login", async (req, res) => {
     const account = await Account.findOne({email: req.body.email})
 
@@ -31,6 +41,7 @@ accountsRouter.post("/api/login", async (req, res) => {
     return res.status(503).send({})
 })
 
+import emailDispatch from "../utils/nodemailer.mjs"
 accountsRouter.post("/api/register", async (req, res) => {   
     const exists = await Account.findOne({email: req.body.email})
 
@@ -42,10 +53,12 @@ accountsRouter.post("/api/register", async (req, res) => {
             email: req.body.email, 
             password: CryptoJS.AES.encrypt(req.body.password, AES_KEY_C).toString()
         })
+        const sent = await emailDispatch(req.body.email).catch(console.error)
+
         delete req.body
         const saved = await newAccount.save()
 
-        if(saved)res.status(201).send({data: saved})
+        if(saved && sent)res.status(201).send({data: saved})
         else res.status(503).send({})
     }
     else res.status(409).send({})

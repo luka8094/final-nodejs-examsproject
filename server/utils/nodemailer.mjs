@@ -29,7 +29,8 @@ async function emailDispatch(recipient){
         <h2>Welcome to KNOX</h2>
         <br>
         <p>We'd like to thank you for signing up for a KNOX membership.</p>
-        <p>Many members are eagerly waiting for your to join the discussions!.</p> 
+        <p>Many members are eagerly waiting for your to join the discussions!.</p>
+        <a href="#">https://www.knox.it</a> 
         <br>
         <p>Sincerely,</p>
         <p>The KNOX team</p>`
