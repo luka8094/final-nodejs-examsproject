@@ -12,7 +12,7 @@ import jsonwebtoken from "jsonwebtoken"
 const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
 accountsRouter.get("/api/user", async (req, res) =>{
     const cookie = req.cookies('jwt')
-    const claims = jsonwebtoken.verify(cookie,JWT_TOKEN_KEY)
+    const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
 
     if(!claims) return res.status(401).send({message: "unauthenticated"})
 
@@ -35,8 +35,7 @@ accountsRouter.post("/api/login", async (req, res) => {
         const {password,...data}= account.toJSON()
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
 
-        res.cookie('jwt', token, {httpOnly: true, maxAge: 60 * 1000})
-        res.status(202).send({data})
+        res.cookie('jwt', token, {httpOnly: true, maxAge: 60 * 1000}).status(202)
     }
     return res.status(503).send({})
 })

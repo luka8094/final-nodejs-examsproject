@@ -24,7 +24,7 @@
     }
 </script>
 
-<form on:submit={register}>
+<form on:submit|preventDefault={register}>
     <div id="fullname-row">
         <div>
             <label for="firstName">First name:</label>

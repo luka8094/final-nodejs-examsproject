@@ -17,7 +17,7 @@
             message = data
         } 
         if(result.status === 202){
-            const {data} = result.json()
+            const {data} = 
             $user = true
             navigate("/account", {replace: true})
         }
@@ -25,7 +25,7 @@
     }
 </script>
 
-<form on:submit={login}>
+<form on:submit|preventDefault={login}>
     <label for="userEmail">Email:</label>
     <input bind:value={email} type="email" name="userEmail" placeholder="type your email"> 
     <label for="userpassword">Password:</label>
