@@ -2,8 +2,8 @@ import {Server} from "socket.io"
 import http from "http"
 import sessionMiddleware from "../mid/session.mjs"
 
-function sessionInit(app){
-    const server = http.createServer(app)
+function sessionInit(atom){
+    const server = http.createServer(atom)
     const io = new Server(server)
     const wrapper = middleWare => (socket, next) => middleWare(socket.request, {}, next)
 
