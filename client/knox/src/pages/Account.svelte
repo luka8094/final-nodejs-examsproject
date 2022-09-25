@@ -1,18 +1,20 @@
 <script>
+    import {onMount} from "svelte"
     import {useNavigate} from "svelte-navigator"
     import {user, account} from "../../stores/systemd"
 
     let navigate = useNavigate()
 
-    $: (async function (){
+    
+    onMount(async () => {
         const result = await fetch("/api/user")
 
-        if(result.status === 205){
+        if(result.status === 201){
             const {data} = result.json()
             $account = [...data]
         }
-        else navigate("/", {replace: true})
-    })()
+        if(result.status === 401 || result.status === 403){ navigate("/", {replace: true})}
+    })
 
     const logout = async () => {
         const result = await fetch("/api/logout",{
@@ -20,8 +22,9 @@
         })
 
         if(result.status === 202)
-        {
+        {   
             $user = null  
+            $account = []
             navigate("/",{replace: true})
         }
     }

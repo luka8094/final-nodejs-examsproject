@@ -14,7 +14,7 @@ accountsRouter.get("/api/user", async (req, res) =>{
     const cookie = req.cookies['jwt']
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
 
-    if(!claims) return res.status(401).send({message: "unauthenticated"})
+    if(!claims) return res.status(403).send({message: "unauthenticated"})
 
     const user = await Account.findOne({_id: claims._id})
 
@@ -54,7 +54,7 @@ accountsRouter.post("/api/register", async (req, res) => {
             email: req.body.email, 
             password: CryptoJS.AES.encrypt(req.body.password, AES_KEY_C).toString()
         })
-        
+
         //TODO: emailDispatch(req.body.email).catch(console.error)
 
         delete req.body

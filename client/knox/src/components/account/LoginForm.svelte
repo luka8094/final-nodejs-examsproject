@@ -14,10 +14,10 @@
 
         if(result.status === 401 ){ 
             const {data} = result.json()
+            console.log(data)
             message = data
         } 
         if(result.status === 202){
-            const {data} = 
             $user = true
             navigate("/account", {replace: true})
         }
