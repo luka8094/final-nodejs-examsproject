@@ -31,7 +31,7 @@ import CryptoJS from "crypto-js"
 accountsRouter.post("/api/login", async (req, res) => {
     const account = await Account.findOne({email: req.body.email})
 
-    if(!account) return res.status(401).send({data: "user not valid"})
+    if(!account) return res.status(401).send({data: "your email or password doesn't match"})
     if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){ 
         return res.status(401).send({data: "your email or password doesn't match"})
     }else{

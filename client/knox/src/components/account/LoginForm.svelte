@@ -44,7 +44,8 @@
         height: 250px;
         width: 370px;
         align-items: center;
-        padding: 10px;
+        padding: 20px;
+        margin-top: 100px;
         justify-content: center;
         box-shadow: 1px 1px 10px
     }
@@ -75,6 +76,8 @@
         color: red;
         height: 50px;
         width: 300px;
+        font-size: 15px;
+        font-weight: bold;
         align-items: center;
         justify-content: center;
     }
