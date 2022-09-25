@@ -30,7 +30,7 @@
     <input type="email" name="userEmail" placeholder="type your email"> 
     <label for="userpassword">Password:</label>
     <input type="password" name="userpassword" placeholder="pick a nice password">
-    <button type="submit">register</button>
+    <button type="submit">Register</button>
 </form>
 
 <style>

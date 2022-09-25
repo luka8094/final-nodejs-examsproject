@@ -33,6 +33,7 @@
     }
 
     input{
+        width: 90%;
         border: none;
         border-bottom: solid 1px black;
     }

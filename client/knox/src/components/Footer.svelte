@@ -1,9 +1,33 @@
 <section>
     Footer
     <div id="footer-container">
-        <aside></aside>
-        <aside></aside>
-        <aside></aside>
+        <aside>
+            <h2>Company</h2>
+            <ul>
+                <li>info</li>
+                <li>info</li>
+                <li>info</li>
+                <li>info</li>
+            </ul>
+        </aside>
+        <aside>
+            <h2>Site</h2>
+            <ul>
+                <li>info</li>
+                <li>info</li>
+                <li>info</li>
+                <li>info</li>
+            </ul>
+        </aside>
+        <aside>
+            <h2>Customer service</h2>
+            <ul>
+                <li>info</li>
+                <li>info</li>
+                <li>info</li>
+                <li>info</li>
+            </ul>
+        </aside>
     </div>
     <div id="socials">
         Social media
@@ -31,7 +55,7 @@
         justify-content: space-evenly;
     }
 
-    #footer-container *{
+    #footer-container > aside{
         display: flex;
         flex-direction: column;
         min-height: 250px;
@@ -44,6 +68,15 @@
 
     #footer-container > aside:first-child{
         margin-left: auto;
+    }
+
+    aside{
+        display: flex;
+        align-items: flex-end;
+    }
+
+    ul{
+        list-style: none;
     }
 
     #socials{
