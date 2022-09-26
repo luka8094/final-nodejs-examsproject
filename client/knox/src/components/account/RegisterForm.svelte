@@ -29,11 +29,11 @@
     <div id="fullname-row">
         <div>
             <label for="firstName">First name:</label>
-            <input bind:value={firstname} type="text" name="firstName" placeholder="Firstname">
+            <input bind:value={firstname} type="text" name="firstName" placeholder="First name">
         </div>  
         <div>
             <label for="lastName">Last name:</label>
-            <input bind:value={lastname} type="text" name="lastName" placeholder="Lastname">
+            <input bind:value={lastname} type="text" name="lastName" placeholder="Last name">
         </div>
     </div>
     <label for="userName">Username:</label>
@@ -58,6 +58,7 @@
     }
 
     label{
+        font-weight: 600;
         margin: 5px 0;
     }
 
@@ -65,7 +66,11 @@
         width: 90%;
         border: none;
         background: rgba(100,100,100,.1);
+    }
+
+    ::placeholder{
         border-bottom: solid 1px black;
+        color: grey;
     }
 
     form *{

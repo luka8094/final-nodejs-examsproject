@@ -31,7 +31,7 @@
     <label for="userEmail">Email:</label>
     <input bind:value={email} type="email" name="userEmail" placeholder="email@email.com"> 
     <label for="userpassword">Password:</label>
-    <input bind:value={password} type="password" name="userpassword" placeholder="enter password">
+    <input bind:value={password} type="password" name="userpassword" placeholder="enterpassword">
     <button type="submit">Log in</button>
 </form>
 <span id="login-error-box">{message === undefined ? "": message}</span>
@@ -59,7 +59,6 @@
         width: 90%;
         border: none;
         background: rgba(100,100,100,.1);
-        border-bottom: solid 1px black;
     }
 
     form *{

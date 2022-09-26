@@ -61,7 +61,7 @@
             .set("body",{overflow:"visible"})
         }
         return () => { 
-            visited.set(true)
+            localStorage.setItem('_visited', true)
         }
     })
     

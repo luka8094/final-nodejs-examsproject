@@ -3,8 +3,9 @@
     import Adminsettings from "./usersettings/Adminsettings.svelte"
     import PasswordSettings from "./usersettings/PasswordSettings.svelte"
 
-    export let username, choice
-    $rootPrivilege = true
+    export let username, logout
+    let choice
+    $rootPrivilege = false
 
     function optionButton(e){
         choice = e.target.id
@@ -13,7 +14,7 @@
 
 <div id="dashboard-container">
     <div id="dashboard-container-title">
-        <h1>Dashboard</h1><span>Welcome {username}</span>
+        <h1>Dashboard</h1><span>Welcome back {username}</span>
     </div>
     <div id="dashboard-user-panel">
         <aside id="user-options">
@@ -21,6 +22,9 @@
             <button id="milestones" on:click={optionButton}>Milestones</button>
             <button id="transactions" on:click={optionButton}>Transactions</button>
             <button id="password" on:click={optionButton}>Password</button>
+        {#if $rootPrivilege}
+            <button id="adminstrate" on:click={optionButton}>Administrate</button>
+        {/if}
         </aside>
         <aside id="user-settings">
             {#if choice === 'profile'}
@@ -31,14 +35,15 @@
                 <p>transaction history</p>
             {:else if choice === 'password'}
                 <PasswordSettings/>
+            {:else if choice === 'administrate' && $rootPrivilege}
+                <Adminsettings/>
             {/if}
         </aside>
     </div>
+    <button id="logout" on:click={logout}>Log out</button>
 </div>
 
-{#if rootPrivilege}
-    <Adminsettings/>
-{/if}
+
 
 <style>
     #dashboard-container{
@@ -72,10 +77,21 @@
     #user-settings{
         width: 100%;
         background: rgba(200,100,100,.5);
+        overflow: hidden;
     }
 
     button{
         display: flex;
         height: 50px;
+    }
+
+    #logout{
+        display: flex;
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 0;
+        margin: auto 0 auto 10px;
     }
 </style>

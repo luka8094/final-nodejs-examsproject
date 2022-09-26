@@ -30,11 +30,8 @@
     }
 </script>
 <section>
-    <div id="account-headline">
-        <p>Account</p>
-        <button on:click={logout}>logout</button>
-    </div>
-    <Dashboard username={$account.username}/>
+    
+    <Dashboard username={$account.username} logout={logout}/>
 </section>
 
 <style>
