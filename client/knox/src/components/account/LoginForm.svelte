@@ -1,4 +1,5 @@
 <script>
+    import {fade} from "svelte/transition"
     import {useNavigate} from "svelte-navigator"
     import {user} from "../../../stores/systemd"
     
@@ -28,20 +29,29 @@
 </script>
 
 <form on:submit|preventDefault={login}>
+    <picture>
+        <img src="/images/knox-logo-2.svg" alt="knox">
+    </picture>
     <label for="userEmail">Email:</label>
     <input bind:value={email} type="email" name="userEmail" placeholder="email@email.com"> 
     <label for="userpassword">Password:</label>
-    <input bind:value={password} type="password" name="userpassword" placeholder="enterpassword">
+    <input bind:value={password} type="password" name="userpassword" placeholder="enter password">
     <button type="submit">Log in</button>
 </form>
 <span id="login-error-box">{message === undefined ? "": message}</span>
 
 
 <style>
+    picture{
+        display: flex;
+        height: 50px;
+    }
+
     form{
         display: flex;
         flex-direction: column;
         min-height: 250px;
+        height: fit-content;
         width: 370px;
         align-items: center;
         padding: 20px;
@@ -58,7 +68,7 @@
     input{
         width: 90%;
         border: none;
-        background: rgba(100,100,100,.1);
+        background: rgba(100,100,100,.3);
     }
 
     form *{

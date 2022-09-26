@@ -14,7 +14,7 @@
 
 <div id="dashboard-container">
     <div id="dashboard-container-title">
-        <h1>Dashboard</h1><span>Welcome back {username}</span>
+        <h1>KNOX account</h1><span>Welcome back {username}</span>
     </div>
     <div id="dashboard-user-panel">
         <aside id="user-options">
@@ -34,7 +34,7 @@
             {:else if choice === 'transactions'}
                 <p>transaction history</p>
             {:else if choice === 'password'}
-                <PasswordSettings/>
+                <PasswordSettings username={username}/>
             {:else if choice === 'administrate' && $rootPrivilege}
                 <Adminsettings/>
             {/if}
@@ -46,6 +46,17 @@
 
 
 <style>
+    h1{
+        font-family: 'Saira Stencil One';
+        color: black;
+    }
+
+    span{
+        font-family: sans-serif;
+        font-weight: 500;
+        color: black;
+    }
+
     #dashboard-container{
         display: flex;
         flex-direction: column;

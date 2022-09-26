@@ -13,7 +13,7 @@
             const {data} = await result.json()
             return $account = data
         }
-        if(result.status === 401 || result.status === 403){ navigate("/")}
+        if(result.status === 401 || result.status === 403){ navigate("/login")}
     })
 
     const logout = async () => {
@@ -41,7 +41,7 @@
         min-height: 100vh;
         width: 100%;
         background: rgba(10,250,150,.5);
-        padding-top: var(--menu-padding);
+        padding-top: calc(var(--menu-padding) + 20px);
         align-items: center;
         justify-content: center;
     }

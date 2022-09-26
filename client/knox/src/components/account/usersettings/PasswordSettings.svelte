@@ -1,8 +1,18 @@
 <script>
+    export let username
     let currentPassword, newPassword, errorMessage
 
+
     const changePassword = async () =>{
-        const result = await fetch("/api/change",{method: 'PATCH'})
+        const result = await fetch("/api/change",{
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                username: username,
+                current: currentPassword,
+                changed: newPassword
+            })
+        })
         console.log("clicked change password button.")
         if(!currentPassword||!newPassword) return errorMessage = "Fields can not be empty"
         console.log(currentPassword, newPassword)
