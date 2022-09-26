@@ -29,19 +29,19 @@
     <div id="fullname-row">
         <div>
             <label for="firstName">First name:</label>
-            <input bind:value={firstname} type="text" name="firstName" placeholder="your firstname...">
+            <input bind:value={firstname} type="text" name="firstName" placeholder="Firstname">
         </div>  
         <div>
             <label for="lastName">Last name:</label>
-            <input bind:value={lastname} type="text" name="lastName" placeholder="..and your lastname">
+            <input bind:value={lastname} type="text" name="lastName" placeholder="Lastname">
         </div>
     </div>
     <label for="userName">Username:</label>
-    <input bind:value={username} type="text" name="userName" placeholder="choose an username">
+    <input bind:value={username} type="text" name="userName" placeholder="choose username">
     <label for="userEmail">Email:</label>
-    <input bind:value={email} type="email" name="userEmail" placeholder="type your email"> 
+    <input bind:value={email} type="email" name="userEmail" placeholder="Your email"> 
     <label for="userpassword">Password:</label>
-    <input bind:value={password} type="password" name="userpassword" placeholder="pick a nice password">
+    <input bind:value={password} type="password" name="userpassword" placeholder="password">
     <button type="submit">Register</button>
 </form>
 
@@ -52,7 +52,7 @@
         min-height: 380px;
         width: 370px;
         align-items: center;
-        padding: 10px;
+        padding: 20px;
         justify-content: center;
         box-shadow: 1px 1px 10px
     }

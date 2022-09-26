@@ -11,7 +11,7 @@
             </ul>
         </aside>
         <aside>
-            <h2>Site</h2>
+            <h2>Sitemap</h2>
             <ul>
                 <li>info</li>
                 <li>info</li>

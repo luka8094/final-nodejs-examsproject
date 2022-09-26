@@ -34,10 +34,7 @@
         <p>Account</p>
         <button on:click={logout}>logout</button>
     </div>
-    <div id="account-welcome">
-        <p>Welcome {JSON.stringify($account.username)} !</p>
-    </div>
-    <Dashboard/>
+    <Dashboard username={$account.username}/>
 </section>
 
 <style>
@@ -53,10 +50,6 @@
     }
 
     #account-headline{
-        display: flex;
-    }
-
-    #account-welcome{
         display: flex;
     }
 </style>

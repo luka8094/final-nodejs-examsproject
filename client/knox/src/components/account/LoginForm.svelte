@@ -29,9 +29,9 @@
 
 <form on:submit|preventDefault={login}>
     <label for="userEmail">Email:</label>
-    <input bind:value={email} type="email" name="userEmail" placeholder=""> 
+    <input bind:value={email} type="email" name="userEmail" placeholder="email@email.com"> 
     <label for="userpassword">Password:</label>
-    <input bind:value={password} type="password" name="userpassword" placeholder="">
+    <input bind:value={password} type="password" name="userpassword" placeholder="enter password">
     <button type="submit">Log in</button>
 </form>
 <span id="login-error-box">{message === undefined ? "": message}</span>
