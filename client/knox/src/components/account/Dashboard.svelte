@@ -5,12 +5,9 @@
     import Adminsettings from "./usersettings/Adminsettings.svelte"
 
     export let username, logout
-    let choice
-    $rootPrivilege = false
+    let choice = ProfileSettings
 
-    function optionButton(e){
-        choice = e.target.id
-    }
+    $rootPrivilege = false
 </script>
 
 <div id="dashboard-container">
@@ -22,16 +19,17 @@
     </div>
     <div id="dashboard-user-panel">
         <aside id="user-options">
-            <button id="profile" on:click|preventDefault|stopPropagation={optionButton}>Profile</button>
-            <button id="milestones" on:click|preventDefault|stopPropagation={optionButton}>Milestones</button>
-            <button id="transactions" on:click|preventDefault|stopPropagation={optionButton}>Transactions</button>
-            <button id="password" on:click|preventDefault|stopPropagation={optionButton}>Password</button>
+            <button on:click={() => (choice = ProfileSettings)}>Profile</button>
+            <button on:click={() => (choice = ProfileSettings)}>Milestones</button>
+            <button on:click={() => (choice = ProfileSettings)}>Transactions</button>
+            <button on:click={() => (choice = PasswordSettings)}>Password</button>
         {#if $rootPrivilege}
-            <button id="adminstrate" on:click|preventDefault|stopPropagation={optionButton}>Administrate</button>
+            <button on:click={() => (choice = Adminsettings)}>Administrate</button>
         {/if}
         </aside>
         <aside id="user-settings">
-            {#if choice === 'profile'}
+            <svelte:component this={choice}/>
+            <!-- {#if choice === 'profile'}
                 <ProfileSettings />
             {:else if choice === 'milestones'}
                 <p>milestones overview</p>
@@ -41,7 +39,7 @@
                 <PasswordSettings username={username}/>
             {:else if choice === 'administrate' && $rootPrivilege}
                 <Adminsettings />
-            {/if}
+            {/if} -->
         </aside>
     </div>
     <button id="logout" on:click={logout}>Log out</button>
