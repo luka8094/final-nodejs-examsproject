@@ -1,7 +1,8 @@
 <script>
     import {rootPrivilege} from "../../../stores/systemd"
-    import Adminsettings from "./usersettings/Adminsettings.svelte"
+    import ProfileSettings from "./usersettings/ProfileSettings.svelte"
     import PasswordSettings from "./usersettings/PasswordSettings.svelte"
+    import Adminsettings from "./usersettings/Adminsettings.svelte"
 
     export let username, logout
     let choice
@@ -31,7 +32,7 @@
         </aside>
         <aside id="user-settings">
             {#if choice === 'profile'}
-                <p>profile settings</p>
+                <ProfileSettings />
             {:else if choice === 'milestones'}
                 <p>milestones overview</p>
             {:else if choice === 'transactions'}
@@ -39,7 +40,7 @@
             {:else if choice === 'password'}
                 <PasswordSettings username={username}/>
             {:else if choice === 'administrate' && $rootPrivilege}
-                <Adminsettings/>
+                <Adminsettings />
             {/if}
         </aside>
     </div>

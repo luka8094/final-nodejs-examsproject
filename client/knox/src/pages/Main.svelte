@@ -84,7 +84,7 @@
 
     article p{
         margin-top: 10px;
-        width: 250px;
+        width: 245px;
         font-size: 0.81em;
     }
 
