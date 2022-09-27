@@ -2,15 +2,16 @@ import {Router} from "express"
 const accountsRouter = Router()
 
 import "dotenv/config"
+import authLimiter from "../mid/authLimiter.mjs"
 import Account from "../model/account.mjs"
-accountsRouter.get("/api/users", async (req, res) => {
+accountsRouter.get("/api/users", authLimiter, async (req, res) => {
     const result = await Account.find({})
     res.send({data: result})
 })
 
 import jsonwebtoken from "jsonwebtoken"
 const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
-accountsRouter.get("/api/user", async (req, res) =>{
+accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     const cookie = req.cookies['jwt']
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
 
@@ -28,7 +29,7 @@ accountsRouter.get("/api/user", async (req, res) =>{
 })
 
 import CryptoJS from "crypto-js"
-accountsRouter.post("/api/login", async (req, res) => {
+accountsRouter.post("/api/login", authLimiter, async (req, res) => {
     const account = await Account.findOne({email: req.body.email})
 
     if(!account) return res.status(401).send({data: "your email or password doesn't match"})
@@ -44,7 +45,7 @@ accountsRouter.post("/api/login", async (req, res) => {
 })
 
 import emailDispatch from "../utils/nodemailer.mjs"
-accountsRouter.post("/api/register", async (req, res) => {   
+accountsRouter.post("/api/register", authLimiter, async (req, res) => {   
     const exists = await Account.findOne({email: req.body.email})
 
     if(!exists){
@@ -67,7 +68,7 @@ accountsRouter.post("/api/register", async (req, res) => {
     else res.status(409).send({})
 })  
 
-accountsRouter.delete("/api/logout", (req, res) => {
+accountsRouter.delete("/api/logout", authLimiter, (req, res) => {
     res.cookie('jwt', {maxAge: 0})
     res.status(202).send({data:"no content"})
 })
