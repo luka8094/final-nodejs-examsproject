@@ -29,9 +29,7 @@
 </script>
 
 <form on:submit|preventDefault={login}>
-    <picture>
-        <img src="/images/knox-logo-2.svg" alt="knox">
-    </picture>
+    <h1>Sign into your account</h1>
     <label for="userEmail">Email:</label>
     <input bind:value={email} type="email" name="userEmail" placeholder="email@email.com"> 
     <label for="userpassword">Password:</label>
@@ -42,22 +40,24 @@
 
 
 <style>
-    picture{
-        display: flex;
-        height: 50px;
-    }
-
+    
     form{
         display: flex;
         flex-direction: column;
         min-height: 250px;
         height: fit-content;
-        width: 370px;
+        width: 350px;
         align-items: center;
         padding: 20px;
         margin-top: 100px;
         justify-content: center;
         box-shadow: 1px 1px 10px
+    }
+
+    h1{
+        color: black;
+        margin: 5px auto 10px auto;
+        text-align: center;
     }
 
     label{
@@ -81,7 +81,7 @@
 
     button{
         width: var(--form-button-width);
-        margin-top: auto;
+        margin-top: 35px;
         background: var(--button-background);
         color: var(--button-text)
     }

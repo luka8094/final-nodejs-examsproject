@@ -6,6 +6,9 @@ const {PORT} = process.env
 import path from "path"
 app.use(express.static(path.resolve("../client/knox/public")))
 
+import helmet from "helmet"
+app.use(helmet())
+
 import connection from "./database/mongodbConnection.mjs"
 connection
 

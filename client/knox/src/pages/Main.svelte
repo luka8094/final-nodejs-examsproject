@@ -59,6 +59,7 @@
         width: 300px;
         background: rgba(100,150,100,.5);
         border: dashed 1px black;
+        border-left: solid 2px black;
         margin: 10px auto auto 10px;
         padding: 10px;
     }

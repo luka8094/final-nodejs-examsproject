@@ -14,16 +14,19 @@
 
 <div id="dashboard-container">
     <div id="dashboard-container-title">
-        <h1>KNOX account</h1><span>Welcome back {username}</span>
+        <div id="dashboard-title">
+            <img src="./images/knox-logo-6.svg" alt=""/>
+            <h1>account</h1>
+        </div><span>Welcome back {username}</span>
     </div>
     <div id="dashboard-user-panel">
         <aside id="user-options">
-            <button id="profile" on:click={optionButton}>Profile</button>
-            <button id="milestones" on:click={optionButton}>Milestones</button>
-            <button id="transactions" on:click={optionButton}>Transactions</button>
-            <button id="password" on:click={optionButton}>Password</button>
+            <button id="profile" on:click|preventDefault|stopPropagation={optionButton}>Profile</button>
+            <button id="milestones" on:click|preventDefault|stopPropagation={optionButton}>Milestones</button>
+            <button id="transactions" on:click|preventDefault|stopPropagation={optionButton}>Transactions</button>
+            <button id="password" on:click|preventDefault|stopPropagation={optionButton}>Password</button>
         {#if $rootPrivilege}
-            <button id="adminstrate" on:click={optionButton}>Administrate</button>
+            <button id="adminstrate" on:click|preventDefault|stopPropagation={optionButton}>Administrate</button>
         {/if}
         </aside>
         <aside id="user-settings">
@@ -43,12 +46,23 @@
     <button id="logout" on:click={logout}>Log out</button>
 </div>
 
-
-
 <style>
+    #dashboard-title{
+        display: flex;
+        width: 150px;
+        align-items: center;
+    }
+
+    img{
+        height: 50px;
+    }
+
+
     h1{
         font-family: 'Saira Stencil One';
         color: black;
+        margin: auto 0 auto auto;
+        align-self: center;
     }
 
     span{

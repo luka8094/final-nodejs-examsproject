@@ -20,7 +20,7 @@
 </script>
 
 <div>
-    <p>Change your password</p>
+    <p>Password change</p>
     <form>
         <label for="current">Current password:</label>
         <input bind:value={currentPassword} type="text" name="current"/>
@@ -51,6 +51,7 @@
     button{
         display: flex;
         width: 100px;
+        justify-content: center;
     }
 
     #error-message{
