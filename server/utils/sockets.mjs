@@ -11,10 +11,12 @@ function sessionInit(atom){
 
     io.on("connection", (socket) => {
         socket.on("chatmessageSent", ({data}) => {
-            console.log("reached server socket.")
+            console.log("reached server socket. %s", data)
             io.emit("showChatMessage", {data})
         })
     })
+
+    return server
 }
 
 export default sessionInit

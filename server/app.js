@@ -19,7 +19,6 @@ app.use(cookieParser())
 import baseLimiter from "./mid/baseLimiter.mjs"
 app.use(baseLimiter)
 
-
 import accountsRouter from "./routers/accountsRouter.mjs"
 app.use(accountsRouter)
 
