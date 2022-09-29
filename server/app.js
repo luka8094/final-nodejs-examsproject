@@ -19,10 +19,23 @@ app.use(cookieParser())
 import baseLimiter from "./mid/baseLimiter.mjs"
 app.use(baseLimiter)
 
-import sessionInit from "./utils/sockets.mjs"
-sessionInit(app)
 
 import accountsRouter from "./routers/accountsRouter.mjs"
 app.use(accountsRouter)
 
-app.listen(PORT, () => console.log("Server running on port: %s", PORT))
+import http from "http"
+import {Server} from "socket.io"
+import sessionMiddleware from "./mid/session.mjs"
+const server = http.createServer(app)
+const io = new Server(server)
+const wrapper = middleWare => (socket, next) => middleWare(socket.request, {}, next)
+
+io.use(wrapper(sessionMiddleware))
+
+io.on("connection", (socket) => {
+    socket.on("chatmessageSent", ({data}) => {
+        io.emit("showChatmessage", {data})
+    })
+})
+
+server.listen(PORT, () => console.log("Server running on port: %s", PORT))

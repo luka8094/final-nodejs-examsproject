@@ -1,33 +1,27 @@
 <script>
-    import io from "socket.io-client"
+    import {io} from "socket.io-client"
     import Chatmessage from "../components/chatroom/Chatmessage.svelte"
     import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
 
-    console.log(io)
-
-    let array = [
-        {text: "hi"},
-        {text: "hello"},
-        {text: "hi"},
-        {text: "hello"},
-        {text: "hi"},
-        {text: "hello"},
-        {text: "hi"},
-        {text: "hello"},
-        {text: "hi"},
-        {text: "hello"},
-        {text: "hi"},
-        {text: "hello"},
-    ]
+    const socket = io()
+    let message 
+    let array = []
 
     function sendMessage(){
-        console.log("message sent.")
+        console.log(message)
+        message.trim()
+        console.log(message.trim())
+        if(message.length === 0) return
+        socket.emit("chatmessageSent", {data: message})
 
+        message = ''
     }
 
-    function receiveMessag(){
-        console.log("message recieved.")
-    }
+    socket.on("showChatmessage", ({data}) =>{
+        console.log("message recieved. %s.", data)
+        array.push(data)
+        array = array
+    })
 </script>
 
 <section id="chatroom-container">
@@ -35,11 +29,11 @@
         <h2>Welcome to the room</h2>
         <div id="chatlog-history">
             {#each array as message}
-                <Chatmessage message={message.text}/>
+                <Chatmessage message={message}/>
             {/each}
         </div>
         <div id="chat-panel">
-            <textarea></textarea>
+            <textarea bind:value={message} placeholder="Chat away!"></textarea>
             <button on:click={sendMessage}>send</button>
         </div>
     </aside>

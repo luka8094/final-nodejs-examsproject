@@ -26,6 +26,7 @@
 </script>
 
 <form on:submit|preventDefault={register}>
+    <h1>Sign up for an account</h1>
     <div id="fullname-row">
         <div>
             <label for="firstName">First name:</label>
@@ -46,10 +47,17 @@
 </form>
 
 <style>
+    h1{
+        color: black;
+        margin: 5px auto 30px auto;
+        text-align: center;
+    }
+
     form{
         display: flex;
         flex-direction: column;
         min-height: 380px;
+        height: fit-content;
         width: 370px;
         align-items: center;
         padding: 20px;
@@ -65,6 +73,7 @@
     input{
         width: 90%;
         border: none;
+        padding: 10px;
         background: rgba(100,100,100,.1);
     }
 

@@ -204,12 +204,20 @@
 
     #login-reference{
         display: flex;
-        width: 50px;
+        width: 70px;
         height: 30px;
-        border: solid 2px black;
+        color: white;
         border-radius: 50px;
+        align-items: center;
+        justify-content: center;
+        background: lightgrey;
+        transition: background .5s ease-in;
     }
 
+    #login-reference:hover{
+        background: white;
+    }
+    
     #menu-overlay{
         display: flex;
         position: fixed;

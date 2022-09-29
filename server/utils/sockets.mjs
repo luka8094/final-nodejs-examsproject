@@ -10,8 +10,9 @@ function sessionInit(atom){
     io.use(wrapper(sessionMiddleware))
 
     io.on("connection", (socket) => {
-        socket.on("messageSent", ({data}) => {
-            io.emit("showMessage", {data})
+        socket.on("chatmessageSent", ({data}) => {
+            console.log("reached server socket.")
+            io.emit("showChatMessage", {data})
         })
     })
 }

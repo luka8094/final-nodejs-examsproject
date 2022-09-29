@@ -56,18 +56,19 @@
 
     h1{
         color: black;
-        margin: 5px auto 10px auto;
+        margin: 5px auto 30px auto;
         text-align: center;
     }
 
     label{
         font-weight: 600;
-        margin: 5px 0;
+        margin: 8px 0;
     }
 
     input{
         width: 90%;
         border: none;
+        padding: 10px;
         background: rgba(100,100,100,.3);
     }
 
