@@ -1,6 +1,7 @@
 <script>
     import io from "socket.io-client"
     import Chatmessage from "../components/chatroom/Chatmessage.svelte"
+    import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
 
     console.log(io)
 
@@ -32,14 +33,15 @@
             <button on:click={sendMessage}>send</button>
         </div>
     </aside>
+    <CoinStatistics/>
 </section>
 
 <style>
     #chatroom-container{
         display: flex;
-        flex-direction: column;
         height: 100vh;
         width: 100%;
+        padding-top: 90px;
         background: rgba(100,100,100,.5);
     }
 
@@ -49,7 +51,6 @@
         height: 600px;
         width: 350px;
         padding-left: 10px;
-        padding-top: 100px;
         background: rgba(50,50,150,.5)
     }
 
