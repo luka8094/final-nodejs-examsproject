@@ -17,7 +17,7 @@ async function emailDispatch(recipient){
     })
 
     nodemailTransporter.verify((error, success) =>{
-        if(error) return new Error("An error occured: %s", error.message)
+        if(error) new Error("An error occured: %s", error.message)
         else console.log("Status: %s. Connection %s.", success ? "OK": "--", success ? "operational" : "interrupted.")
     }) 
 

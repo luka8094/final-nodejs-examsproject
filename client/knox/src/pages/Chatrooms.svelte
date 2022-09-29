@@ -1,3 +1,6 @@
+<script>
+    import ChatroomBox from "../components/chatrooms/ChatroomBox.svelte"
+</script>
 <section>
     Chatrooms
     <div id="chatrooms-overview-container">

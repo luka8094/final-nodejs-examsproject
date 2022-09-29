@@ -29,8 +29,8 @@
         }
     }
 </script>
+
 <section>
-    
     <Dashboard username={$account.username} logout={logout}/>
 </section>
 
@@ -44,9 +44,5 @@
         padding-top: calc(var(--menu-padding) + 20px);
         align-items: center;
         justify-content: center;
-    }
-
-    #account-headline{
-        display: flex;
     }
 </style>
