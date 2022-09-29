@@ -1,5 +1,6 @@
 <script>
     import gsap from "gsap/dist/gsap"
+    import {createEventDispatcher} from "svelte"
     import {onMount} from "svelte"
     import {Router, Link, Route, createHistory, createMemorySource} from 'svelte-navigator'
     import PrivateRoute from './authorization/PrivateRoute.svelte'
@@ -42,7 +43,7 @@
             .set(logoName, {display: "none", width: 0, fontSize: "1.8em", opacity: 0}, "+=1")
             .to(logo, {display: "flex", duration: 2, width: 150, height: 75, opacity: 1, x: screenWidth , y: screenHeight, xPercent:"-100", yPercent:"-50"}, "+=1")
             .delay(1)
-            .to(logoImage, {duration, height: "55px", width: "55px", marginRight: "auto"}, "+=1")
+            .to(logoImage, {duration, height: "40px", width: "40px", marginRight: "auto"}, "+=1")
             .to(logo, {duration, width: "200px"}, "+=1")
             .to(logoName, {duration: 1.5, display: "flex", width: "100%", lineHeight: "15px", alpha: "1", ease: "power2.easeIn"}, "+=1")
             .set(logo, {duration, opacity: 1, x: screenWidth , y: screenHeight}, "+=1")
@@ -58,6 +59,7 @@
             .to(menuLogin, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .7}, "-=.95", 'menu-rollout')
             .to(menuRegister, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .5}, "-=.925", 'menu-rollout')
             .to(menuChatrooms, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .3},"-=.9", 'menu-rollout')
+            .eventCallback("onComplete", test)
             .set("body",{overflow:"visible"})
         }
         return () => { 
@@ -182,6 +184,6 @@
         position: fixed;
         height: 100%;
         width: 100%;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 1);
     }
 </style>

@@ -6,13 +6,34 @@
     let title
     const navigate = useNavigate()
 
-    setTimeout(() => {{
-    let welcomeString = 'WELCOME TO KNOX'
-    for(let i = 0; i <= welcomeString.length; i++){
-        let randomString = size => [...Array(size)].map( () => Math.floor(Math.random() * 16).toString(16)).join('')
-        title.value = welcomeString.substring(0,i)+randomString((welcomeString.length-i))
-        }}
-    }, 10 * 1000)
+    async function introduction(){
+        function sleepTimer(milliseconds){
+            return new Promise(resolve => setTimeout(resolve, milliseconds))
+        }
+
+        function* scrambler(){
+            let welcomeString = 'WELCOME TO KNOX'
+            let message
+            for(let i = 0; i <= welcomeString.length; i++){
+                let randomString = size => [...Array(size)].map( () => Math.floor(Math.random() * 16).toString(16)).join('')
+                message = welcomeString.substring(0,i)+randomString((welcomeString.length-i))
+                yield message
+            }
+        }
+        
+        const titleScrambler = scrambler()
+
+        for(let i = 0; i < 16; i++){
+            await sleepTimer(150)
+            title = titleScrambler.next().value
+        }
+    }
+
+    const decrypt = async (initiate) => {new Promise(introduction, setTimeout(introduction, initiate) )}
+
+    ;(async() => {
+        await decrypt(17500)
+    })()
 
     function joinRedirect(){
         navigate("/register", {replace: true})
@@ -22,7 +43,7 @@
 <section>
     <div id="splash-container">
         <aside id="splash-welcome-message">
-            <h1 bind:this={title}>WELCOME TO KNOX</h1>
+            <h1>{title}</h1>
             <article>
                 <p>A new social platform for the cryptoenthusiast.</p>
             </article>
@@ -36,7 +57,7 @@
             </div>
         </aside>
         Main
-    </div>
+     </div>
 </section>
 <Trends/>
 <Footer/>
