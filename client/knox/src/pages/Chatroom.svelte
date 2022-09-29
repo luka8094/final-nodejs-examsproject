@@ -1,11 +1,15 @@
 <script>
     import {io} from "socket.io-client"
+    import {user, account} from "../../stores/systemd"
     import Chatmessage from "../components/chatroom/Chatmessage.svelte"
     import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
 
     const socket = io()
     let message 
-    let array = []
+    let currentUser
+    let chatroomMessages = []
+
+    console.laccount
 
     function sendMessage(){
         console.log(message)
@@ -19,8 +23,8 @@
 
     socket.on("showChatmessage", ({data}) =>{
         console.log("message recieved. %s.", data)
-        array.push(data)
-        array = array
+        chatroomMessages.push(data)
+        chatroomMessages = chatroomMessages
     })
 </script>
 
@@ -28,8 +32,12 @@
     <aside id="chatlog-container">
         <h2>Welcome to the room</h2>
         <div id="chatlog-history">
-            {#each array as message}
-                <Chatmessage message={message}/>
+            {#each chatroomMessages as chatMessage}
+                {#if $user}
+                    <Chatmessage user={$account.username} message={chatMessage} />
+                {:else}
+                    <Chatmessage message={chatMessage}/>
+                {/if}
             {/each}
         </div>
         <div id="chat-panel">
