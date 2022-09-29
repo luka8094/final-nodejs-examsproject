@@ -32,7 +32,7 @@
     const decrypt = async (initiate) => {new Promise(introduction, setTimeout(introduction, initiate) )}
 
     ;(async() => {
-        await decrypt(17500)
+        await decrypt(18600)
     })()
 
     function joinRedirect(){
@@ -102,6 +102,8 @@
         font-family: "Oxygen", sans-serif;
         font-size: 3em;
         font-weight: 700;
+        width: 300px;
+        word-wrap: break-word;
         margin: 0;
         border-bottom: 6.5px double black;
     }

@@ -7,6 +7,7 @@
     import {user, visited} from "../../stores/systemd"
     import Main from '../pages/Main.svelte'
     import Account from '../pages/Account.svelte'
+    import Chatroom from '../pages/Chatroom.svelte'
     import Chatrooms from '../pages/Chatrooms.svelte'
     import Login from '../pages/Login.svelte'
     import Register from '../pages/Register.svelte'
@@ -59,7 +60,6 @@
             .to(menuLogin, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .7}, "-=.95", 'menu-rollout')
             .to(menuRegister, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .5}, "-=.925", 'menu-rollout')
             .to(menuChatrooms, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .3},"-=.9", 'menu-rollout')
-            .eventCallback("onComplete", test)
             .set("body",{overflow:"visible"})
         }
         return () => { 
@@ -99,6 +99,9 @@
             <div class="menu-element" bind:this={menuChatrooms}>
                 <Link customBinding={menuChatrooms} to="chatrooms">Chatrooms</Link>
             </div>
+            <div class="menu-element">
+                <Link to="chatroom">Chatroom</Link>
+            </div>
         </div>
     </nav>
     <div bind:this={menuOverlay} id="menu-overlay">
@@ -110,7 +113,8 @@
     <Route path="register" component={Register}/>    
     <PrivateRoute path="account">
         <Account/>
-    </PrivateRoute>   
+    </PrivateRoute>
+    <Route path="chatroom" component={Chatroom}/>   
     <Route path="chatrooms" component={Chatrooms}/>
     <Route path="success" component={Success}/>
     <Route path="unauthorized" component={AccessDenied}/>    
@@ -140,7 +144,7 @@
         height: 50px;
         width: 120px;
         margin-left: 100px;
-        background: rgba(5,100,50,.5);
+        background: transparent;
         opacity: 0;
         align-items: center;
     }
@@ -165,11 +169,18 @@
     #menu-container{
         display: flex;
         height: 100%;
-        width: 50%;
-        margin: 0 50px 0 auto;
+        width: 500px;
+        margin: 0 50px 0 300px;
         background: rgba(100,50,10,.5);
         align-items: center;
         justify-content: space-evenly;
+    }
+
+    #menu-container::before{
+        content: '';
+        height: 30px;
+        width: 2px;
+        background: black;
     }
 
     .menu-element{
