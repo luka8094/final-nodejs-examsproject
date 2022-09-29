@@ -3,7 +3,16 @@
     import Trends from "../components/main/Trends.svelte"
     import Footer from "../components/Footer.svelte"
 
+    let title
     const navigate = useNavigate()
+
+    setTimeout(() => {{
+    let welcomeString = 'WELCOME TO KNOX'
+    for(let i = 0; i <= welcomeString.length; i++){
+        let randomString = size => [...Array(size)].map( () => Math.floor(Math.random() * 16).toString(16)).join('')
+        title.value = welcomeString.substring(0,i)+randomString((welcomeString.length-i))
+        }}
+    }, 10 * 1000)
 
     function joinRedirect(){
         navigate("/register", {replace: true})
@@ -13,7 +22,7 @@
 <section>
     <div id="splash-container">
         <aside id="splash-welcome-message">
-            <h1>WELCOME TO KNOX</h1>
+            <h1 bind:this={title}>WELCOME TO KNOX</h1>
             <article>
                 <p>A new social platform for the cryptoenthusiast.</p>
             </article>

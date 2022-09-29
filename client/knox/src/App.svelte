@@ -1,12 +1,13 @@
 <script>
+	import customToast from "../functionality/toasters"
 	import Navigation from "./components/Navigation.svelte"
 	import Footer from "./components/Footer.svelte"
+
+	let toaster
+	customToast(toaster)
 </script>
 
 <Navigation/>
-<div id="toaster-container">
-	toaster container 
-</div>
 
 <style>
 	#toaster-container{
@@ -14,7 +15,7 @@
 		position: fixed;
 		height: 100px;
 		width: 150px;
-		background: rgba(50,100,150,.5);
+		background: rgba(50,150,150,.5);
 		z-index: 10;
 		right: 30px;
 		bottom: 20px;

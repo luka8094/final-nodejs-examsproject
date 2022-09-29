@@ -1,6 +1,8 @@
 <script>
     import {rootPrivilege} from "../../../stores/systemd"
     import ProfileSettings from "./usersettings/ProfileSettings.svelte"
+    import MilestonesOverview from "./usersettings/MilestonesOverview.svelte"
+    import TransactionsOverview from "./usersettings/TransactionsOverview.svelte"
     import PasswordSettings from "./usersettings/PasswordSettings.svelte"
     import Adminsettings from "./usersettings/Adminsettings.svelte"
 
@@ -13,15 +15,15 @@
 <div id="dashboard-container">
     <div id="dashboard-container-title">
         <div id="dashboard-title">
-            <img src="./images/knox-logo-6.svg" alt=""/>
+            <img src="./images/knox-logo-8.svg" alt=""/>
             <h1>account</h1>
         </div><span>Welcome back {username}</span>
     </div>
     <div id="dashboard-user-panel">
         <aside id="user-options">
             <button on:click={() => (choice = ProfileSettings)}>Profile</button>
-            <button on:click={() => (choice = ProfileSettings)}>Milestones</button>
-            <button on:click={() => (choice = ProfileSettings)}>Transactions</button>
+            <button on:click={() => (choice = MilestonesOverview)}>Milestones</button>
+            <button on:click={() => (choice = TransactionsOverview)}>Transactions</button>
             <button on:click={() => (choice = PasswordSettings)}>Password</button>
         {#if $rootPrivilege}
             <button on:click={() => (choice = Adminsettings)}>Administrate</button>
@@ -29,17 +31,6 @@
         </aside>
         <aside id="user-settings">
             <svelte:component this={choice}/>
-            <!-- {#if choice === 'profile'}
-                <ProfileSettings />
-            {:else if choice === 'milestones'}
-                <p>milestones overview</p>
-            {:else if choice === 'transactions'}
-                <p>transaction history</p>
-            {:else if choice === 'password'}
-                <PasswordSettings username={username}/>
-            {:else if choice === 'administrate' && $rootPrivilege}
-                <Adminsettings />
-            {/if} -->
         </aside>
     </div>
     <button id="logout" on:click={logout}>Log out</button>

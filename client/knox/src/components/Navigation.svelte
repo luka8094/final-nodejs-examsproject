@@ -72,7 +72,7 @@
         <div bind:this={logo} class="logo">
             <a href="/">
                 <picture bind:this={logoImage}>
-                    <img src="images/knox-logo-6.svg" alt="knox logo"/>
+                    <img src="images/knox-logo-8.svg" alt="knox logo"/>
                 </picture>
             </a>
             <p bind:this={logoName}>KNOX</p>
@@ -182,6 +182,6 @@
         position: fixed;
         height: 100%;
         width: 100%;
-        background: white;
+        background: rgba(255, 255, 255, 0.1);
     }
 </style>
