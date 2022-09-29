@@ -79,29 +79,31 @@
             </a>
             <p bind:this={logoName}>KNOX</p>
         </div>
-        <div id="menu-container">
+        <div id="menu-container-general">
             <div class="menu-element" bind:this={menuMain}>
                 <Link to="/">Main</Link>
             </div>
             <div class="menu-element" bind:this={menuMarket}>
                 <Link customBinding={menuMarket} to="market">Market</Link>
             </div>
-            {#if !$user}
-                <div class="menu-element" bind:this={menuLogin}>
-                    <Link customBinding={menuLogin} to="login">Log in</Link>
-                </div>
-                <div class="menu-element" bind:this={menuRegister}>
-                    <Link customBinding={menuRegister} to="register">Register</Link>
-                </div>
-            {:else}
-                <Link to="account">Account</Link>
-            {/if}
             <div class="menu-element" bind:this={menuChatrooms}>
                 <Link customBinding={menuChatrooms} to="chatrooms">Chatrooms</Link>
             </div>
             <div class="menu-element">
                 <Link to="chatroom">Chatroom</Link>
             </div>
+        </div>
+        <div id="menu-container-account">
+            {#if !$user}
+                <div class="menu-element" bind:this={menuRegister}>
+                    <Link customBinding={menuRegister} to="register">Register</Link>
+                </div>
+                <div class="menu-element" bind:this={menuLogin} id="login-reference">
+                    <Link customBinding={menuLogin} to="login">Log in</Link>
+                </div>
+            {:else}
+                <Link to="account">Account</Link>
+            {/if}
         </div>
     </nav>
     <div bind:this={menuOverlay} id="menu-overlay">
@@ -166,7 +168,7 @@
         border-radius: 50px;
     }
 
-    #menu-container{
+    #menu-container-general{
         display: flex;
         height: 100%;
         width: 500px;
@@ -176,7 +178,17 @@
         justify-content: space-evenly;
     }
 
-    #menu-container::before{
+    #menu-container-account{
+        display: flex;
+        height: 100%;
+        width: 200px;
+        background: rgba(210,210,210,.1);
+        margin: 0 100px 0 auto;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    #menu-container-general::before{
         content: '';
         height: 30px;
         width: 2px;
@@ -188,6 +200,14 @@
         position: relative;
         height: 20px;
         width: fit-content;
+    }
+
+    #login-reference{
+        display: flex;
+        width: 50px;
+        height: 30px;
+        border: solid 2px black;
+        border-radius: 50px;
     }
 
     #menu-overlay{

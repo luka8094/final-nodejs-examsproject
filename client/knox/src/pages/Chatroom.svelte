@@ -7,7 +7,17 @@
 
     let array = [
         {text: "hi"},
-        {text: "hello"}
+        {text: "hello"},
+        {text: "hi"},
+        {text: "hello"},
+        {text: "hi"},
+        {text: "hello"},
+        {text: "hi"},
+        {text: "hello"},
+        {text: "hi"},
+        {text: "hello"},
+        {text: "hi"},
+        {text: "hello"},
     ]
 
     function sendMessage(){
@@ -60,6 +70,12 @@
         height: 500px;
         width: 300px;
         background: rgba(50,100,50,.5);
+        overflow-y: scroll;
+    }
+
+    #chatlog-history::-webkit-scrollbar-track{
+        background-color: rgba(255,255,255,.5);
+        width: 10px;
     }
 
     #chat-panel{
