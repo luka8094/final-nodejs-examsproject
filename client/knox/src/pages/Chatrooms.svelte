@@ -1,16 +1,20 @@
 <script>
-    import ChatroomBox from "../components/chatrooms/ChatroomBox.svelte"
+    import ChatroomLinkBox from "../components/chatrooms/ChatroomLinkBox.svelte"
+
+    let elements = [1,2,3,4,5,6,7,8,9,10]
 </script>
 <section>
     Chatrooms
     <div id="chatrooms-overview-container">
-
+        {#each elements as element, i}
+            <ChatroomLinkBox number={i} />
+        {/each}
     </div>
 </section>
 
 <style>
     section{
-        display:flex;
+        display:grid;
         height: 100vh;
         width: 100%;
         background: rgba(100,50,100,.5);
