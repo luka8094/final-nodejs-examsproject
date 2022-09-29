@@ -100,7 +100,7 @@
 
     button{
         width: var(--form-button-width);
-        margin-top: auto;
+        margin-top: 20px;
         background: var(--button-background);
         color: var(--button-text)
     }

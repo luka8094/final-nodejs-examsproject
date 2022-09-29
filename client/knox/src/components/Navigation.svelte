@@ -14,6 +14,8 @@
     import Market from '../pages/Market.svelte'
     import AccessDenied from './authorization/AccessDenied.svelte'
     import Success from '../pages/Success.svelte'
+    import RegisterForm from "./account/RegisterForm.svelte";
+    import Chatmessage from "./chatroom/Chatmessage.svelte";
 
     const history = createHistory(createMemorySource())
 
@@ -110,16 +112,18 @@
             
     </div>
     <Route path="/" component={Main}/>    
-    <Route path="market" component={Market}/>
-    <Route path="login" component={Login}/>
-    <Route path="register" component={Register}/>    
-    <PrivateRoute path="account">
+    <Route path="/market" component={Market}/>
+    <Route path="/login" component={Login}/>
+    <Route path="/register" component={Register}/>    
+    <PrivateRoute path="/account">
         <Account/>
     </PrivateRoute>
-    <Route path="chatroom" component={Chatroom}/>   
-    <Route path="chatrooms" component={Chatrooms}/>
-    <Route path="success" component={Success}/>
-    <Route path="unauthorized" component={AccessDenied}/>    
+    <Route path="/chatroom" component={Chatroom}/>   
+    <Route path="/chatrooms/*">
+        <Route path="/" component={Chatrooms}/>
+        <Route id=":id" component={Chatroom}/>
+    </Route>
+    <Route path="/unauthorized" component={AccessDenied}/>    
 </Router>
 
 <style>
@@ -217,7 +221,7 @@
     #login-reference:hover{
         background: white;
     }
-    
+
     #menu-overlay{
         display: flex;
         position: fixed;

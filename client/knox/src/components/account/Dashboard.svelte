@@ -16,7 +16,7 @@
     <div id="dashboard-container-title">
         <div id="dashboard-title">
             <img src="./images/knox-logo-8.svg" alt=""/>
-            <h1>account</h1>
+            <h1>ACCOUNT</h1>
         </div><span>Welcome back {username}</span>
     </div>
     <div id="dashboard-user-panel">

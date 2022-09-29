@@ -5,8 +5,7 @@
     import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
 
     const socket = io()
-    let message 
-    let currentUser
+    let message
     let chatroomMessages = []
 
     console.laccount
