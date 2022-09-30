@@ -1,9 +1,5 @@
-<script>
-
-</script>
-
 <section>
-    <h1>Subscriptions</h1>
+    <h1>About</h1>
 </section>
 
 <style>
@@ -12,7 +8,7 @@
         height: 100vh;
         width: 100%;
         padding-top: var(--menu-padding);
-        background: rgba(200,200,150,.1);
+        background: rgba(200,100,0,.5);
     }
 
     h1{

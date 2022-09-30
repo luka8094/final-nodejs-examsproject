@@ -1,7 +1,6 @@
 <script>
 	import customToast from "../functionality/toasters"
 	import Navigation from "./components/Navigation.svelte"
-	import Footer from "./components/Footer.svelte"
 
 	let toaster
 	customToast(toaster)

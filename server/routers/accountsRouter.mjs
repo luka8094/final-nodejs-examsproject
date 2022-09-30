@@ -28,8 +28,9 @@ accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     return res.status(201).send({data})
 })
 
+import ipCatcher from "../mid/ipCatcher.mjs"
 import CryptoJS from "crypto-js"
-accountsRouter.post("/api/login", authLimiter, async (req, res) => {
+accountsRouter.post("/api/login", [authLimiter, ipCatcher], async (req, res) => {
     const account = await Account.findOne({email: req.body.email})
 
     if(!account) return res.status(401).send({data: "your email or password doesn't match"})
@@ -45,7 +46,8 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
 })
 
 import emailDispatch from "../utils/nodemailer.mjs"
-accountsRouter.post("/api/register", authLimiter, async (req, res) => {   
+accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
+    console.log(req.ip) 
     const exists = await Account.findOne({email: req.body.email})
 
     if(!exists){
@@ -57,8 +59,8 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
             password: CryptoJS.AES.encrypt(req.body.password, AES_KEY_C).toString()
         })
 
-        //TODO: emailDispatch(req.body.email).catch(console.error)
-
+        const sentMail = await emailDispatch(req.body.email).catch(console.error)
+        console.log(sentMail)
         delete req.body
         const saved = await newAccount.save()
 

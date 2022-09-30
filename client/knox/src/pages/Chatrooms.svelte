@@ -32,7 +32,7 @@
         display: grid;
         height: fit-content;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(6, 200px);
+        grid-template-rows: repeat(5, 200px);
     }
 
     @media screen and (max-width: 1000px){

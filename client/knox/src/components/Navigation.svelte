@@ -85,11 +85,11 @@
             <div class="menu-element" bind:this={menuMain}>
                 <Link to="/">Main</Link>
             </div>
+            <div class="menu-element" bind:this={menuChatrooms}>
+                <Link customBinding={menuChatrooms} to="about">About KNOX</Link>
+            </div>
             <div class="menu-element" bind:this={menuMarket}>
                 <Link to="market">Market</Link>
-            </div>
-            <div class="menu-element" bind:this={menuChatrooms}>
-                <Link customBinding={menuChatrooms} to="chatrooms">Chatrooms</Link>
             </div>
         </div>
         <div id="menu-container-account">
@@ -188,11 +188,14 @@
     #menu-container-general{
         display: flex;
         height: 100%;
-        width: 500px;
+        width: 310px;
         margin: 0 50px 0 300px;
-        background: rgba(100,50,10,.5);
         align-items: center;
         justify-content: space-evenly;
+    }
+
+    #menu-container-general div:last-child{
+        margin-right: auto;
     }
 
     #menu-container-account{
@@ -208,7 +211,8 @@
     #menu-container-general::before{
         content: '';
         height: 30px;
-        width: 2px;
+        width: 1.5px;
+        margin-right: 20px;
         background: black;
     }
 
@@ -216,7 +220,12 @@
         display: flex;
         position: relative;
         height: 20px;
+        margin: 0 10px;
         width: fit-content;
+    }
+
+    .menu-element:hover{
+        border-bottom: solid 1px black;
     }
 
     .sub-menu-element{
@@ -244,12 +253,16 @@
         box-shadow: inset 0px 5px 15px -11px;
     }
 
-    .sub-menu-content:hover{
-        display: flex;
+    .sub-menu-content div:hover{
+        border-bottom: solid 1px black;
     }
 
     .sub-menu-content *{
         margin: 10px;
+    }
+
+    .sub-menu-content:hover{
+        display: flex;
     }
 
     .sub-menu-content div:last-child{
