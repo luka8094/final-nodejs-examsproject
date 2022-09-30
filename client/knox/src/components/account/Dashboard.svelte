@@ -49,10 +49,10 @@
 
 
     h1{
-        font-family: 'Saira Stencil One';
-        color: black;
-        margin: auto 0 auto auto;
+        display: flex;
+        margin: 10px 0;
         align-self: center;
+        color: black;
     }
 
     span{

@@ -2,6 +2,7 @@
     import {useNavigate} from "svelte-navigator"
     
     export let number
+    let description = "This is a description placeholder for the cryptocurrency coin."
     let navigate = useNavigate() 
 
     function forward(){
@@ -10,26 +11,27 @@
 </script>
 
 <div id="chatroom-box-container">
-    <img src="" alt=""/>
+    <div id="coin-image"></div>
     <div id="chatroom-description">
-        <p></p>
-        <button on:click={forward}>enter {number}</button>
+        <p>{description}</p>
+        <a on:click={forward}>enter {number}</a>
     </div>
 </div>
 
 <style>
     #chatroom-box-container{
         display: flex;
-        height: 100px;
+        height: fit-content;
         width: 250px;
         margin: 10px;
         background: rgba(50,50,50,.5);
     }
 
-    img{
+    #coin-image{
         display: flex;
         height: 90px;
         width: 90px;
+        margin: 10px;
         background: rgba(50,100,50,.5);
     }
 
@@ -38,5 +40,26 @@
         flex-direction: column;
         height: 100%;
         width: 150px;
+    }
+
+    #chatroom-description p{
+        display: flex;
+        height: fit-content;
+        width: 130px;
+        margin: 10px 0 0;
+        background: rgba(50,50,50,.5);
+    }
+
+    a{
+        display: flex;
+        align-self: center;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        background: rgba(10,10,10,.1);
+    }
+
+    a:hover{
+        text-decoration: underline;
     }
 </style>

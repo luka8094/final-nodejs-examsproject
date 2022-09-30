@@ -1,12 +1,12 @@
 <script>
     import ChatroomLinkBox from "../components/chatrooms/ChatroomLinkBox.svelte"
 
-    let elements = [1,2,3,4,5,6,7,8,9,10]
+    let testElements = [1,2,3,4,5,6,7,8,9,10]
 </script>
 <section>
-    Chatrooms
+    <h1>Chatrooms</h1>
     <div id="chatrooms-overview-container">
-        {#each elements as element, i}
+        {#each testElements as element, i}
             <ChatroomLinkBox number={i} />
         {/each}
     </div>
@@ -15,7 +15,7 @@
 <style>
     section{
         display:grid;
-        height: 100vh;
+        height: fit-content;
         width: 100%;
         background: rgba(100,50,100,.5);
         padding-top: var(--menu-padding);
@@ -23,10 +23,27 @@
         justify-content: center;
     }
 
+    h1{
+        display: flex;
+        border-bottom: double 2px black;
+    }
+
     #chatrooms-overview-container{
         display: grid;
         height: fit-content;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(10, 120px);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(6, 200px);
+    }
+
+    @media screen and (max-width: 1000px){
+        #chatrooms-overview-container{
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 500px){
+        #chatrooms-overview-container{
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 </style>

@@ -2,7 +2,7 @@
     import gsap from "gsap/dist/gsap"
     import {createEventDispatcher} from "svelte"
     import {onMount} from "svelte"
-    import {Router, Link, Route, createHistory, createMemorySource} from 'svelte-navigator'
+    import {Router, Link, link, Route, createHistory, createMemorySource} from 'svelte-navigator'
     import PrivateRoute from './authorization/PrivateRoute.svelte'
     import {user, visited} from "../../stores/systemd"
     import Main from '../pages/Main.svelte'
@@ -14,8 +14,6 @@
     import Market from '../pages/Market.svelte'
     import AccessDenied from './authorization/AccessDenied.svelte'
     import Success from '../pages/Success.svelte'
-    import RegisterForm from "./account/RegisterForm.svelte";
-    import Chatmessage from "./chatroom/Chatmessage.svelte";
 
     const history = createHistory(createMemorySource())
 
@@ -86,13 +84,10 @@
                 <Link to="/">Main</Link>
             </div>
             <div class="menu-element" bind:this={menuMarket}>
-                <Link customBinding={menuMarket} to="market">Market</Link>
+                <Link to="market">Market</Link>
             </div>
             <div class="menu-element" bind:this={menuChatrooms}>
                 <Link customBinding={menuChatrooms} to="chatrooms">Chatrooms</Link>
-            </div>
-            <div class="menu-element">
-                <Link to="chatroom">Chatroom</Link>
             </div>
         </div>
         <div id="menu-container-account">
@@ -104,7 +99,14 @@
                     <Link customBinding={menuLogin} to="login">Log in</Link>
                 </div>
             {:else}
-                <Link to="account">Account</Link>
+                <div class="sub-menu-element">
+                    <Link to="account">Account</Link>
+                    <div class="sub-menu-content">
+                        <Link to="subscriptions">Subscriptions</Link>
+                        <Link to="chatrooms">Chatrooms</Link>
+                        <Link to="moneybag">Monyebag</Link>
+                    </div>
+                </div>
             {/if}
         </div>
     </nav>
@@ -118,12 +120,12 @@
     <PrivateRoute path="/account">
         <Account/>
     </PrivateRoute>
-    <Route path="/chatroom" component={Chatroom}/>   
     <Route path="/chatrooms/*">
         <Route path="/" component={Chatrooms}/>
         <Route id=":id" component={Chatroom}/>
     </Route>
-    <Route path="/unauthorized" component={AccessDenied}/>    
+    <Route path="/unauthorized" component={AccessDenied}/>
+    <Route path="/success" component={Success}/>    
 </Router>
 
 <style>
@@ -142,6 +144,7 @@
         display: flex;
         height: 100%;
         margin: 10px;
+        transition: color .5s ease-in;
     }
 
     .logo{
@@ -159,7 +162,7 @@
         display: none;
         opacity: 0;
         align-self: center;
-        font-family: "Saira Stencil One";
+        font-family: "November Stencil Pro Blk";
         color: black;
     }
 
@@ -206,6 +209,27 @@
         width: fit-content;
     }
 
+    .sub-menu-element:hover .sub-menu-content{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
+
+    .sub-menu-content{
+        display: none;
+        position: absolute;
+        height: 35px;
+        width: 100%;
+        left: 0;
+        top: 60px;
+        background-color: rgba(10,10,10,.5);
+        z-index: 1;
+    }
+
+    .sub-menu-content > *{
+        margin: 10px;
+    }
+
     #login-reference{
         display: flex;
         width: 70px;
@@ -219,7 +243,7 @@
     }
 
     #login-reference:hover{
-        background: white;
+        background: rgba(100,100,100,.2);
     }
 
     #menu-overlay{

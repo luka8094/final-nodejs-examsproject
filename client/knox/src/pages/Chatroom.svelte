@@ -48,6 +48,10 @@
 </section>
 
 <style>
+    :root::-webkit-scrollbar-track{
+        background-color: aliceblue;
+    }
+
     #chatroom-container{
         display: flex;
         height: 100vh;

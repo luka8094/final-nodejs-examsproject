@@ -1,10 +1,11 @@
 <script>
-    import {useNavigate} from "svelte-navigator"
+    import {useNavigate, useLocation} from "svelte-navigator"
     import Trends from "../components/main/Trends.svelte"
     import Footer from "../components/Footer.svelte"
 
-    let title
+    let title = "52FA20224A2B4171"
     const navigate = useNavigate()
+    const location = useLocation()
 
     async function introduction(){
         function sleepTimer(milliseconds){
@@ -36,7 +37,7 @@
     })()
 
     function joinRedirect(){
-        navigate("/register", {replace: true})
+        navigate("/register", {state:{from: $location}, replace: true})
     }
 </script>  
 
