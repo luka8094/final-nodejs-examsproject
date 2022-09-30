@@ -10,9 +10,8 @@ function ipCatcher(req,res,next){
     attempts.forEach(attempt => attempt === loginAttempt ? counter++ : counter)
     if(counter === 5){ 
         console.log("Account should be blocked due to suspicious activity for 5 failed attempts in row.")
-        //TODO:
-        //res.redirect()
-        //attempts = []
+        req.deactivate = true
+        attempts = []
     }
     attempts = attempts
     next()

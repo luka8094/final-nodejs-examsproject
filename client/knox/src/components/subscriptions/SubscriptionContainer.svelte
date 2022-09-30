@@ -1,5 +1,18 @@
-<div>
-    <p>Subscription</p>
+<script>
+    let rank="rank", symbol="symbol", marketCap="market cap", price="price", volume="volume", tendency="tendency"
+</script>
+
+<div id="subscription-container">
+    <div id="coin-data">
+        <tbody>
+            <td>{rank}</td>
+            <td>{symbol}</td>
+            <td>{marketCap}</td>
+            <td>{price}</td>
+            <td>{volume}</td>
+            <td>{tendency}</td>
+        </tbody>
+    </div>
     <div id="subscription-options">
         <button>watch</button>
         <button>remove</button>
@@ -7,7 +20,7 @@
 </div>
 
 <style>
-    div{
+    #subscription-container{
         display: flex;
         height: 60px;
         width: 100%;
@@ -15,6 +28,21 @@
         padding: 5px;
         background: rgba(50,100,150,.5);
         border-radius: 25px;
+        box-shadow: 1px 1px 20px 1px grey;
+    }
+
+    #coin-data{
+        display: flex;
+        height: inherit;
+        width: 100%;
+        background: rgba(100,100,110,.5);
+    }
+
+    tbody{
+        display: flex;  
+        width: 100%;  
+        background: rgba(100,10,100,.1);
+        justify-content: space-around;
     }
 
     #subscription-options{

@@ -1,8 +1,9 @@
 <script>
     export let user = "guest"
     export let message
+    export let placement
 </script>
-<div id="chatmessage-container">
+<div id="chatmessage-container" style="{placement}">
     <div id="chatmessage-container-user">{user} wrote:</div>
     <div id="chatmessage-container-message">{message}</div>
 </div>
@@ -15,7 +16,6 @@
         padding: 10px;
         margin: 5px 1px;
         border: solid 1px black;
-        border-radius: 50px 0 50px 50px;
         background: rgba(250,250,250,.5);
     }
 

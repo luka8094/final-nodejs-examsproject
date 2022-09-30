@@ -1,3 +1,9 @@
+<script>
+    function cursor(x, y){
+        
+    }
+</script>
+
 <div class="cursor">
 </div>
 
@@ -6,6 +12,7 @@
         position: relative;
         z-index: 100;
     }
+
     .cursor{
         width: 2rem;
         height: 2rem;

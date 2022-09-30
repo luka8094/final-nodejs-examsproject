@@ -1,7 +1,7 @@
 <script>
     import gsap from "gsap/dist/gsap"
     import {createEventDispatcher} from "svelte"
-    import {onMount} from "svelte"
+    import {onMount, beforeUpdate} from "svelte"
     import {Router, Link, link, Route, createHistory, createMemorySource} from 'svelte-navigator'
     import PrivateRoute from './authorization/PrivateRoute.svelte'
     import {user, visited} from "../../stores/systemd"
@@ -25,10 +25,11 @@
 
     let screenWidth = window.innerWidth / 2
     let screenHeight = window.innerHeight / 2
-
+    
+    window.scrollTo(0,0)
+    
     onMount(() => {     
         if(!$visited){
-            window.scroll(0,0)
 
             const timeline = gsap.timeline()
             const duration = 1

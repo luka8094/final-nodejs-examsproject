@@ -1,4 +1,5 @@
 <script>
+    import {onDestroy} from "svelte"
     import {io} from "socket.io-client"
     import {user, account} from "../../stores/systemd"
     import Chatmessage from "../components/chatroom/Chatmessage.svelte"
@@ -15,13 +16,12 @@
         message.trim()
         console.log(message.trim())
         if(message.length === 0) return
-        socket.emit("chatmessageSent", {data: message})
+        socket.emit("chatmessageSent", {data: {message: message, user: $account.username}})
 
         message = ''
     }
 
     socket.on("showChatmessage", ({data}) =>{
-        console.log("message recieved. %s.", data)
         chatroomMessages.push(data)
         chatroomMessages = chatroomMessages
     })
@@ -31,11 +31,11 @@
     <aside id="chatlog-container">
         <h2>Welcome to the room</h2>
         <div id="chatlog-history">
-            {#each chatroomMessages as chatMessage}
-                {#if $user}
-                    <Chatmessage user={$account.username} message={chatMessage} />
+            {#each chatroomMessages as data}
+                {#if data.user === $account.username}
+                    <Chatmessage user={data.user} message={data.message} placement={"margin-left:auto; border-radius: 50px 0 50px 50px;"} />
                 {:else}
-                    <Chatmessage message={chatMessage}/>
+                    <Chatmessage message={data.message} placement={"margin-right:auto; border-radius: 0 50px 50px 50px;"}/>
                 {/if}
             {/each}
         </div>
@@ -58,13 +58,14 @@
         width: 100%;
         padding-top: 90px;
         background: rgba(100,100,100,.5);
+        justify-content: center;
     }
 
     #chatlog-container{
         display: flex;
         flex-direction: column;
         height: 600px;
-        width: 350px;
+        width: 370px;
         padding-left: 10px;
         background: rgba(50,50,150,.5)
     }
