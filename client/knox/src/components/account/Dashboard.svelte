@@ -17,7 +17,7 @@
         <div id="dashboard-title">
             <img src="./images/knox-logo-8.svg" alt=""/>
             <h1>ACCOUNT</h1>
-        </div><span>Welcome back {username}</span>
+        </div><span>Welcome back <b>{username}</b></span>
     </div>
     <div id="dashboard-user-panel">
         <aside id="user-options">
@@ -65,7 +65,7 @@
         display: flex;
         flex-direction: column;
         min-height: 700px;
-        width: 900px;
+        width: 1000px;
         background: rgba(100,150,50,.5);
         margin: 0 auto 100px;
     }

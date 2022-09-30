@@ -128,12 +128,20 @@
     <PrivateRoute path="/account">
         <Account/>
     </PrivateRoute>
-    <Route path="/chatrooms/*">
-        <Route path="/" component={Chatrooms}/>
-        <Route id=":id" component={Chatroom}/>
-    </Route>
-    <Route path="/subscriptions" component={Subscriptions}/>
-    <Route path="/moneybag" component={Moneybag}/>
+    <PrivateRoute path="/chatrooms/*">
+        <PrivateRoute path="/">
+            <Chatrooms/>
+        </PrivateRoute>
+        <PrivateRoute id=":id">
+            <Chatroom/>   
+        </PrivateRoute>
+    </PrivateRoute>
+    <PrivateRoute path="/subscriptions">
+        <Subscriptions/>
+    </PrivateRoute>
+    <PrivateRoute path="/moneybag">
+        <Moneybag/>
+    </PrivateRoute>
     <Route path="/unauthorized" component={AccessDenied}/>
     <Route path="/success" component={Success}/>    
 </Router>
