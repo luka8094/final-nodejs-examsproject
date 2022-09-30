@@ -19,7 +19,7 @@
         flex-direction: column;
         height: 100vh;
         width: 100%;
-        padding-top: var(--menu-padding);
+        padding-top: calc(var(--menu-padding) + 50px);
         background: rgba(200,200,150,.1);
         align-items: center;
     }

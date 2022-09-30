@@ -18,7 +18,7 @@
         height: fit-content;
         width: 100%;
         background: rgba(100,50,100,.5);
-        padding-top: var(--menu-padding);
+        padding-top: calc(var(--menu-padding) + 50px);
         align-items: center;
         justify-content: center;
     }

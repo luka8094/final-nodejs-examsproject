@@ -9,6 +9,11 @@
 
 <section>
     Trending section
+    <header id="trends-sorting-options">
+        <button>Alphabetical</button>
+        <button>Highest</button>
+        <button>Lowest</button>
+    </header>
     <div id="coin-ranking-container">
         {#each testArray as coinTest}
             <p>{coinTest.id} {coinTest.coin}</p>
@@ -23,6 +28,25 @@
         height: 60vh;
         width: 100%;
         background: rgba(10,20,30,.5);
+    }
+
+    #trends-sorting-options{
+        display: flex;
+        flex-direction: row-reverse;
+        height: 50px;
+        width: calc(100% - 50px);
+        margin: auto;
+        background: rgba(120,100,120,.5);
+        align-items: center;
+    }
+
+    #trends-sorting-options button:nth-child(1){
+        margin-right: 20px;
+    }
+
+    button{
+        height: 35px;
+        margin: 0 2px;
     }
 
     #coin-ranking-container{
