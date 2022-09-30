@@ -16,6 +16,7 @@
     import Market from '../pages/Market.svelte'
     import AccessDenied from './authorization/AccessDenied.svelte'
     import Success from '../pages/Success.svelte'
+    import About from "../pages/About.svelte"
 
     const history = createHistory(createMemorySource())
 
@@ -121,7 +122,8 @@
     <div bind:this={menuOverlay} id="menu-overlay">
             
     </div>
-    <Route path="/" component={Main}/>    
+    <Route path="/" component={Main}/>
+    <Route path="/about" component={About}/>    
     <Route path="/market" component={Market}/>
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>    

@@ -89,7 +89,7 @@ accountsRouter.patch("api/change", async (req, res) =>{
         req.body.current === CryptoJS.AES.decrypt(user.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){
         const changed = CryptoJS.AES.encrypt(req.body.changed, AES_KEY_C).toString()
         const {password, ...data} = await Account.updateOne(
-        {username: user.username},
+        {username: claims._id},
         {password: changed}
         )
 
