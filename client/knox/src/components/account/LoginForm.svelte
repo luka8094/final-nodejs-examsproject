@@ -30,9 +30,9 @@
 
 <form on:submit|preventDefault={login}>
     <h1>Sign into your account</h1>
-    <label for="userEmail">Email:</label>
+    <label for="userEmail">Email<span class="required-field">*</span>:</label>
     <input bind:value={email} type="email" name="userEmail" placeholder="email@email.com"> 
-    <label for="userpassword">Password:</label>
+    <label for="userpassword">Password<span class="required-field">*</span>:</label>
     <input bind:value={password} type="password" name="userpassword" placeholder="enter password">
     <button type="submit">Log in</button>
 </form>
@@ -65,6 +65,10 @@
         margin: 8px 0;
     }
 
+    .required-field{
+        color: red;
+    }
+
     input{
         width: 90%;
         border: none;
@@ -82,9 +86,11 @@
 
     button{
         width: var(--form-button-width);
-        margin-top: 35px;
-        background: var(--button-background);
-        color: var(--button-text)
+        margin-top: 20px;
+        background: lightgrey;
+        color: var(--button-text);
+        border: solid 2px black;
+        border-radius: 50px;
     }
 
     #login-error-box{

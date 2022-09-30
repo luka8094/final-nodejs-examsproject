@@ -1,16 +1,16 @@
 :root{
 	--menu-padding: 60px;
-	--form-button-width: 250px;
-	--button-background: rgba(100,50,50,.5);
-	--button-text: white;
+	--form-button-width: 150px;
+	--button-background: white;
+	--button-text: black;
 }
 
-:root::-webkit-scrollbar-track{
+::-webkit-scrollbar-track{
 	width: 10px;
 	background-color: transparent;
 }
 
-:root::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb{
 	background-color: rgba(0,0,0,.2);
 }
 

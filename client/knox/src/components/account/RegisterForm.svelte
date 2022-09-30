@@ -37,11 +37,11 @@
             <input bind:value={lastname} type="text" name="lastName" placeholder="Last name">
         </div>
     </div>
-    <label for="userName">Username:</label>
+    <label for="userName">Username<span class="required-field">*</span>:</label>
     <input bind:value={username} type="text" name="userName" placeholder="choose username">
-    <label for="userEmail">Email:</label>
+    <label for="userEmail">Email<span class="required-field">*</span>:</label>
     <input bind:value={email} type="email" name="userEmail" placeholder="Your email"> 
-    <label for="userpassword">Password:</label>
+    <label for="userpassword">Password<span class="required-field">*</span>:</label>
     <input bind:value={password} type="password" name="userpassword" placeholder="password">
     <button type="submit">Register</button>
 </form>
@@ -68,6 +68,10 @@
     label{
         font-weight: 600;
         margin: 5px 0;
+    }
+
+    .required-field{
+        color: red;
     }
 
     input{
@@ -101,7 +105,9 @@
     button{
         width: var(--form-button-width);
         margin-top: 20px;
-        background: var(--button-background);
-        color: var(--button-text)
+        background: lightgrey;
+        color: var(--button-text);
+        border: solid 2px black;
+        border-radius: 50px;
     }
 </style>

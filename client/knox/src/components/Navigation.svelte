@@ -7,6 +7,8 @@
     import {user, visited} from "../../stores/systemd"
     import Main from '../pages/Main.svelte'
     import Account from '../pages/Account.svelte'
+    import Subscriptions from '../pages/Subscriptions.svelte'
+    import Moneybag from "../pages/Moneybag.svelte"
     import Chatroom from '../pages/Chatroom.svelte'
     import Chatrooms from '../pages/Chatrooms.svelte'
     import Login from '../pages/Login.svelte'
@@ -102,9 +104,15 @@
                 <div class="sub-menu-element">
                     <Link to="account">Account</Link>
                     <div class="sub-menu-content">
-                        <Link to="subscriptions">Subscriptions</Link>
-                        <Link to="chatrooms">Chatrooms</Link>
-                        <Link to="moneybag">Monyebag</Link>
+                        <div>
+                            <Link to="subscriptions">Subscriptions</Link>
+                        </div>
+                        <div>
+                            <Link to="chatrooms">Chatrooms</Link>
+                        </div>
+                        <div>
+                            <Link to="moneybag">Monyebag</Link>
+                        </div>
                     </div>
                 </div>
             {/if}
@@ -124,6 +132,8 @@
         <Route path="/" component={Chatrooms}/>
         <Route id=":id" component={Chatroom}/>
     </Route>
+    <Route path="/subscriptions" component={Subscriptions}/>
+    <Route path="/moneybag" component={Moneybag}/>
     <Route path="/unauthorized" component={AccessDenied}/>
     <Route path="/success" component={Success}/>    
 </Router>
@@ -209,6 +219,14 @@
         width: fit-content;
     }
 
+    .sub-menu-element{
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
     .sub-menu-element:hover .sub-menu-content{
         display: flex;
         align-items: center;
@@ -222,12 +240,20 @@
         width: 100%;
         left: 0;
         top: 60px;
-        background-color: rgba(10,10,10,.5);
-        z-index: 1;
+        background-color: white;
+        box-shadow: inset 0px 5px 15px -11px;
     }
 
-    .sub-menu-content > *{
+    .sub-menu-content:hover{
+        display: flex;
+    }
+
+    .sub-menu-content *{
         margin: 10px;
+    }
+
+    .sub-menu-content div:last-child{
+        margin-right: 100px;
     }
 
     #login-reference{
