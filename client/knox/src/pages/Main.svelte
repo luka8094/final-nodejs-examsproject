@@ -1,5 +1,6 @@
 <script>
     import {useNavigate, useLocation} from "svelte-navigator"
+    import {user} from "../../stores/systemd"
     import Trends from "../components/main/Trends.svelte"
     import Footer from "../components/Footer.svelte"
 
@@ -37,7 +38,8 @@
     })()
 
     function joinRedirect(){
-        navigate("/register", {state:{from: $location}, replace: true})
+        if(!$user) navigate("/register", {state:{from: $location}, replace: true})
+        else if($user) navigate("/account", {state:{from: $location}, replace: true})
     }
 </script>  
 

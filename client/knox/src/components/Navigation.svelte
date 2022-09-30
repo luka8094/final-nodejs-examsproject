@@ -102,7 +102,7 @@
                 </div>
             {:else}
                 <div class="sub-menu-element">
-                    <Link to="account">Account</Link>
+                    <Link to="account">Account<span class="dropdown-menu-indicator"></span></Link>
                     <div class="sub-menu-content">
                         <div>
                             <Link to="subscriptions">Subscriptions</Link>
@@ -202,7 +202,6 @@
         display: flex;
         height: 100%;
         width: 200px;
-        background: rgba(210,210,210,.1);
         margin: 0 100px 0 auto;
         justify-content: space-around;
         align-items: center;
@@ -234,6 +233,14 @@
         width: 100%;
         align-items: center;
         justify-content: center;
+    }
+
+    .dropdown-menu-indicator{
+        display: flex;
+        border-left: solid 5px transparent;
+        border-right: solid 5px transparent;
+        border-top: solid 10px black;
+        margin: 6px 0 auto 10px;
     }
 
     .sub-menu-element:hover .sub-menu-content{

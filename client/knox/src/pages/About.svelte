@@ -12,6 +12,7 @@
     }
 
     h1{
-        margin: auto;
+        display: flex;
+        border-bottom: solid 2px black;
     }
 </style>
