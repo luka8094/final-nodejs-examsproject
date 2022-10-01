@@ -27,7 +27,6 @@ import Account from "../model/account.mjs"
 import CryptoJS from "crypto-js"
 const {JWT_TOKEN_KEY, AES_KEY_B, AES_KEY_C} = process.env
 userRouter.patch("/api/password", async (req,res) =>{
-    console.log(req.body)
     const cookie = req.cookies['jwt']
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
 
@@ -41,6 +40,7 @@ userRouter.patch("/api/password", async (req,res) =>{
         req.body.current === CryptoJS.AES.decrypt(user.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){
         const changed = CryptoJS.AES.encrypt(req.body.changed, AES_KEY_C).toString()
         const {password, ...data} = await Account.findByIdAndUpdate({_id: claims._id},{password: changed},{new: true})
+        delete req.body    
 
         if(data)res.status(200).send({data: "Password has been changed"})
         else return res.sendStatus(403)

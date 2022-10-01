@@ -1,5 +1,12 @@
 <script>
+    import {createEventDispatcher} from "svelte"
     let rank="rank", symbol="symbol", marketCap="market cap", price="price", volume="volume", tendency="tendency"
+
+    const dispatch = createEventDispatcher()
+
+    function removeSubscription(){
+        dispatch('removeSubscription',{value: true})
+    }
 </script>
 
 <div id="subscription-container">
@@ -15,7 +22,7 @@
     </div>
     <div id="subscription-options">
         <button>watch</button>
-        <button>remove</button>
+        <button on:click={removeSubscription}>remove</button>
     </div>
 </div>
 

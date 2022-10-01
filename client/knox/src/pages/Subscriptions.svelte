@@ -1,14 +1,21 @@
 <script>
     import SubscriptionContainer from "../components/subscriptions/SubscriptionContainer.svelte"
 
-    const testArray = [1,2,3,4,5,6,7,8,9,10]
+    let testArray = [1,2,3,4,5,6,7,8,9,10]
+
+    function removeThis(event){
+        console.log(event, event.detail.value)
+        if(event.detail)testArray.pop()
+        testArray = testArray
+        
+    }
 </script>
 
 <section>
     <div id="subscriptions-container">
         <h1>Subscriptions</h1>
         {#each testArray as sub }
-            <SubscriptionContainer />
+            <SubscriptionContainer on:removeSubscription={removeThis}/>
         {/each}
     </div>
 </section>

@@ -228,7 +228,7 @@
         display: flex;
         position: relative;
         height: 20px;
-        margin: 0 10px;
+        margin: 0 15px;
         width: fit-content;
     }
 
