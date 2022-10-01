@@ -48,9 +48,11 @@
 </section>
 
 <style>
-    :root::-webkit-scrollbar-track{
-        background-color: aliceblue;
-    }
+    :root::-webkit-scrollbar{
+		display: none;
+		width: 9px;
+		background: rgba(50,50,50,.0001);
+	}
 
     #chatroom-container{
         display: flex;
@@ -59,6 +61,7 @@
         padding-top: 90px;
         background: rgba(100,100,100,.5);
         justify-content: center;
+        -webkit-scrollbar-track: transparent;
     }
 
     #chatlog-container{
@@ -77,11 +80,6 @@
         width: 300px;
         background: rgba(50,100,50,.5);
         overflow-y: scroll;
-    }
-
-    #chatlog-history::-webkit-scrollbar-track{
-        background-color: rgba(255,255,255,.5);
-        width: 10px;
     }
 
     #chat-panel{

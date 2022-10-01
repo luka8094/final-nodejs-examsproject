@@ -5,9 +5,10 @@
 	--button-text: black;
 }
 
-::-webkit-scrollbar-track{
-	width: 10px;
-	background-color: transparent;
+body{
+	-webkit-scrollbar-width: 10px;
+	scrollbar-width: 10px;
+	-webkit-scrollbar-track: transparent;
 }
 
 ::-webkit-scrollbar-thumb{

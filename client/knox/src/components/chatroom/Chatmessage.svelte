@@ -4,19 +4,21 @@
     export let placement
 </script>
 <div id="chatmessage-container" style="{placement}">
-    <div id="chatmessage-container-user">{user} wrote:</div>
-    <div id="chatmessage-container-message">{message}</div>
+    <div id="chatmessage-container-user"><p>{user} wrote:</p></div>
+    <div id="chatmessage-container-message"><p>{message}</p></div>
 </div>
 <style>
     #chatmessage-container{
         display: flex;
         flex-direction: column;
         height: fit-content;
-        width: initial;
+        width: initial;    
+        max-width: 100%;
         padding: 10px;
         margin: 5px 1px;
         border: solid 1px black;
         background: rgba(250,250,250,.5);
+        word-break: break-word;
     }
 
     #chatmessage-container-user{

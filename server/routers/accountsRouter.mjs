@@ -28,15 +28,29 @@ accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     return res.status(201).send({data})
 })
 
-import ipCatcher from "../mid/ipCatcher.mjs"
+import ip from "ip"
 import CryptoJS from "crypto-js"
-accountsRouter.post("/api/login", [authLimiter, ipCatcher], async (req, res) => {
+accountsRouter.post("/api/login", authLimiter, async (req, res) => {
     console.log(req.deactivate)
     const account = await Account.findOne({email: req.body.email})
 
     if(!account) return res.status(401).send({data: "your email or password doesn't match"})
-    if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){ 
-        return res.status(401).send({data: "your email or password doesn't match"})
+    if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){
+        const loginAttempt = ip.address()
+        let attempts = []
+        let counter = 0
+        attempts.push(loginAttempt)
+        attempts.forEach(attempt => attempt === ip.address() ? counter++ : counter)
+        if(counter === 5){
+            console.log("Account should be blocked for exhausting 5 attempts.")
+            //TODO: implement account blocking
+            attempts = []
+            console.log(attempts)
+        }else{
+            console.log(attempts)
+            return res.status(401).send({data: "your email or password doesn't match"})
+        }
+        attempts = attempts
     }else{
         delete req.body
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
@@ -70,7 +84,7 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
     else res.sendStatus(409)
 })  
 
-accountsRouter.delete("/api/logout", authLimiter, (req, res) => {
+accountsRouter.delete("/api/logout", (req, res) => {
     res.cookie('jwt', {maxAge: 0})
     res.sendStatus(202)
 })

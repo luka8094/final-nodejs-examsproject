@@ -26,8 +26,6 @@
     let screenWidth = window.innerWidth / 2
     let screenHeight = window.innerHeight / 2
     
-    window.scrollTo(0,0)
-    
     onMount(() => {     
         if(!$visited){
 

@@ -9,6 +9,12 @@
 <Navigation/>
 
 <style>
+	:root::-webkit-scrollbar{
+		display: flex;
+		width: 9px;
+		background: rgba(50,50,50,.0001);
+	}
+
 	#toaster-container{
 		display: flex;
 		position: fixed;
