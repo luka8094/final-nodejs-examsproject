@@ -82,6 +82,11 @@
         width: 200px;
     }
 
+    label{
+        margin: 10px 0;
+        font-weight: 600px;
+    }
+
     button{
         display: flex;
         width: 100px;
