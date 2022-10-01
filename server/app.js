@@ -20,7 +20,9 @@ import baseLimiter from "./mid/baseLimiter.mjs"
 app.use(baseLimiter)
 
 import accountsRouter from "./routers/accountsRouter.mjs"
+import userRouter from "./routers/userRouter.mjs"
 app.use(accountsRouter)
+app.use(userRouter)
 
 import http from "http"
 import {Server} from "socket.io"

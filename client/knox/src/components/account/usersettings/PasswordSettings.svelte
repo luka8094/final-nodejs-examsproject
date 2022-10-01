@@ -1,21 +1,38 @@
 <script>
-    export let username
-    let currentPassword, newPassword, errorMessage
+    import {account} from "../../../../stores/systemd"
 
+    const username = $account.username
+    let currentPassword, newPassword, message
+    let color = "red"
 
     const changePassword = async () =>{
+        console.log("clicked change password button.")
+        console.log(currentPassword, newPassword)
+        if(!currentPassword||!newPassword){ 
+            return message = "Fields can not be empty."
+        }
         const result = await fetch("/api/password",{
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
             body: JSON.stringify({
                 username: username,
                 current: currentPassword,
                 changed: newPassword
             })
         })
-        console.log("clicked change password button.")
-        if(!currentPassword||!newPassword) return errorMessage = "Fields can not be empty"
-        console.log(currentPassword, newPassword)
+
+        if(result.status === 200){
+            const {data} = await result.json()
+            console.log(data)
+            color = "green"
+            return message = data
+        }
+        if(result.status === 403){ 
+            color = "red"
+            return message = "Permission denied"
+        }
+        else return message = "The password could not be changed.\nPlease try again later."
     }
 </script>
 
@@ -31,7 +48,7 @@
         <input bind:value={newPassword} type="text" name="new"/>
         <button type="button" on:click|preventDefault={changePassword}>confirm</button>
     </form>
-    <p id="error-message">{errorMessage === undefined ? "": errorMessage}</p>
+    <p id="message" style="color:{color};">{message === undefined ? "": message}</p>
 </div>
 
 <style>
@@ -69,9 +86,5 @@
         display: flex;
         width: 100px;
         justify-content: center;
-    }
-
-    #error-message{
-        color: red;
     }
 </style>

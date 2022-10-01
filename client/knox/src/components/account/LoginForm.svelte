@@ -40,13 +40,13 @@
 
 
 <style>
-    
     form{
         display: flex;
         flex-direction: column;
         min-height: 250px;
         height: fit-content;
         width: 350px;
+        background: white;
         align-items: center;
         padding: 20px;
         margin-top: 100px;

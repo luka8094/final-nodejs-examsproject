@@ -3,7 +3,7 @@
 </script>
 
 <div>
-    <h2>transactions overview</h2>
+    <h2>Transactions overview</h2>
     <article>
         This section displays an overview of your recorded transactions history.
     </article>

@@ -92,8 +92,10 @@
 
     textarea{
         display: flex;
-        height: 100px;
-        width: 200px;
+        min-height: 100px;
+        max-height: 150px;
+        min-width: 200px;
+        max-width: 210px;
     }
 
     button{

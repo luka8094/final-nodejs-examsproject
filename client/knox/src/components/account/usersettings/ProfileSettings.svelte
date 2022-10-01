@@ -6,7 +6,7 @@
     }
 </script>
 <div>
-    <h2>profile settings</h2>
+    <h2>Profile settings</h2>
     <article>
         In this section you can edit your profile settings.
     </article>
@@ -41,9 +41,11 @@
     }
 
     textarea{
-        width: 400px;
+        max-width: 400px;
+        min-width: 300px;
         display: flex;
-        height: 120px;
+        min-height: 100px;
+        max-height: 150px;
     }
 
     button{

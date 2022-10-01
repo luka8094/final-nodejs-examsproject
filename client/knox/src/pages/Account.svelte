@@ -41,7 +41,7 @@
         min-height: 100vh;
         width: 100%;
         background: rgba(10,250,150,.5);
-        padding-top: calc(var(--menu-padding) + 20px);
+        padding-top: calc(var(--menu-padding) + 50px);
         align-items: center;
         justify-content: center;
     }

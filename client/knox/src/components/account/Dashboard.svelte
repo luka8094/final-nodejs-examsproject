@@ -67,7 +67,7 @@
         min-height: 700px;
         width: 1000px;
         background: rgba(100,150,50,.5);
-        margin: 0 auto 100px;
+        margin: 0 auto 10px;
     }
 
     #dashboard-container-title{
@@ -84,7 +84,7 @@
         display: flex;
         flex-direction: column;
         flex-flow: column;
-        height: 500px;
+        height: 550px;
         width: 200px;
         background: rgba(10,20,30,.5);
     }
@@ -107,6 +107,6 @@
         justify-content: center;
         border: none;
         border-radius: 0;
-        margin: auto 0 auto 10px;
+        margin: 10px 0 10px 10px;
     }
 </style>
