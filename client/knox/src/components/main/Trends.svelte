@@ -1,16 +1,20 @@
 <script>
+    import {toast} from "../ToastContainer.svelte"
     const testArray = [
         {id: 1, coin: "something 1"},
         {id: 2, coin: "something 2"},
         {id: 3, coin: "something 3"},
         {id: 4, coin: "something 4"},
     ]
+    function test(){
+        toast("why hello there.")
+    }
 </script>
 
 <section>
     Trending section
     <header id="trends-sorting-options">
-        <button>Alphabetical</button>
+        <button on:click={test}>Alphabetical</button>
         <button>Highest</button>
         <button>Lowest</button>
     </header>

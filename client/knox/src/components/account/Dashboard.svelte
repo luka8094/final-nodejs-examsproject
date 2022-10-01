@@ -4,6 +4,8 @@
     import MilestonesOverview from "./usersettings/MilestonesOverview.svelte"
     import TransactionsOverview from "./usersettings/TransactionsOverview.svelte"
     import PasswordSettings from "./usersettings/PasswordSettings.svelte"
+    import VisualModeSettings from "./usersettings/VisualModeSettings.svelte"
+    import LanguageSettings from "./usersettings/LanguageSettings.svelte"
     import Adminsettings from "./usersettings/Adminsettings.svelte"
 
     export let username, logout
@@ -25,6 +27,8 @@
             <button on:click={() => (choice = MilestonesOverview)}>Milestones</button>
             <button on:click={() => (choice = TransactionsOverview)}>Transactions</button>
             <button on:click={() => (choice = PasswordSettings)}>Password</button>
+            <button on:click={() => (choice = LanguageSettings)}>Password</button>
+            <button on:click={() => (choice = VisualModeSettings)}>Password</button>
         {#if $rootPrivilege}
             <button on:click={() => (choice = Adminsettings)}>Administrate</button>
         {/if}
@@ -68,6 +72,7 @@
         width: 1000px;
         background: rgba(100,150,50,.5);
         margin: 0 auto 10px;
+        box-shadow: 1px 1px 11px 1px;
     }
 
     #dashboard-container-title{

@@ -7,7 +7,6 @@
 
     const changePassword = async () =>{
         console.log("clicked change password button.")
-        console.log(currentPassword, newPassword)
         if(!currentPassword||!newPassword){ 
             return message = "Fields can not be empty."
         }
@@ -22,14 +21,13 @@
             })
         })
 
+        color = result.status === 200 ? "green" : "red"
+
         if(result.status === 200){
             const {data} = await result.json()
-            console.log(data)
-            color = "green"
             return message = data
         }
         if(result.status === 403){ 
-            color = "red"
             return message = "Permission denied"
         }
         else return message = "The password could not be changed.\nPlease try again later."

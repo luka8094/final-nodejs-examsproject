@@ -1,12 +1,10 @@
 <script>
-	import customToast from "../functionality/toasters"
 	import Navigation from "./components/Navigation.svelte"
-
-	let toaster
-	customToast(toaster)
+	import ToastContainer from "./components/ToastContainer.svelte"
 </script>
 
-<Navigation/>
+<Navigation />
+<ToastContainer />
 
 <style>
 	:root::-webkit-scrollbar{
