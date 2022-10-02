@@ -1,5 +1,5 @@
 <script>
-    import {toast} from "../ToastContainer.svelte"
+    import {toast} from "../../modules/ToastContainer.svelte"
     const testArray = [
         {id: 1, coin: "something 1"},
         {id: 2, coin: "something 2"},
@@ -7,7 +7,7 @@
         {id: 4, coin: "something 4"},
     ]
     function test(){
-        toast("why hello there.")
+        toast("hello")
     }
 </script>
 
