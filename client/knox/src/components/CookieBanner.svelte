@@ -1,8 +1,10 @@
 <script>
+    import {setCookie} from "svelte-cookie"
     let cookieConsent
     let accept = false
 
     function acceptCookies(){
+        setCookie("_kc", true)
         cookieConsent.style.display = "none"
     }
 </script>

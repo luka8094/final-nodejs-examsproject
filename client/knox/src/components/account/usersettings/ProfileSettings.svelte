@@ -1,7 +1,8 @@
 <script>
     import {account} from "../../../../stores/systemd"
     let description
-    const email = ""+$account.email
+    let email = $account.email+""
+    console.log(email)
 
     function saveProfile(){
         console.log("Clicked on 'save profile' button.")
@@ -10,9 +11,9 @@
 <div>
     <h2>Profile settings</h2>
     <article id="account-overview">
-        In this section you have a brief oveview of your account.
+        In this section you have a brief oveview of your account details.
         <p>name: {$account.name}</p>
-        <p>email: ********@{email}</p>
+        <p>email: ********@</p>
     </article>
     <article id="account-description">
         Add an optional profile description to your account and user profile.
@@ -37,6 +38,7 @@
         padding-bottom: 10px;
     }
 
+    #account-overview,
     #account-description{
         color: grey;
         word-break: break-word;
