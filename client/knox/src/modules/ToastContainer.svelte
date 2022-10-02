@@ -32,14 +32,6 @@
 </div>
 
 <style>
-    span{
-        display: flex;
-        position: relative;
-        height: fit-content;
-        width: 100%;
-        background: rgba(255,255,255,.5);
-    }
-
     #toast-container{
         display: flex;
         flex-direction: column;
@@ -59,6 +51,38 @@
         font-weight: 700;
         transform: rotateY(180);
         box-shadow: 1px 3px 10px 1px;
+    }
+
+    /*
+
+    TODO: 3D flipping toaster
+    #inner-toast-container{
+        display: flex;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        transform-style: preserve-3d;
+    }
+    #inner-toast-container-front,
+    #inner-toast-container-back{
+        height: 100%;
+        width: 100%;
+        transition: all 1s ease-in-out;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    #inner-toast-container-back{
+        background: grey;
+        transform: rotateY(180deg);
+    }*/
+
+    span{
+        display: flex;
+        position: relative;
+        height: fit-content;
+        width: 100%;
+        background: rgba(255,255,255,.5);
     }
 
     button{

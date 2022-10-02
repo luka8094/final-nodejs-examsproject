@@ -22,7 +22,7 @@
         } 
         if(result.status === 202){
             $user = true
-            toast("Login success! 👌")
+            toast("Login success! 👌","white")
             navigate("/account")
         }
         else return message = "the server is unavailable at the moment."
