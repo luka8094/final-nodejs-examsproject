@@ -190,6 +190,14 @@
         top: 3%;
     }
 
+
+    @media screen and (max-width: 1200px){
+        #splash-container{
+            height: 410px;
+        }
+    }
+
+
     @media screen and (max-width: 1000px){ 
         section{
             height: 110vh;

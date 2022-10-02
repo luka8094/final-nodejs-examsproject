@@ -2,6 +2,7 @@
     import {fade} from "svelte/transition"
     import {useNavigate} from "svelte-navigator"
     import {user} from "../../../stores/systemd"
+    import {toast} from "../../modules/ToastContainer.svelte"
     
     let email, password, message
     const navigate = useNavigate()
@@ -21,6 +22,7 @@
         } 
         if(result.status === 202){
             $user = true
+            toast("Login successful")
             navigate("/account")
         }
         else return message = "the server is unavailable at the moment."

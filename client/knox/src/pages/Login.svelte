@@ -1,16 +1,18 @@
 <script>
     //Background animation inspired by source: https://redstapler.co/css-animated-gradient-background/
     import LoginForm from "../components/account/LoginForm.svelte"
+    import Background from "../components/account/Background.svelte"
 </script>
 
 <section>
     <LoginForm/>
-    <div id="background-layer-two">
+    <!--<div id="background-layer-two">
         Wave
     </div>
     <div id="background-layer-one">
 
-    </div>
+    </div>-->
+    <Background />
 </section>
 
 <style>

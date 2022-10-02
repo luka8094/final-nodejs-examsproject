@@ -11,7 +11,8 @@
     export let username, logout
     let choice = ProfileSettings
 
-    $rootPrivilege = false
+    //TODO: IMPORTANT|WARNING - THIS REQUIRES A MORE ROBUST CONTROL VERIFICATION/VALIDATION THAN JUST SETTING 'TRUE' OR 'FALSE'
+    $rootPrivilege = true
 </script>
 
 <div id="dashboard-container">
@@ -27,8 +28,8 @@
             <button on:click={() => (choice = MilestonesOverview)}>Milestones</button>
             <button on:click={() => (choice = TransactionsOverview)}>Transactions</button>
             <button on:click={() => (choice = PasswordSettings)}>Password</button>
-            <button on:click={() => (choice = LanguageSettings)}>Password</button>
-            <button on:click={() => (choice = VisualModeSettings)}>Password</button>
+            <button on:click={() => (choice = LanguageSettings)}>Language</button>
+            <button on:click={() => (choice = VisualModeSettings)}>Visual mode</button>
         {#if $rootPrivilege}
             <button on:click={() => (choice = Adminsettings)}>Administrate</button>
         {/if}

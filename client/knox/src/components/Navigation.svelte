@@ -8,7 +8,7 @@
     import Main from '../pages/Main.svelte'
     import Account from '../pages/Account.svelte'
     import Subscriptions from '../pages/Subscriptions.svelte'
-    import Moneybag from "../pages/Moneybag.svelte"
+    import Cryptobag from "../pages/Cryptobag.svelte"
     import Chatroom from '../pages/Chatroom.svelte'
     import Chatrooms from '../pages/Chatrooms.svelte'
     import Login from '../pages/Login.svelte'
@@ -111,7 +111,7 @@
                             <Link to="chatrooms">Chatrooms</Link>
                         </div>
                         <div>
-                            <Link to="moneybag">Monyebag</Link>
+                            <Link to="cryptobag">Cryptobag</Link>
                         </div>
                     </div>
                 </div>
@@ -140,8 +140,8 @@
     <PrivateRoute path="/subscriptions">
         <Subscriptions/>
     </PrivateRoute>
-    <PrivateRoute path="/moneybag">
-        <Moneybag/>
+    <PrivateRoute path="/cryptobag">
+        <Cryptobag/>
     </PrivateRoute>
     <Route path="/unauthorized" component={AccessDenied}/>
     <Route path="/success" component={Success}/>    

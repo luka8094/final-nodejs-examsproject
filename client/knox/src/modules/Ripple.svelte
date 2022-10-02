@@ -1,10 +1,11 @@
-<script>
+<script context="module">
     function cursor(x, y){
         
     }
 </script>
 
-<div class="cursor">
+<div class="custom-cursor">
+
 </div>
 
 <style>
@@ -13,7 +14,7 @@
         z-index: 100;
     }
 
-    .cursor{
+    .custom-cursor{
         width: 2rem;
         height: 2rem;
         background-color: red;
