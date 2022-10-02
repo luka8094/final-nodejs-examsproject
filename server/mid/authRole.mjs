@@ -5,6 +5,8 @@ function authRole(role){
         if(res.user.role !== role){ 
            return res.status(401).send({data:"not allowed"})
         }
-        else next()
+        next()
     }
 }
+
+export default authRole

@@ -68,7 +68,7 @@
         display: flex;
         height: 100vh;
         width: 100%;
-        padding-top: 90px;
+        padding: 90px 0 50px 0;
         background: rgba(100,100,100,.5);
         justify-content: center;
         -webkit-scrollbar-track: transparent;

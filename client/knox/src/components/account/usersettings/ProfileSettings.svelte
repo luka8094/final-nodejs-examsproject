@@ -25,7 +25,6 @@
     div{
         display: flex;
         flex-direction: column;
-        width: 100%;
         height: 100%;
         padding-left: 20px;
         background: rgba(255,255,255,.5);
