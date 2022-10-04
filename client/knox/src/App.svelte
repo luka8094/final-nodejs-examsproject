@@ -7,11 +7,10 @@
 	$: cookieConsent = getCookie('_kc')
 </script>
 
-{@debug cookieConsent}
 <Navigation />
 <ToastContainer />
 
-{#if cookieConsent === null}
+{#if !cookieConsent}
 	<CookieBanner />
 {/if}
 

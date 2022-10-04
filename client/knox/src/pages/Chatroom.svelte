@@ -11,15 +11,16 @@
     let color
     
     $: if(message){
-        if(message.length <= 255 || message.length <= 0) color = "black"
-        else color = "red"
+        if(message.length <= 255 || message.length === 0) color = "black"
+        if(message.length === 255) color = "red"
     }
 
     function sendMessage(){
         console.log(message)
         message.trim()
         console.log(message.trim())
-        if(message.length === 0 || message.length > 255) return console.log("Message exceeds amount of allow characters.")
+        if(message.length === 0) return
+        if(message.length > 255) return console.log("Message exceeds amount of allow characters.")
         socket.emit("chatmessageSent", {data: {message: message, user: $account.username}})
 
         message = ''
@@ -48,8 +49,8 @@
         </div>
         <aside id="chat-panel-container">
             <div id="chat-panel">
-                <textarea bind:value={message} placeholder="Chat away!"></textarea>
-                <span style="color:{color}">{message ? message.length : 0}/225</span>
+                <textarea maxlength="255" bind:value={message} placeholder="Chat away!"></textarea>
+                <span style="color:{color}">{message ? message.length : 0}/255</span>
             </div>
             <button on:click={sendMessage}>send</button>
         </aside>

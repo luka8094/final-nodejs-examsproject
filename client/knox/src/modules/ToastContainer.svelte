@@ -3,9 +3,10 @@
     let toastContainer
     let toastMessage
 
-    export function toast(message){
+    export function toast(message, color){
         toastMessage.innerText = message
 
+        toastContainer.style.backgroundColor = color
         toastContainer.style.opacity = 1
         toastContainer.style.bottom = "50px"
         toastContainer.style.transform = "rotateY(360deg)"
@@ -39,7 +40,6 @@
         height: 60px;
         width: fit-content;
         padding: 10px;
-        background: rgba(255,255,255,1);
         border-radius: 0 0 0 15px;
         bottom: -100px;
         right: 50px;
@@ -87,6 +87,7 @@
 
     button{
         display: flex;
+        position: relative;
         height: 20px;
         width: 20px;
         margin-left: auto;

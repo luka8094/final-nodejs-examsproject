@@ -11,9 +11,9 @@
 
 <div bind:this={cookieConsent} id="cookie-banner-underlay">
     <div id="cookie-banner-container">
-        <p id="agreement-clause">Using this website you're consenting to the privacy and cookie policy detailed in the TOS provided by KNOX</p>
+        <p id="agreement-clause">Using this website you are consenting to the privacy and cookie policy as detailed in the TOS provided by KNOX</p>
         <div id="statement-container">
-            <p id="agreement-statement">I accept the terms and conditions of KNOX</p>
+            <p id="agreement-statement">I accept the terms and conditions</p>
             <input type="checkbox" bind:checked={accept}>
             <button on:click={acceptCookies} disabled={!accept}>
                 accept
