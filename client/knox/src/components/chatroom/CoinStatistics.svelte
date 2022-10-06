@@ -5,7 +5,8 @@
 
     let chart
 
-    const dummyData = [10,8,6,5,12,8,16,17,6,7,6,10]
+    const dummyData = [{x:0,y:10},{x:1,y:8},{x:1,y:6},{x:5,y:5},{x:100,y:12},
+    {x:80,y:8},{x:2,y:16},{x:1,y:17},{x:7,y:6},{x:10,y:7},{x:2,y:6},{x:10,y:10}]
 
     function subscribeWatch(){
         console.log("Clicked on 'subscribe to watch'.")
@@ -24,7 +25,11 @@
             "Jun","Jul","Aug","Sep", "Oct","Nov","Dec"],
             datasets: [{
                 label: "2015",
-                data: dummyData
+                data: dummyData,
+                backgroundColor: "white",
+                borderColor:"black",
+                fill: true,
+                radius: 1
             }]
         },
         options:{}
