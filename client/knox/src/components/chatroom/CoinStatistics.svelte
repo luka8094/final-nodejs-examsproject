@@ -1,18 +1,11 @@
 <script>
+    import {onMount} from "svelte"
+    import {Chart, registerables} from "chart.js"
+    Chart.register(...registerables)
+
     let chart
 
-    const dummyData = [
-        {X:10,y:0},
-        {X:0,y:10},
-        {X:100,y:9},
-        {X:20,y:31},
-        {X:150,y:100},
-        {X:200,y:150},
-        {X:50,y:60},
-        {X:70,y:90},
-        {X:100,y:110},
-        {X:200,y:10},
-    ]
+    const dummyData = [10,8,6,5,12,8,16,17,6,7,6,10]
 
     function subscribeWatch(){
         console.log("Clicked on 'subscribe to watch'.")
@@ -21,6 +14,21 @@
     function favourite(){
         console.log("Clicked on 'favourite'.")
     }
+    
+    onMount(() => {
+    const ctx = document.getElementById("coinChart")
+    const coinChart = new Chart(ctx, { 
+        type: 'line',
+        data:{ 
+            labels: ["Jan","Feb","Mar","apr","May",
+            "Jun","Jul","Aug","Sep", "Oct","Nov","Dec"],
+            datasets: [{
+                label: "2015",
+                data: dummyData
+            }]
+        },
+        options:{}
+    })})
 </script>
 
 <div>
@@ -29,7 +37,7 @@
         <button on:click={subscribeWatch}>add to subscriptions</button>
         <button on:click={favourite}>favourite</button>
     </div>
-    <canvas bind:this={chart} id="chart"></canvas>
+    <canvas id="coinChart"></canvas>
 </div>
 
 
@@ -59,10 +67,10 @@
         width: fit-content;
     }
 
-    #chart{
-        height: 350px;
-        width: 700px;
+    #coinChart{
         background: white;
         margin: 0 auto;
+        height: 600px;
+        width: 800px;
     }
 </style>

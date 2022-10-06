@@ -11,7 +11,7 @@
     let color
     
     $: if(message){
-        if(message.length <= 255 || message.length === 0) color = "black"
+        if(message.length <= 255 | message === '') color = "black"
         if(message.length === 255) color = "red"
     }
 
@@ -20,7 +20,6 @@
         message.trim()
         console.log(message.trim())
         if(message.length === 0) return
-        if(message.length > 255) return console.log("Message exceeds amount of allow characters.")
         socket.emit("chatmessageSent", {data: {message: message, user: $account.username}})
 
         message = ''
