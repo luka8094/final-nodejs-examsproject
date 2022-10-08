@@ -21,6 +21,8 @@ app.use(baseLimiter)
 
 import accountsRouter from "./routers/accountsRouter.mjs"
 import userRouter from "./routers/userRouter.mjs"
+import axiosRouter from "./routers/axiosRouter.mjs"
+app.use(axiosRouter)
 app.use(accountsRouter)
 app.use(userRouter)
 

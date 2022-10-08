@@ -26,10 +26,12 @@
 </script>
 
 <div bind:this={toastContainer} id="toast-container" in:fade out:fade>
-    <button on:click={hideToast}>
-        <div class="line line-one"></div>
-        <div class="line line-two"></div>
-    </button>
+    <div id="toast-button-container">
+        <button on:click={hideToast}>
+            <div class="line line-one"></div>
+            <div class="line line-two"></div>
+        </button>
+    </div>
     <span bind:this={toastMessage}></span>
 </div>
 
@@ -86,6 +88,12 @@
         background: transparent;
     }
 
+    #toast-button-container{
+        width: 20px;
+        height: 20px;
+        margin-left: auto;
+    }
+
     button{
         display: flex;
         position: relative;
@@ -106,14 +114,13 @@
 
     .line-one{
         transform: rotate(45deg);
-        top: 18%;
-        right: 11%;
+        top: 5%;
     }
 
     .line-two{
         transform: rotate(-45deg);
-        top: 18%;
-        right: 11%;
+        top: 5%;
+        right: 45%;
         outline: 1.5 solid lightgrey;
     }
 </style>

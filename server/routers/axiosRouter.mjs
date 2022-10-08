@@ -1,20 +1,20 @@
 import {Router} from "express"
-import axios from "axios"
+import * as CoinGecko from "coingecko-api"
 const axiosRouter = Router()
 
 axiosRouter.get("/api/coins", async (req, res) => {
-    const coins = axios.request({})
-    res.send({data: coins})
+    console.log(CoinGecko)
+    res.send({data: "test"})
 })
 
 axiosRouter.get("/api/coins:id", async (req, res) => {
-    const coin = axios.request({})
-    res.send({data: coin})
+    console.log(CoinGecko)
+    res.send({data: "text"})
 })
 
 axiosRouter.get("/api/coins/history", async (req, res) => {
-    const history = axios.request({})
-    res.send({data: history})
+    console.log(CoinGecko)
+    res.send({data: "test"})
 })
 
 

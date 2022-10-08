@@ -15,41 +15,45 @@
         console.log("Clicked on 'favourite'.")
     }
     
-    onMount(() => {
-    const ctx = chart.id
-    const coinChart = new Chart(ctx, { 
-        type: 'line',
-        data:{
-            datasets: [{
-                label: "Bitcoin",
-                data: dummyData,
-                backgroundColor: "white",
-                borderColor:"black",
-                spanGaps: true,
-                fill: true,
-                radius: 2.5,
-                tension: 0.2
-            }]
-        },
-        options:{
-            title: {
-                display: true,
-                text: (ctx) => 'Historical point: '+ ctx.chart.options.plugins.tooltip.position
+    onMount(async () => {
+        const result = await fetch("/api/coins")
+        console.log(result)    
+
+        const ctx = chart.id
+        const coinChart = new Chart(ctx, { 
+            type: 'line',
+            data:{
+                datasets: [{
+                    label: "Bitcoin",
+                    data: dummyData,
+                    backgroundColor: "white",
+                    borderColor:"black",
+                    spanGaps: true,
+                    fill: true,
+                    radius: 2.5,
+                    tension: 0.2
+                }]
             },
-            intersection:{
-                intersect: false,
-                mode: 'index'
-            },
-            plugins:{
-                legend: false
-            },
-            scales: {
-                x:{
-                    type: 'linear'
+            options:{
+                title: {
+                    display: true,
+                    text: (ctx) => 'Historical point: '+ ctx.chart.options.plugins.tooltip.position
+                },
+                intersection:{
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins:{
+                    legend: false
+                },
+                scales: {
+                    x:{
+                        type: 'linear'
+                    }
                 }
             }
-        }
-    })})
+        })
+    })
 </script>
 
 <div>
