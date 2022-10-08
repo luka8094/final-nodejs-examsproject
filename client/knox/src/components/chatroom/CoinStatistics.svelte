@@ -1,8 +1,10 @@
 <script>
+    //Progressive line chart inspired from source: https://www.youtube.com/watch?v=0_jpfai4_4A
     import {onMount} from "svelte"
-    import {Chart, registerables} from "chart.js"
+    import {Chart, LinearScale, registerables} from "chart.js"
     Chart.register(...registerables)
     let chart
+    export let coinId
 
     function subscribeWatch(){
         console.log("Clicked on 'subscribe to watch'.")
@@ -21,6 +23,8 @@
         console.log(prices[2][0].length , prices[1],  chartData)    
 
         const ctx = chart.id
+        const delay = 10000 / chartData.length
+        const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y
         const coinChart = new Chart(ctx, { 
             type: 'line',
             data:{
@@ -54,9 +58,30 @@
                         algorithm: 'min-max'
                     }
                 },
-                animations:{
-                    duration: 1000,
-                    easing: 'linear'
+                animation:{
+                    x:{
+                        type: 'number',
+                        easing: 'linear',
+                        duration: 10000,
+                        from: NaN,
+                        delay(ctx){
+                            if(ctx.type !== 'data' || ctx.xStarted) return 0
+                            ctx.xStarted = true
+                            return ctx.index * delay
+                        }
+                    },
+                    y:{
+                        type: 'number',
+                        easing: 'linear',
+                        duration: 10000,
+                        from: previousY,
+                        delay(ctx){
+                            if(ctx.type !== 'data' || ctx.yStarted) return 0
+                            ctx.yStarted = true
+                            return ctx.index * delay
+                        }
+
+                    }
                 },
                 scales: {
                     x:{
@@ -64,13 +89,10 @@
                         display: false,
                         grid:{
                             borderColor: "lightgrey"
-                        },
-                        ticks:{
-                            stepSize: 100_000_000
                         }
                     },
                     y: {
-                        display: false,
+                        display: false
                     }
 
                 }
