@@ -4,9 +4,6 @@
     Chart.register(...registerables)
     let chart
 
-    const dummyData = [{x:0,y:10},{x:1,y:8},{x:1,y:6},{x:5,y:5},{x:100,y:12},
-    {x:80,y:8},{x:2,y:16},{x:1,y:17},{x:7,y:6},{x:10,y:7},{x:2,y:6},{x:10,y:10}]
-
     function subscribeWatch(){
         console.log("Clicked on 'subscribe to watch'.")
     }
@@ -17,7 +14,10 @@
     
     onMount(async () => {
         const result = await fetch("/api/coins")
-        console.log(result)    
+        const {data} = await result.json()
+        const prices = data['prices']
+        const chartData = prices
+        console.log(data, prices, chartData)    
 
         const ctx = chart.id
         const coinChart = new Chart(ctx, { 
@@ -25,12 +25,12 @@
             data:{
                 datasets: [{
                     label: "Bitcoin",
-                    data: dummyData,
+                    data: chartData,
                     backgroundColor: "white",
                     borderColor:"black",
                     spanGaps: true,
                     fill: true,
-                    radius: 2.5,
+                    radius: 1.5,
                     tension: 0.2
                 }]
             },
@@ -48,15 +48,20 @@
                 },
                 scales: {
                     x:{
-                        type: 'linear'
+                        type: 'linear',
+                        display: false
+                    },
+                    y: {
+                        display: false
                     }
+
                 }
             }
         })
     })
 </script>
 
-<div>
+<div id="coin-statistics-container">
     Coin statisctics overview component
     <div id="subscription-options">
         <button on:click={subscribeWatch}>add to subscriptions</button>
@@ -82,7 +87,7 @@
 
 
 <style>
-    div{
+    #coin-statistics-container{
         display: flex;
         flex-direction: column;
         height: 600px;
@@ -111,7 +116,7 @@
         background: white;
         margin: 0 auto;
         height: 350px;
-        width: 700px;
+        width: 650px;
     }
 
     #coin-data{

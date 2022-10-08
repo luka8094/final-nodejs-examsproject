@@ -41,7 +41,9 @@
         if(!$user) navigate("/register", {state:{from: $location}, replace: true})
         else if($user) navigate("/account", {state:{from: $location}, replace: true})
     }
-</script>  
+</script>
+
+<svelte:window scrollY={0} />
 
 <section>
     <div id="splash-container">
