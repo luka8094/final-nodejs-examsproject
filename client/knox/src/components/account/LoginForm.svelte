@@ -18,14 +18,14 @@
         if(result.status === 401 ){ 
             const {data} = await result.json()
             console.log(data)
-            return message = toast(data+" 👎","")
+            return message = toast(data+" 👎",1)
         } 
         if(result.status === 202){
             $user = true
-            toast("Login success! 👌","")
+            toast("Login success! 👌",0)
             navigate("/account")
         }
-        else return message = toast("the server is unavailable at the moment. ⚠️","")
+        else return message = toast("the server is unavailable at the moment. ⚠️",1)
     }
 
 </script>

@@ -31,13 +31,13 @@ accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
 import ip from "ip"
 import CryptoJS from "crypto-js"
 accountsRouter.post("/api/login", authLimiter, async (req, res) => {
-    console.log(req.deactivate)
+    const loginAttempt = ip.address()
+    let attempts = []
+
     const account = await Account.findOne({email: req.body.email})
 
     if(!account) return res.status(401).send({data: "your email or password doesn't match"})
     if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){
-        const loginAttempt = ip.address()
-        let attempts = []
         let counter = 0
         attempts.push(loginAttempt)
         attempts.forEach(attempt => attempt === ip.address() ? counter++ : counter)
@@ -61,6 +61,7 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
 })
 
 import emailDispatch from "../utils/nodemailer.mjs"
+import bcrypt from "bcrypt"
 accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
     const exists = await Account.findOne({email: req.body.email})
 

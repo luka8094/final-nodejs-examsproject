@@ -2,7 +2,6 @@
     import {onMount} from "svelte"
     import {Chart, registerables} from "chart.js"
     Chart.register(...registerables)
-
     let chart
 
     const dummyData = [{x:0,y:10},{x:1,y:8},{x:1,y:6},{x:5,y:5},{x:100,y:12},
@@ -17,22 +16,39 @@
     }
     
     onMount(() => {
-    const ctx = document.getElementById("coinChart")
+    const ctx = chart.id
     const coinChart = new Chart(ctx, { 
         type: 'line',
-        data:{ 
-            labels: ["Jan","Feb","Mar","apr","May",
-            "Jun","Jul","Aug","Sep", "Oct","Nov","Dec"],
+        data:{
             datasets: [{
-                label: "2015",
+                label: "Bitcoin",
                 data: dummyData,
                 backgroundColor: "white",
                 borderColor:"black",
+                spanGaps: true,
                 fill: true,
-                radius: 1
+                radius: 2.5,
+                tension: 0.2
             }]
         },
-        options:{}
+        options:{
+            title: {
+                display: true,
+                text: (ctx) => 'Historical point: '+ ctx.chart.options.plugins.tooltip.position
+            },
+            intersection:{
+                intersect: false,
+                mode: 'index'
+            },
+            plugins:{
+                legend: false
+            },
+            scales: {
+                x:{
+                    type: 'linear'
+                }
+            }
+        }
     })})
 </script>
 
@@ -42,7 +58,22 @@
         <button on:click={subscribeWatch}>add to subscriptions</button>
         <button on:click={favourite}>favourite</button>
     </div>
-    <canvas id="coinChart"></canvas>
+    <canvas bind:this={chart} id="coinChart"></canvas>
+    coin stats
+    <div id="coin-data">
+       <div class="coin-data-container">
+        price
+       </div>
+       <div class="coin-data-container">
+        trend
+       </div>
+       <div class="coin-data-container">
+        volume
+       </div>
+       <div class="coin-data-container">
+        market cap
+       </div>
+    </div>
 </div>
 
 
@@ -75,7 +106,25 @@
     #coinChart{
         background: white;
         margin: 0 auto;
-        height: 600px;
-        width: 800px;
+        height: 350px;
+        width: 700px;
+    }
+
+    #coin-data{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        height: 300px;
+        width: 100%;
+        background: rgba(0,150,151,.5);
+    }
+
+    .coin-data-container{
+        display: flex;
+        height: 70px;
+        width: 250px;
+        background: rgba(255,255,255,.5);
+        align-self: center;
+        justify-self: center;
     }
 </style>

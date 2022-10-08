@@ -2,11 +2,12 @@
     import {fade} from "svelte/transition"
     let toastContainer
     let toastMessage
+    const options = ["white","tomato","lightgren"]
 
-    export function toast(message, color){
+    export function toast(message, option){
         toastMessage.innerText = message
 
-        toastContainer.style.backgroundColor = color
+        toastContainer.style.backgroundColor = options[option]
         toastContainer.style.opacity = 1
         toastContainer.style.bottom = "50px"
         toastContainer.style.transform = "rotateY(360deg)"
@@ -82,7 +83,7 @@
         position: relative;
         height: fit-content;
         width: 100%;
-        background: rgba(255,255,255,.5);
+        background: transparent;
     }
 
     button{

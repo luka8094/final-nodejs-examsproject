@@ -14,7 +14,7 @@
     <div id="coin-image"></div>
     <div id="chatroom-description">
         <p>{description}</p>
-        <a on:click={forward}>enter {number}</a>
+        <button on:click={forward}>Join {number}</button>
     </div>
 </div>
 
@@ -50,7 +50,7 @@
         background: rgba(50,50,50,.5);
     }
 
-    a{
+    button{
         display: flex;
         align-self: center;
         width: 100%;
@@ -59,7 +59,7 @@
         background: rgba(10,10,10,.1);
     }
 
-    a:hover{
+    button:hover{
         text-decoration: underline;
     }
 </style>
