@@ -13,11 +13,12 @@
     }
     
     onMount(async () => {
-        const result = await fetch("/api/coins")
+        const coinId = 'bitcoin'
+        const result = await fetch(`/api/coins${coinId}`)
         const {data} = await result.json()
         const prices = data['prices']
         const chartData = prices
-        console.log(data, prices, chartData)    
+        console.log(prices[2][0].length , prices[1],  chartData)    
 
         const ctx = chart.id
         const coinChart = new Chart(ctx, { 
@@ -25,34 +26,51 @@
             data:{
                 datasets: [{
                     label: "Bitcoin",
-                    data: chartData,
+                    data: prices,
                     backgroundColor: "white",
-                    borderColor:"black",
-                    spanGaps: true,
-                    fill: true,
+                    borderWidth: 1,
+                    borderColor:"dimgrey",
                     radius: 1.5,
-                    tension: 0.2
+                    pointHoverRadius: 5,
+                    tension: 0
                 }]
             },
             options:{
                 title: {
                     display: true,
-                    text: (ctx) => 'Historical point: '+ ctx.chart.options.plugins.tooltip.position
+                    text: (ctx) => 'Coin history point: '+ ctx.chart.options.plugins.tooltip.position
                 },
                 intersection:{
                     intersect: false,
-                    mode: 'index'
+                    mode: 'nearest'
+                },
+                layout:{
+                    padding: 0
                 },
                 plugins:{
-                    legend: false
+                    legend: false,
+                    decimation: {
+                        enabled: false,
+                        algorithm: 'min-max'
+                    }
+                },
+                animations:{
+                    duration: 1000,
+                    easing: 'linear'
                 },
                 scales: {
                     x:{
                         type: 'linear',
-                        display: false
+                        display: false,
+                        grid:{
+                            borderColor: "lightgrey"
+                        },
+                        ticks:{
+                            stepSize: 100_000_000
+                        }
                     },
                     y: {
-                        display: false
+                        display: false,
                     }
 
                 }
