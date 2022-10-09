@@ -22,8 +22,7 @@
         } 
         if(result.status === 202){
             const {login} = await result.json()
-            console.log(result.login, login)
-            $user = true
+            $user = login
             toast("Login success! 👌",0)
             navigate("/account")
         }

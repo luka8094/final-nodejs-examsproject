@@ -10,10 +10,8 @@ const currentDate = new Date().toLocaleDateString().replaceAll('.','-')
 
 coinGeckoRouter.get("/api/coins:id", async (req, res) => {
     const COIN_ID = req.params.id
-    console.log(client)
-    const data = await client.coinId(COIN_ID)
-    console.log(data)
-    res.send({data: data.data})
+    const data = await client.coinIdMarketChart({id: COIN_ID, vs_currency: 'eur', days: 7})
+    res.send({data: data})
 })
 
 coinGeckoRouter.get("/api/coins", async (req, res) => {
@@ -28,7 +26,6 @@ coinGeckoRouter.get("/api/coins/history", async (req, res) => {
 
 
 coinGeckoRouter.get("/api/coins/trending", async (req, res) => {
-    console.log(client)
     const trend = await client.trending()
     res.send({data: trend.coins})
 })

@@ -86,6 +86,8 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
 })  
 
 accountsRouter.delete("/api/logout", (req, res) => {
+    delete req.login
+    
     res.cookie('jwt', {maxAge: 0})
     res.sendStatus(202)
 })

@@ -10,7 +10,6 @@
         const {data} = await result.json()
         trendingTest = data
         $trending = data
-        console.log(trendingTest, $trending)
     })
 
     console.log(trendingTest)
@@ -56,6 +55,11 @@
         align-items: center;
     }
 
+    h1{
+        width: 100%;
+        margin: 0 25px;
+    }
+
     #trends-sorting-options button:nth-child(1){
         margin-right: 20px;
     }
@@ -72,5 +76,6 @@
         /*background: rgba(100,100,10,.5);*/
         height: fit-content;
         margin: auto;
+        padding-top: 20px;
     }
 </style>

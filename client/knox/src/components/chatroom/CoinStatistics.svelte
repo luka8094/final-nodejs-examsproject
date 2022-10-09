@@ -1,7 +1,7 @@
 <script>
     //Progressive line chart animation inspired from source: https://www.youtube.com/watch?v=0_jpfai4_4A
-    import {onMount, tick} from "svelte"
-    import {Chart, LinearScale, registerables, Ticks} from "chart.js"
+    import {onMount} from "svelte"
+    import {Chart, registerables} from "chart.js"
     Chart.register(...registerables)
     let chart
     export let coinId
@@ -18,12 +18,10 @@
         const coinId = 'bitcoin'
         const result = await fetch(`/api/coins${coinId}`)
         const {data} = await result.json()
-        const prices = data['prices']
-        const chartData = prices
-        console.log(prices[2][0].length , prices[1],  chartData)    
+        const {prices} = data
 
         const ctx = chart.id
-        const delay = 5000 / chartData.length
+        const delay = 5000 / prices.length
         const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y
         const coinChart = new Chart(ctx, { 
             type: 'line',
@@ -90,8 +88,8 @@
                             borderColor: "lightgrey",
                           
                         },
-                        min: chartData[0][0],
-                        max: chartData[chartData.length -1 ][0]
+                        min: prices[0][0],
+                        max: prices[prices.length -1 ][0]
                     },
                     y: {
                         display: false,
@@ -109,7 +107,12 @@
         <button on:click={subscribeWatch}>add to subscriptions</button>
         <button on:click={favourite}>favourite</button>
     </div>
-    <canvas bind:this={chart} id="coinChart" height="350" width="650"></canvas>
+    <div id="coin-chart-container">
+        <canvas bind:this={chart} id="coinChart" height="350" width="650"></canvas>
+        <div id="refresh-effect-background">
+            <div id="refresh-bar"></div>
+        </div>
+    </div>
     coin stats
     <div id="coin-data">
        <div class="coin-data-container">
@@ -154,11 +157,42 @@
         width: fit-content;
     }
 
+    #coin-chart-container{
+        display: flex;
+        position: relative;
+        width: 650px;
+        height: 100%;
+        justify-content: center;
+        margin: auto;
+    }
+    
     #coinChart{
+        position: absolute;
         background: rgba(255,255,255,.1);
         margin: 0 auto;
         height: 350px;
         width: 650px;
+        z-index: 10;
+    }
+
+    #refresh-effect-background{
+        display: flex;
+        position: absolute;
+        height: 100%;
+        width: 600px;
+        background: rgba(50,100,150,.5);
+        overflow: hidden;
+    }
+
+    #refresh-bar{
+        display: flex;
+        position: relative;
+        height: 500px;
+        width: 20px;
+        opacity: 0;
+        background: white;
+        left: -10px;
+        animation: refresh 5s infinite;
     }
 
     #coin-data{
@@ -177,5 +211,17 @@
         background: rgba(255,255,255,.5);
         align-self: center;
         justify-self: center;
+    }
+
+    @keyframes
+    refresh {
+        0%{
+            left: -100px;
+            opacity: 1;
+        }
+        100%{
+            left: 600px;
+            opacity: 0;
+        }
     }
 </style>
