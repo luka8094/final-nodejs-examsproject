@@ -188,9 +188,9 @@
         display: flex;
         position: relative;
         height: 500px;
-        width: 20px;
+        width: 30px;
         opacity: 0;
-        background: white;
+        background: linear-gradient(-90deg, white, transparent, transparent);
         left: -10px;
         animation: refresh 5s infinite;
     }
@@ -220,7 +220,7 @@
             opacity: 1;
         }
         100%{
-            left: 600px;
+            left: 700px;
             opacity: 0;
         }
     }

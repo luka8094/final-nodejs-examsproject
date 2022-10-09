@@ -58,12 +58,6 @@
 </section>
 
 <style>
-    :root::-webkit-scrollbar{
-		display: none;
-		width: 9px;
-		background: rgba(50,50,50,.0001);
-	}
-
     #chatroom-container{
         display: flex;
         height: 100vh;
