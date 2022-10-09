@@ -1,7 +1,7 @@
 <script>
-    //Progressive line chart inspired from source: https://www.youtube.com/watch?v=0_jpfai4_4A
-    import {onMount} from "svelte"
-    import {Chart, LinearScale, registerables} from "chart.js"
+    //Progressive line chart animation inspired from source: https://www.youtube.com/watch?v=0_jpfai4_4A
+    import {onMount, tick} from "svelte"
+    import {Chart, LinearScale, registerables, Ticks} from "chart.js"
     Chart.register(...registerables)
     let chart
     export let coinId
@@ -23,7 +23,7 @@
         console.log(prices[2][0].length , prices[1],  chartData)    
 
         const ctx = chart.id
-        const delay = 10000 / chartData.length
+        const delay = 5000 / chartData.length
         const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y
         const coinChart = new Chart(ctx, { 
             type: 'line',
@@ -31,7 +31,7 @@
                 datasets: [{
                     label: "Bitcoin",
                     data: prices,
-                    backgroundColor: "white",
+                    backgroundColor: "rgba(0,0,0,.5)",
                     borderWidth: 1,
                     borderColor:"dimgrey",
                     radius: 1.5,
@@ -49,14 +49,13 @@
                     mode: 'nearest'
                 },
                 layout:{
-                    padding: 0
+                    padding: {
+                        left: 0,
+                        right: 0
+                    }
                 },
                 plugins:{
-                    legend: false,
-                    decimation: {
-                        enabled: false,
-                        algorithm: 'min-max'
-                    }
+                    legend: false
                 },
                 animation:{
                     x:{
@@ -88,13 +87,16 @@
                         type: 'linear',
                         display: false,
                         grid:{
-                            borderColor: "lightgrey"
-                        }
+                            borderColor: "lightgrey",
+                          
+                        },
+                        min: chartData[0][0],
+                        max: chartData[chartData.length -1 ][0]
                     },
                     y: {
-                        display: false
+                        display: false,
+                        offset: false
                     }
-
                 }
             }
         })
@@ -107,7 +109,7 @@
         <button on:click={subscribeWatch}>add to subscriptions</button>
         <button on:click={favourite}>favourite</button>
     </div>
-    <canvas bind:this={chart} id="coinChart"></canvas>
+    <canvas bind:this={chart} id="coinChart" height="350" width="650"></canvas>
     coin stats
     <div id="coin-data">
        <div class="coin-data-container">
@@ -153,7 +155,7 @@
     }
 
     #coinChart{
-        background: white;
+        background: rgba(255,255,255,.1);
         margin: 0 auto;
         height: 350px;
         width: 650px;

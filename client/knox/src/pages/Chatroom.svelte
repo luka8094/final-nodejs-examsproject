@@ -40,9 +40,9 @@
         <div id="chatlog-history">
             {#each chatroomMessages as data}
                 {#if data.user === $account.username}
-                    <Chatmessage user={"you"} message={data.message} placement={"margin-left:auto; border-radius: 50px 0 50px 50px;"} />
+                    <Chatmessage user={"you"} message={data.message} placement={"margin-left:auto; border-radius: 35px 0 50px 50px;"} />
                 {:else}
-                    <Chatmessage message={data.message} placement={"margin-right:auto; border-radius: 0 50px 50px 50px;"}/>
+                    <Chatmessage message={data.message} placement={"margin-right:auto; border-radius: 0 35px 50px 50px;"}/>
                 {/if}
             {/each}
         </div>

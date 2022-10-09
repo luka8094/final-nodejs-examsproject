@@ -56,7 +56,7 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
 
         res.cookie('jwt', token, {httpOnly: true, maxAge: 2 * 60 * 1000})
-        res.sendStatus(202)
+        res.status(202).send({login: true})
     }
 })
 
@@ -78,7 +78,7 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
         console.log(sentMail)
         delete req.body
         const saved = await newAccount.save()
-
+        
         if(saved)res.status(201).send({data: saved})
         else res.sendStatus(503)
     }

@@ -4,7 +4,7 @@
     export let placement
 </script>
 <div id="chatmessage-container" style="{placement}">
-    <div id="chatmessage-container-user"><p>{user} wrote:</p></div>
+    <div id="chatmessage-container-user"><p><b>{user}</b> wrote:</p></div>
     <div id="chatmessage-container-message"><p>{message}</p></div>
 </div>
 <style>

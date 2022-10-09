@@ -1,23 +1,39 @@
 <script>
-    const testArray = [
-        {id: 1, coin: "something 1"},
-        {id: 2, coin: "something 2"},
-        {id: 3, coin: "something 3"},
-        {id: 4, coin: "something 4"},
-    ]
+    import {onMount} from "svelte"
+    import TrendingContainer from "./TrendingContainer.svelte"
+    import {trending} from "../../../stores/systemd"
+
+    $: trendingTest = []
+
+    onMount(async() => {
+        const result = await fetch("/api/coins/trending")
+        const {data} = await result.json()
+        trendingTest = data
+        $trending = data
+        console.log(trendingTest, $trending)
+    })
+
+    console.log(trendingTest)
 </script>
 
 <section>
-    Trending section
-    <header id="trends-sorting-options">
-        <button>Alphabetical</button>
+    <header id="trends-section-title">
+        <h1>Currently trending</h1>
+        <!--<button>Alphabetical</button>
         <button>Highest</button>
-        <button>Lowest</button>
+        <button>Lowest</button>-->
     </header>
     <div id="coin-ranking-container">
-        {#each testArray as coinTest}
-            <p>{coinTest.id} {coinTest.coin}</p>
-        {/each}
+        {#each $trending as coinTest, i}
+            <TrendingContainer  
+            position={i}
+            image={coinTest.item.large}
+            marketRank={coinTest.item.market_cap_rank}
+            name={coinTest.item.name} 
+            symbol={coinTest.item.symbol}
+            price={coinTest.item.price_btc}
+            />
+        {/each}    
     </div>
 </section>
 
@@ -25,18 +41,18 @@
     section{
         display: flex;
         flex-direction: column;
-        height: 60vh;
+        height: fit-content;
         width: 100%;
-        background: rgba(10,20,30,.5);
+        /*background: rgba(10,20,30,.5);*/
+        padding-bottom: 50px;
     }
 
-    #trends-sorting-options{
+    #trends-section-title{
         display: flex;
-        flex-direction: row-reverse;
         height: 50px;
         width: calc(100% - 50px);
         margin: auto;
-        background: rgba(120,100,120,.5);
+        /*background: rgba(120,100,120,.5);*/
         align-items: center;
     }
 
@@ -53,18 +69,8 @@
         display: flex;
         flex-direction: column;
         width: calc(100% - 50px);
-        background: rgba(100,100,10,.5);
+        /*background: rgba(100,100,10,.5);*/
         height: fit-content;
         margin: auto;
-    }
-
-    p{
-        display: flex;
-        height: 50px;
-        width: calc(100% - 60px);
-        margin: 10px auto;
-        background: aliceblue;
-        border-radius: 20px;
-        padding: 5px;
     }
 </style>
