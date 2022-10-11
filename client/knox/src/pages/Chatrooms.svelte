@@ -1,13 +1,19 @@
 <script>
+    import {onMount} from "svelte"
     import ChatroomLinkBox from "../components/chatrooms/ChatroomLinkBox.svelte"
 
+    onMount(async () => {
+        const result = await fetch("/api/coins")
+        const {data} = await result.json()
+        console.log(data)
+    })
     let testElements = [1,2,3,4,5,6,7,8,9,10]
 </script>
 <section>
     <h1>Chatrooms</h1>
     <div id="chatrooms-overview-container">
-        {#each testElements as element, i}
-            <ChatroomLinkBox number={i} />
+        {#each testElements as element}
+            <ChatroomLinkBox number={element} />
         {/each}
     </div>
 </section>

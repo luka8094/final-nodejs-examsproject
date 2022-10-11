@@ -133,8 +133,8 @@
         <PrivateRoute path="/">
             <Chatrooms/>
         </PrivateRoute>
-        <PrivateRoute id=":id">
-            <Chatroom/>   
+        <PrivateRoute id=":id" let:params>
+            <Chatroom COIN_ID={params.id}/>   
         </PrivateRoute>
     </PrivateRoute>
     <PrivateRoute path="/subscriptions">

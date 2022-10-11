@@ -1,10 +1,12 @@
 <script>
-    export let user = "guest"
+    export let user
     export let message
-    export let placement
+    export let placement = "border-radius: 50px 50px 50px 50px"
 </script>
 <div id="chatmessage-container" style="{placement}">
-    <div id="chatmessage-container-user"><p><b>{user}</b> wrote:</p></div>
+    {#if user !== undefined}
+        <div id="chatmessage-container-user"><p><b>{user}</b> wrote:</p></div>
+    {/if}
     <div id="chatmessage-container-message"><p>{message}</p></div>
 </div>
 <style>

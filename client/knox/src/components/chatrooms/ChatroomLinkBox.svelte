@@ -1,12 +1,12 @@
 <script>
     import {useNavigate} from "svelte-navigator"
     
-    export let number
+    export let coin, image, symbol
     let description = "This is a description placeholder for the cryptocurrency coin."
     let navigate = useNavigate() 
 
     function forward(){
-        navigate(`/chatrooms/:${number}`, {replace: true})
+        navigate(`/chatrooms/:${coin}`, {replace: true})
     }
 </script>
 
@@ -14,7 +14,7 @@
     <div id="coin-image"></div>
     <div id="chatroom-description">
         <p>{description}</p>
-        <button on:click={forward}>Join {number}</button>
+        <button on:click={forward}>Join {coin}</button>
     </div>
 </div>
 

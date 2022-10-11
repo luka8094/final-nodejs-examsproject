@@ -4,7 +4,7 @@
     import {Chart, registerables} from "chart.js"
     Chart.register(...registerables)
     let chart
-    export let coinId
+    export let coinName
 
     function subscribeWatch(){
         console.log("Clicked on 'subscribe to watch'.")
@@ -15,6 +15,7 @@
     }
     
     onMount(async () => {
+        console.log(coinName)
         const coinId = 'bitcoin'
         const result = await fetch(`/api/coins${coinId}`)
         const {data} = await result.json()
@@ -26,6 +27,7 @@
         const coinChart = new Chart(ctx, { 
             type: 'line',
             data:{
+                labels:["1","2","3","4","5","6","7"],
                 datasets: [{
                     label: "Bitcoin",
                     data: prices,

@@ -6,6 +6,7 @@
     import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
 
     const socket = io()
+    export let COIN_ID
     let message
     let chatroomMessages = []
     let color
@@ -14,6 +15,12 @@
         if(message.length <= 255 | message === '') color = "black"
         if(message.length === 255) color = "red"
     }
+
+    socket.on("connect", () => {
+        console.log("Weclome %s. Your socket id is: &s", $account.username, socket.id)
+        const message = `${$account.username} has joined the chatroom. Say hi!`
+        socket.emit("chatmessageSent", {data: {message: message, user: undefined}})
+    })
 
     function sendMessage(){
         console.log(message)
@@ -29,6 +36,12 @@
         chatroomMessages.push(data)
         chatroomMessages = chatroomMessages
     })
+
+    socket.on("disconnect", () =>{
+        console.log(socket.id)
+        const message = `${$account.username} has left the chatroom.`
+        socket.emit("chatmessageSent",{data: {message: message, user: undefined}})
+    })
 </script>
 
 <section id="chatroom-container">
@@ -39,10 +52,12 @@
         <h2>Welcome to the room</h2>
         <div id="chatlog-history">
             {#each chatroomMessages as data}
-                {#if data.user === $account.username}
+                {#if data.user === undefined}
+                    <Chatmessage user={undefined} message={data.message} placement={"border-radius: 10px 10px 10px 10px;"}/>
+                {:else if data.user === $account.username}
                     <Chatmessage user={"you"} message={data.message} placement={"margin-left:auto; border-radius: 35px 0 50px 50px;"} />
-                {:else}
-                    <Chatmessage message={data.message} placement={"margin-right:auto; border-radius: 0 35px 50px 50px;"}/>
+                {:else if data.user !== $account.username}
+                    <Chatmessage user={data.user} message={data.message} placement={"margin-right:auto; border-radius: 0 35px 50px 50px;"}/>
                 {/if}
             {/each}
         </div>
@@ -54,7 +69,7 @@
             <button on:click={sendMessage}>send</button>
         </aside>
     </aside>
-    <CoinStatistics/>
+    <CoinStatistics coinName={COIN_ID}/>
 </section>
 
 <style>

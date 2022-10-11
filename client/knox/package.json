@@ -23,6 +23,7 @@
     "gsap": "^3.11.1",
     "sirv-cli": "^2.0.0",
     "socket.io-client": "^4.5.2",
+    "stripe": "^10.13.0",
     "svelte-cookie": "^1.0.1",
     "svelte-navigator": "^3.2.2",
     "svelte-stripe": "^0.0.19",
