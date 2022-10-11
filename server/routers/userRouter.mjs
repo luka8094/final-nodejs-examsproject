@@ -48,4 +48,10 @@ userRouter.patch("/api/password", async (req,res) =>{
     else return res.sendStatus(403)
 })
 
+userRouter.post("/api/payment", async (req, res) => {
+    const {number, month, year, cvc} = req.body
+
+    res.send({data:"connected to the payment endpoint"})
+})
+
 export default userRouter
