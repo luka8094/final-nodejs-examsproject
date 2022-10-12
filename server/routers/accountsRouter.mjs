@@ -9,6 +9,7 @@ accountsRouter.get("/api/users", authLimiter, async (req, res) => {
     res.send({data: result})
 })
 
+/*
 import jsonwebtoken from "jsonwebtoken"
 const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
 accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
@@ -29,7 +30,9 @@ accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
 })
 
 import ip from "ip"
+*/
 import CryptoJS from "crypto-js"
+/*
 accountsRouter.post("/api/login", authLimiter, async (req, res) => {
     const loginAttempt = ip.address()
     let attempts = []
@@ -59,37 +62,56 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
         res.status(202).send({login: true})
     }
 })
-
-import emailDispatch from "../utils/nodemailer.mjs"
+*/
+import fs from "fs"
+import path from "path"
 import bcrypt from "bcrypt"
+import ROLES from "../data/presets/ROLES.mjs"
+import emailDispatch from "../utils/nodemailer.mjs"
+import UserSettings from "../model/settings.mjs"
+const {AES_KEY_A, AES_KEY_B} = process.env
+const {SALT_ROUNDS} = process.env
 accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
-    const exists = await Account.findOne({email: req.body.email})
+            const exists = await Account.findOne({email: req.body.email})
+            console.log(exists)
+        if(!exists){
+            const fullname = req.body.firstname.concat(" ", req.body.lastname)
+            const ROLE = await Account.find({}).count() === 0 ? ROLES.ADMIN : ROLES.USER
+            console.log(ROLE)
+            const newAccount = new Account({
+                name: CryptoJS.AES.encrypt(fullname, AES_KEY_A).toString(),
+                username: CryptoJS.AES.encrypt(req.body.username, AES_KEY_B).toString(), 
+                email: req.body.email, 
+                password: await bcrypt.hash(req.body.password,  Number(SALT_ROUNDS)),
+                role: await bcrypt.hash(ROLE, Number(SALT_ROUNDS))
+            })
 
-    if(!exists){
-        const fullname = req.body.firstname.concat(" ", req.body.lastname)
-        const newAccount = new Account({
-            name: CryptoJS.AES.encrypt(fullname, AES_KEY_A).toString(),
-            username: CryptoJS.AES.encrypt(req.body.username, AES_KEY_B).toString(), 
-            email: req.body.email, 
-            password: CryptoJS.AES.encrypt(req.body.password, AES_KEY_C).toString()
-        })
+            //const sentMail = await emailDispatch(req.body.email).catch(console.error)
+            //console.log(sentMail)
+            delete req.body
+            const {_id, ...savedAccount} = await newAccount.save()
 
-        const sentMail = await emailDispatch(req.body.email).catch(console.error)
-        console.log(sentMail)
-        delete req.body
-        const saved = await newAccount.save()
-        
-        if(saved)res.status(201).send({data: saved})
-        else res.sendStatus(503)
-    }
+            if(savedAccount){
+                const MILESTONES = fs.readFileSync(path.resolve("./data/presets/milestones.json"))
+                const proppedAccount = await Account.findByIdAndUpdate({"_id": _id},{$push:{userSettings:{milestones: MILESTONES}}})
+
+                console.log("Milestones %s.", MILESTONES)
+                console.log("account: %s ", proppedAccount)
+
+                if(proppedAccount)res.status(201).send({data: proppedAccount})
+                else res.sendStatus(503)
+            }
+        }
     else res.sendStatus(409)
 })  
 
+/*
 accountsRouter.delete("/api/logout", (req, res) => {
     delete req.login
     
     res.cookie('jwt', {maxAge: 0})
     res.sendStatus(202)
 })
+*/
 
 export default accountsRouter

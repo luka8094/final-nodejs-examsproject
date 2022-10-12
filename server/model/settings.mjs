@@ -6,7 +6,7 @@ const userSettingsSchema = new mongoose.Schema({
             required: true,
         },
         milestones:{
-            type: [],
+            type: Array,
             required: true
         },
         description:{
