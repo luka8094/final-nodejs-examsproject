@@ -36,7 +36,8 @@ const accountsSchema = new mongoose.Schema({
         },
         role:{
             type: String,
-            required: true
+            required: true,
+            select: false
         },
         userSettings: userSettingsSchema
     },

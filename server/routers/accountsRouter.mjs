@@ -1,4 +1,5 @@
 import {Router} from "express"
+import {Blob} from "buffer"
 const accountsRouter = Router()
 
 import "dotenv/config"
@@ -10,8 +11,7 @@ accountsRouter.get("/api/users", authLimiter, async (req, res) => {
 })
 
 import jsonwebtoken from "jsonwebtoken"
-const {JWT_TOKEN_KEY, AES_KEY_C} = process.env
-/*
+const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
 accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     const cookie = req.cookies['jwt']
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
@@ -19,17 +19,19 @@ accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     if(!claims) return res.status(403).send({message: "unauthenticated"})
 
     const user = await Account.findOne({_id: claims._id})
-
+    console.log(user)
     if(!user) return res.status(401).send({message: "unauthenticated"})
-    const {password, createdAt, updatedAt,_id,__v,...data} = user.toJSON()
-
+    const {...data} = user.toJSON()
     data.name = CryptoJS.AES.decrypt(data.name, AES_KEY_A).toString(CryptoJS.enc.Utf8)
     data.username = CryptoJS.AES.decrypt(data.username, AES_KEY_B).toString(CryptoJS.enc.Utf8)
+    data.userSettings.milestones = JSON.parse(data.userSettings.milestones.toString())
+    if(data.userSettings.description) data.userSettings.description = data.userSettings.description.toString()
+    if(data.userSettings.preferences) data.userSettings.preferences = data.userSettings.preferences.toString()
+    console.log(data)
 
     return res.status(201).send({data})
 })
 
-*/
 import ip from "ip"
 import CryptoJS from "crypto-js"
 import bcrypt from "bcrypt"
@@ -55,6 +57,7 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
         }
         attempts = attempts
     }else{
+        delete account.password
         delete req.body
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
 
@@ -67,8 +70,7 @@ import fs from "fs"
 import path from "path"
 import ROLES from "../data/presets/ROLES.mjs"
 import emailDispatch from "../utils/nodemailer.mjs"
-import UserSettings from "../model/settings.mjs"
-const {AES_KEY_A, AES_KEY_B} = process.env
+//import UserSettings from "../model/settings.mjs"
 const {SALT_ROUNDS} = process.env
 accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
             const exists = await Account.findOne({email: req.body.email})
@@ -91,7 +93,7 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
 
             if(savedAccount){
                 const MILESTONES = fs.readFileSync(path.resolve("./data/presets/milestones.json"))
-                const proppedAccount = await Account.findByIdAndUpdate({_id: _id},{$push:{userSettings:{milestones: MILESTONES}}})
+                const proppedAccount = await Account.findByIdAndUpdate({_id: _id},{userSettings: {milestones: MILESTONES}})
 
                 if(proppedAccount)res.status(201).send({data: proppedAccount})
                 else res.sendStatus(503)
@@ -100,13 +102,10 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
     else res.sendStatus(409)
 })  
 
-/*
-accountsRouter.delete("/api/logout", (req, res) => {
-    delete req.login
-    
+accountsRouter.delete("/api/logout", (req, res) => {    
     res.cookie('jwt', {maxAge: 0})
     res.sendStatus(202)
 })
-*/
+
 
 export default accountsRouter

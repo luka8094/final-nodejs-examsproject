@@ -21,8 +21,8 @@
             return message = toast(data+" 👎",1)
         } 
         if(result.status === 202){
-            const {login} = await result.json()
-            $user = login
+            const {loggedIn} = await result.json()
+            $user = loggedIn
             toast("Login success! 👌",0)
             navigate("/account")
         }

@@ -11,6 +11,7 @@
 
         if(result.status === 201){
             const {data} = await result.json()
+            console.log(data)
             return $account = data
         }
         if(result.status === 401 || result.status === 403){ navigate("/login")}
