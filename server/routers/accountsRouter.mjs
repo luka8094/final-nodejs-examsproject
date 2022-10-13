@@ -9,9 +9,9 @@ accountsRouter.get("/api/users", authLimiter, async (req, res) => {
     res.send({data: result})
 })
 
-/*
 import jsonwebtoken from "jsonwebtoken"
-const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B, AES_KEY_C} = process.env
+const {JWT_TOKEN_KEY, AES_KEY_C} = process.env
+/*
 accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     const cookie = req.cookies['jwt']
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
@@ -29,19 +29,19 @@ accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     return res.status(201).send({data})
 })
 
-import ip from "ip"
 */
+import ip from "ip"
 import CryptoJS from "crypto-js"
-/*
+import bcrypt from "bcrypt"
 accountsRouter.post("/api/login", authLimiter, async (req, res) => {
     const loginAttempt = ip.address()
     let attempts = []
 
-    const account = await Account.findOne({email: req.body.email})
+    const account = await Account.findOne({email: req.body.email}).select('password')
 
     if(!account) return res.status(401).send({data: "your email or password doesn't match"})
-    if(req.body.password !== CryptoJS.AES.decrypt(account.password, AES_KEY_C).toString(CryptoJS.enc.Utf8)){
-        let counter = 0
+    if(!bcrypt.compare(req.body.password, account.password)){
+        let counter = 
         attempts.push(loginAttempt)
         attempts.forEach(attempt => attempt === ip.address() ? counter++ : counter)
         if(counter === 5){
@@ -59,13 +59,12 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
         const token = jsonwebtoken.sign({_id: account._id}, JWT_TOKEN_KEY)
 
         res.cookie('jwt', token, {httpOnly: true, maxAge: 2 * 60 * 1000})
-        res.status(202).send({login: true})
+        res.status(202).send({loggedIn: true})
     }
 })
-*/
+
 import fs from "fs"
 import path from "path"
-import bcrypt from "bcrypt"
 import ROLES from "../data/presets/ROLES.mjs"
 import emailDispatch from "../utils/nodemailer.mjs"
 import UserSettings from "../model/settings.mjs"
@@ -73,7 +72,6 @@ const {AES_KEY_A, AES_KEY_B} = process.env
 const {SALT_ROUNDS} = process.env
 accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
             const exists = await Account.findOne({email: req.body.email})
-            console.log(exists)
         if(!exists){
             const fullname = req.body.firstname.concat(" ", req.body.lastname)
             const ROLE = await Account.find({}).count() === 0 ? ROLES.ADMIN : ROLES.USER
@@ -93,10 +91,7 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
 
             if(savedAccount){
                 const MILESTONES = fs.readFileSync(path.resolve("./data/presets/milestones.json"))
-                const proppedAccount = await Account.findByIdAndUpdate({"_id": _id},{$push:{userSettings:{milestones: MILESTONES}}})
-
-                console.log("Milestones %s.", MILESTONES)
-                console.log("account: %s ", proppedAccount)
+                const proppedAccount = await Account.findByIdAndUpdate({_id: _id},{$push:{userSettings:{milestones: MILESTONES}}})
 
                 if(proppedAccount)res.status(201).send({data: proppedAccount})
                 else res.sendStatus(503)
