@@ -6,11 +6,12 @@ const userSettingsSchema = new mongoose.Schema({
     },
     description:{
         type: String,
-        required: false
+        required: false,
+        default: ""
     },
     preferences:{
-        type: String,
-        required: false
+        type: Array,
+        required: true
     }
 },
 { timestamps: true })

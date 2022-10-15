@@ -1,7 +1,7 @@
 <script>
-    import {onDestroy} from "svelte"
+    import {onDestroy, afterUpdate} from "svelte"
     import {io} from "socket.io-client"
-    import {user, account} from "../../stores/systemd"
+    import {user, account, milestones} from "../../stores/systemd"
     import Chatmessage from "../components/chatroom/Chatmessage.svelte"
     import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
 
@@ -10,6 +10,7 @@
     let message
     let chatroomMessages = []
     let color
+    let milestonesArray = $milestones
     
     $: if(message){
         if(message.length <= 255 | message === '') color = "black"
@@ -23,7 +24,8 @@
     })
 
     function sendMessage(){
-        console.log(message)
+        console.log(++milestonesArray[1].currentValue, milestonesArray)
+        //$milestones = milestonesArray
         message.trim()
         console.log(message.trim())
         if(message.length === 0) return
@@ -42,6 +44,17 @@
         const message = `${$account.username} has left the chatroom.`
         socket.emit("chatmessageSent",{data: {message: message, user: undefined}})
     })
+
+    /*
+    onDestroy(() => {
+        $milestones = milestonesArray
+        console.log($milestones)
+    })
+
+    afterUpdate(() => {
+        $milestones = milestonesArray
+        console.log($milestones)
+    })*/
 </script>
 
 <section id="chatroom-container">

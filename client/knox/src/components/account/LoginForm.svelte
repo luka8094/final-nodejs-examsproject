@@ -8,6 +8,7 @@
     const navigate = useNavigate()
 
     const login = async () => {
+        //TODO: IMPORTANT! PROPER VALIDATION OF USER INPUT
         const result = await fetch("/api/login",{
             method:'POST',
             headers: {'Content-Type':'application/json'},
@@ -22,6 +23,7 @@
         } 
         if(result.status === 202){
             const {loggedIn} = await result.json()
+            console.log(loggedIn)
             $user = loggedIn
             toast("Login success! 👌",0)
             navigate("/account")

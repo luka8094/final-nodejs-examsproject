@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte"
     import {useNavigate} from "svelte-navigator"
-    import {user, account} from "../../stores/systemd"
+    import {user, account, milestones, milestonesTest} from "../../stores/systemd"
     import Dashboard from "../components/account/Dashboard.svelte"
 
     let navigate = useNavigate()
@@ -11,7 +11,9 @@
 
         if(result.status === 201){
             const {data} = await result.json()
-            console.log(data)
+            console.log(data, $milestones)
+            if($milestones.length === 0) $milestones = data.userSettings.milestones
+            console.log($milestones)
             return $account = data
         }
         if(result.status === 401 || result.status === 403){ navigate("/login")}

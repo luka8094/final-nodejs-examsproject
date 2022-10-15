@@ -1,7 +1,32 @@
 [
-    {"logins":0},
-    {"chatMessages":0},
-    {"subscriptions":0},
-    {"likes":0},
-    {"editProfile":false}
+    {   
+        "name":"Hi, I'm new here",
+        "description": "Login into KNOX five times",
+        "currentValue": 0,
+        "goalValue": 5
+    },
+    {   
+        "name":"Feelin' pretty chatty",
+        "description": "Send 10 chatmessage",
+        "currentValue":0,
+        "goalValue": 10
+    },
+    {   
+        "name":"Subs away!",
+        "description": "Subscribe to 5 different crypto chatrooms",
+        "currentValue":0,
+        "goalValue": 5
+    },
+    {   
+        "name":"I'm likin' it!",
+        "description": "Like five different chat messages by other users",
+        "currentValue":0,
+        "goalValue": 5
+    },
+    {   
+        "name":"Biographer",
+        "description": "Edit your profile at least once",
+        "currentValue": 0,
+        "goalValue": 1
+    }
 ]

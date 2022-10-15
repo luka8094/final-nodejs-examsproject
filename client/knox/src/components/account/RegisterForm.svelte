@@ -5,6 +5,8 @@
     const navigate = useNavigate()
 
     const register = async () => {
+        //TODO: !IMPORTANT - proper evalutation of user input prior to registration
+
         const response = await fetch("/api/register", {
             method: 'POST',
             headers: { 'Content-Type' : 'application/json'},

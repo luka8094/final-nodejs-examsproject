@@ -70,7 +70,7 @@
         display: flex;
         flex-direction: column;
         min-height: 700px;
-        width: 1000px;
+        width: 1100px;
         background: rgba(100,150,50,.5);
         margin: 0 auto 10px;
         box-shadow: 1px 1px 11px 1px;

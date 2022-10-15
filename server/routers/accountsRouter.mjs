@@ -17,17 +17,16 @@ accountsRouter.get("/api/user", authLimiter, async (req, res) =>{
     const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
 
     if(!claims) return res.status(403).send({message: "unauthenticated"})
-
     const user = await Account.findOne({_id: claims._id})
-    console.log(user)
+
     if(!user) return res.status(401).send({message: "unauthenticated"})
     const {...data} = user.toJSON()
+
     data.name = CryptoJS.AES.decrypt(data.name, AES_KEY_A).toString(CryptoJS.enc.Utf8)
     data.username = CryptoJS.AES.decrypt(data.username, AES_KEY_B).toString(CryptoJS.enc.Utf8)
     data.userSettings.milestones = JSON.parse(data.userSettings.milestones.toString())
-    if(data.userSettings.description) data.userSettings.description = data.userSettings.description.toString()
-    if(data.userSettings.preferences) data.userSettings.preferences = data.userSettings.preferences.toString()
-    console.log(data)
+    data.userSettings.description = data.userSettings.description.toString()
+    data.userSettings.preferences = JSON.parse(data.userSettings.preferences.toString())
 
     return res.status(201).send({data})
 })
@@ -73,9 +72,13 @@ import emailDispatch from "../utils/nodemailer.mjs"
 //import UserSettings from "../model/settings.mjs"
 const {SALT_ROUNDS} = process.env
 accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
+    //TODO: !IMPORTANT - proper evalutation of user input prior to registration
+
             const exists = await Account.findOne({email: req.body.email})
         if(!exists){
             const fullname = req.body.firstname.concat(" ", req.body.lastname)
+
+            //NOTE DANGEROUS: THIS MUST BE MOVED TO THE POPULATE FILE EVENTUALLY
             const ROLE = await Account.find({}).count() === 0 ? ROLES.ADMIN : ROLES.USER
             console.log(ROLE)
             const newAccount = new Account({
@@ -93,7 +96,11 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
 
             if(savedAccount){
                 const MILESTONES = fs.readFileSync(path.resolve("./data/presets/milestones.json"))
-                const proppedAccount = await Account.findByIdAndUpdate({_id: _id},{userSettings: {milestones: MILESTONES}})
+                const PREFERENCES = fs.readFileSync(path.resolve("./data/presets/preferences.json"))
+                const proppedAccount = await Account.findByIdAndUpdate(
+                    {_id: _id},
+                    {userSettings: {milestones: MILESTONES, preferences: PREFERENCES}}
+                    )
 
                 if(proppedAccount)res.status(201).send({data: proppedAccount})
                 else res.sendStatus(503)

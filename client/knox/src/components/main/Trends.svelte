@@ -3,16 +3,11 @@
     import TrendingContainer from "./TrendingContainer.svelte"
     import {trending} from "../../../stores/systemd"
 
-    $: trendingTest = []
-
     onMount(async() => {
         const result = await fetch("/api/coins/trending")
         const {data} = await result.json()
-        trendingTest = data
         $trending = data
     })
-
-    console.log(trendingTest)
 </script>
 
 <section>
