@@ -1,11 +1,15 @@
 import "dotenv/config"
 import jsonwebtoken from "jsonwebtoken"
-const {JWT_ACCESS_TOKEN} = process.env
-function jwtCheck(req, res){
-    return (req, res, next) =>{
-        const cookie = req.cookie['jwt']
-        const claims = jsonwebtoken.verify(cookie,JWT_ACCESS_TOKEN)
+const {JWT_TOKEN_KEY} = process.env
+function jwtCheck(req, res, next){
+        const cookie = req.cookies['jwt']
+        const claims = jsonwebtoken.verify(cookie, JWT_TOKEN_KEY)
         if(!claims) return res.sendStatus(403)
-        else next()
+        else{ 
+            req.body.id = claims._id
+            req.body.role = claims.role
+            next()
+        }
     }
-}
+
+export default jwtCheck

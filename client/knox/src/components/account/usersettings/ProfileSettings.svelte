@@ -6,6 +6,7 @@
 
     function saveProfile(){
         console.log("Clicked on 'save profile' button.")
+        //TODO: fetch method to save profile description
     }
 </script>
 <div>

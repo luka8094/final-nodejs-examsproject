@@ -18,7 +18,6 @@
 <div id="dashboard-container">
     <div id="dashboard-container-title">
         <div id="dashboard-title">
-            <img src="./images/knox-logo-8.svg" alt=""/>
             <h1>ACCOUNT</h1>
         </div><span>Welcome back <b>{username}</b></span>
     </div>
@@ -46,12 +45,9 @@
         display: flex;
         width: 150px;
         align-items: center;
+        margin-bottom: 25px;
+        padding-left: 15px;
     }
-
-    img{
-        height: 50px;
-    }
-
 
     h1{
         display: flex;
@@ -64,6 +60,7 @@
         font-family: sans-serif;
         font-weight: 500;
         color: black;
+        padding-left: 15px;
     }
 
     #dashboard-container{
@@ -71,19 +68,20 @@
         flex-direction: column;
         min-height: 700px;
         width: 1100px;
-        background: rgba(100,150,50,.5);
+        background: white;
         margin: 0 auto 10px;
         box-shadow: 1px 1px 11px 1px;
     }
 
     #dashboard-container-title{
-        margin: 10px;
+        padding-bottom: 20px;
+        border-bottom: solid 1px black;
     }
 
     #dashboard-user-panel{
         display: flex;
         margin-left: 10px;
-        background: rgba(10,20,30,.5);
+        background: white;
     }
 
     #user-options{
@@ -92,27 +90,43 @@
         flex-flow: column;
         height: 550px;
         width: 200px;
-        background: rgba(10,20,30,.5);
+        background: white;
     }
 
     #user-settings{
         width: 100%;
-        background: rgba(200,100,100,.5);
+        background: rgba(0,0,0,.1);
         overflow: hidden;
     }
 
     button{
         display: flex;
         height: 50px;
+        background: white;
+        border: none;
+        border-radius: 0;
+        transition: all .9s ease-in;
+        align-items: flex-end;
+    }
+
+    button:hover {
+        border-right: solid 1px black;
     }
 
     #logout{
         display: flex;
         width: 100px;
+        background: #f6f6f6;
+        color: tomato;
         align-items: center;
         justify-content: center;
         border: none;
         border-radius: 0;
         margin: 10px 0 10px 10px;
+        transition: background-color 1s ease-in;
+    }
+
+    #logout:hover{
+        background: lightgrey;
     }
 </style>

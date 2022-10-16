@@ -13,7 +13,7 @@
                 <div id="bar" style="width: {100 / goal}%;"></div>
             {/each}
         </div>
-        <p>{currentMark} / {goal}</p>
+        <p>{currentMark >= goal ? goal : currentMark} / {goal}</p>
         <p>{currentMark >= goal ? "unlocked!" : ""}
     </div>
 </article>

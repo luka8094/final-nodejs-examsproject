@@ -2,19 +2,6 @@
     import {onDestroy} from "svelte"
     import {milestones} from "../../../../stores/systemd"
     import MilestonesLine from "./milestones/MilestonesLine.svelte"
-    /*
-    let milestonesArray = []
-
-    const unsubscribe = milestones.subscribe( milestones => {
-        console.log(milestones, milestonesArray)
-        milestonesArray = milestones
-        console.log(milestonesArray)
-    })
-
-    onDestroy(unsubscribe)
-    let milestonesArray
-    $: milestonesArray = [...$milestones]
-    */
 
     console.log($milestones)
 </script>

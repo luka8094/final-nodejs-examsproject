@@ -7,7 +7,7 @@
     },
     {   
         "name":"Feelin' pretty chatty",
-        "description": "Send 10 chatmessage",
+        "description": "Send 10 chatmessages",
         "currentValue":0,
         "goalValue": 10
     },

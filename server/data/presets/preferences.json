@@ -1,4 +1,10 @@
 [
-    {"visual theme": false},
-    {"language": "en"}
+    {
+        "name": "visual theme",
+        "default": false
+    },
+    {
+        "name": "language", 
+        "default":"en"
+    }
 ]
