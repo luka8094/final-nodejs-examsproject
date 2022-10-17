@@ -85,7 +85,7 @@
                 scales: {
                     x:{
                         type: 'linear',
-                        display: false,
+                        display: true,
                         grid:{
                             borderColor: "lightgrey",
                           
@@ -166,6 +166,7 @@
         height: 100%;
         justify-content: center;
         margin: auto;
+        z-index: -1;
     }
     
     #coinChart{
@@ -184,6 +185,7 @@
         width: 600px;
         background: rgba(50,100,150,.5);
         overflow: hidden;
+        z-index: -1;
     }
 
     #refresh-bar{

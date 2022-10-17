@@ -4,17 +4,17 @@ const accountsRouter = Router()
 
 import "dotenv/config"
 import authLimiter from "../mid/authLimiter.mjs"
+import roleCheck from "../mid/roleCheck.mjs"
+import ROLES from "../data/presets/ROLES.mjs"
 import Account from "../model/account.mjs"
-accountsRouter.get("/api/users", authLimiter, async (req, res) => {
+accountsRouter.get("/api/users", [authLimiter, jwtCheck, roleCheck([ROLES.ADMIN])], async (req, res) => {
     const result = await Account.find({})
     res.send({data: result})
 })
 
-import ROLES from "../data/presets/ROLES.mjs"
 import jwtCheck from "../mid/jwtCheck.mjs"
-import roleCheck from "../mid/roleCheck.mjs"
 const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B} = process.env
-accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck(ROLES.ADMIN)], async (req, res) =>{
+accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck([ROLES.USER, ROLES.ADMIN])], async (req, res) =>{
     const user = await Account.findOne({_id: req.body.id})
 
     if(!user) return res.status(401).send({message: "unauthenticated"})
@@ -44,20 +44,8 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
     const account = await Account.findOne({email: req.body.email}).select('password')
 
     if(!account) return res.status(401).send({data: "your email or password doesn't match"})
-    if(!bcrypt.compare(req.body.password, account.password)){
-        let counter = 
-        attempts.push(loginAttempt)
-        attempts.forEach(attempt => attempt === ip.address() ? counter++ : counter)
-        if(counter === 5){
-            console.log("Account should be blocked for exhausting 5 attempts.")
-            //TODO: implement account blocking
-            attempts = []
-            console.log(attempts)
-        }else{
-            console.log(attempts)
-            return res.status(401).send({data: "email or password doesn't match"})
-        }
-        attempts = attempts
+    if(! await bcrypt.compare(req.body.password, account.password)){
+        return res.status(401).send({data: "email or password doesn't match"})
     }else{
         delete account.password
         delete req.body

@@ -37,17 +37,18 @@ import bcrypt from "bcrypt"
 const {AES_KEY_B, SALT_ROUNDS} = process.env
 userRouter.patch("/api/password", jwtCheck, async (req,res) =>{
     const user = await Account.findOne({_id: req.body.id})
+    const {password} = await Account.findOne({_id: req.body.id}).select('password')
 
     if(!user) return res.status(403).send({data:"User not found"})
 
     if(req.body.username === CryptoJS.AES.decrypt(user.username, AES_KEY_B).toString(CryptoJS.enc.Utf8) && 
-        bcrypt.compare(req.body.current, user.password)){
-        const changed = bcrypt.hash(req.body.changed, Number(SALT_ROUNDS))
-        const {password, ...data} = await Account.findByIdAndUpdate({_id: user._id},{password: changed},{new: true})
-        delete req.body    
+        bcrypt.compare(req.body.current, password)){
+            const changed = await bcrypt.hash(req.body.changed, Number(SALT_ROUNDS))
+            const {password, ...data} = await Account.findByIdAndUpdate({_id: user._id},{password: changed},{new: true})
+            delete req.body    
 
-        if(data)res.status(200).send({data: "Password has been changed"})
-        else return res.sendStatus(403)
+            if(data)res.status(200).send({data: "Password has been changed"})
+            else return res.sendStatus(403)
     }
     else return res.sendStatus(403)
 })

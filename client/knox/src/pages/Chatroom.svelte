@@ -25,7 +25,6 @@
 
     function sendMessage(){
         console.log(++milestonesArray[1].currentValue, milestonesArray)
-        //$milestones = milestonesArray
         message.trim()
         console.log(message.trim())
         if(message.length === 0) return
@@ -44,25 +43,14 @@
         const message = `${$account.username} has left the chatroom.`
         socket.emit("chatmessageSent",{data: {message: message, user: undefined}})
     })
-
-    /*
-    onDestroy(() => {
-        $milestones = milestonesArray
-        console.log($milestones)
-    })
-
-    afterUpdate(() => {
-        $milestones = milestonesArray
-        console.log($milestones)
-    })*/
 </script>
 
 <section id="chatroom-container">
-    <aside id="chatroom-participants-container">
+    <!--<aside id="chatroom-participants-container">
         participants
-    </aside>
+    </aside>-->
     <aside id="chatlog-container">
-        <h2>Welcome to the room</h2>
+        <!--<h2>Welcome to the room</h2>-->
         <div id="chatlog-history">
             {#each chatroomMessages as data}
                 {#if data.user === undefined}
