@@ -175,7 +175,7 @@
         margin: 0 auto;
         height: 350px;
         width: 650px;
-        z-index: 10;
+        z-index: 0;
     }
 
     #refresh-effect-background{

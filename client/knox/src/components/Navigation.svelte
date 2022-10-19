@@ -55,7 +55,7 @@
             .add('overlay')
             .to(menuOverlay, {duration: .5, opacity: 0}, "+=1", 'overlay')
             .to(menuOverlay, {display: "none", zIndex: "1"}, "+=1", 'overlay')
-            .to(navigationBar, {duration: .5, position: "fixed", boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
+            .to(navigationBar, {duration: .5, position: "fixed", zIndex: 10, boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
             .add('menu-rollout', 5)
             .to(menuMain, {duration: 1, top: "0%", ease: "power2.easeOut", delay: 1}, "-=.970", 'menu-rollout')
             .to(menuMarket, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .9}, "-=.975", 'menu-rollout')

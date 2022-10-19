@@ -42,7 +42,7 @@ userRouter.patch("/api/password", jwtCheck, async (req,res) =>{
     if(!user) return res.status(403).send({data:"User not found"})
 
     if(req.body.username === CryptoJS.AES.decrypt(user.username, AES_KEY_B).toString(CryptoJS.enc.Utf8) && 
-        bcrypt.compare(req.body.current, password)){
+        await bcrypt.compare(req.body.current, password)){
             const changed = await bcrypt.hash(req.body.changed, Number(SALT_ROUNDS))
             const {password, ...data} = await Account.findByIdAndUpdate({_id: user._id},{password: changed},{new: true})
             delete req.body    

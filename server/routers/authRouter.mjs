@@ -1,18 +1,13 @@
 import {Router} from "express"
-import {Blob} from "buffer"
 const accountsRouter = Router()
 
 import "dotenv/config"
 import authLimiter from "../mid/authLimiter.mjs"
+import jwtCheck from "../mid/jwtCheck.mjs"
 import roleCheck from "../mid/roleCheck.mjs"
 import ROLES from "../data/presets/ROLES.mjs"
 import Account from "../model/account.mjs"
-accountsRouter.get("/api/users", [authLimiter, jwtCheck, roleCheck([ROLES.ADMIN])], async (req, res) => {
-    const result = await Account.find({})
-    res.send({data: result})
-})
-
-import jwtCheck from "../mid/jwtCheck.mjs"
+import CryptoJS from "crypto-js"
 const {JWT_TOKEN_KEY, AES_KEY_A, AES_KEY_B} = process.env
 accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck([ROLES.USER, ROLES.ADMIN])], async (req, res) =>{
     const user = await Account.findOne({_id: req.body.id})
@@ -34,7 +29,6 @@ accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck([ROLES.USER, R
 })
 
 import ip from "ip"
-import CryptoJS from "crypto-js"
 import bcrypt from "bcrypt"
 import jsonwebtoken from "jsonwebtoken"
 accountsRouter.post("/api/login", authLimiter, async (req, res) => {
@@ -102,7 +96,7 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
     else res.sendStatus(409)
 })  
 
-accountsRouter.delete("/api/logout", (req, res) => {    
+accountsRouter.delete("/api/logout", [jwtCheck, roleCheck([ROLES.ADMIN, ROLES.USER])], (req, res) => {    
     res.cookie('jwt', {maxAge: 0})
     res.sendStatus(202)
 })

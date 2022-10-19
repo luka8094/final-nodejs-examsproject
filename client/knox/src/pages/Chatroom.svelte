@@ -88,14 +88,14 @@
         display: flex;
         height: 600px;
         width: 150px;
-        background: rgba(255,55,255,.5)
+        background: rgba(255,55,255,.5);
     }
 
     #chatlog-container{
         display: flex;
         flex-direction: column;
         height: 600px;
-        width: 320px;
+        width: 400px;
         padding-left: 10px;
         background: rgba(50,50,150,.5)
     }
@@ -104,7 +104,7 @@
         display: flex;
         flex-direction: column;
         height: 500px;
-        width: 300px;
+        width: 400px;
         background: rgba(50,100,50,.5);
         overflow-y: scroll;
     }
@@ -112,14 +112,14 @@
     #chat-panel{
         display: flex;
         flex-direction: column;
-        width: 220px;
+        width: 350px;
         background: rgba(100,100,100,.5);
         justify-content: space-around;
     }
 
     #chat-panel-container{
         display: flex;
-        width: 300px;
+        width: 400px;
         padding: 10px 0;
         background: rgba(200,200,200,.5);
     }
@@ -128,8 +128,8 @@
         display: flex;
         min-height: 100px;
         max-height: 120px;
-        min-width: 200px;
-        max-width: 210px;
+        min-width: 300px;
+        max-width: 310px;
     }
 
     span{

@@ -80,7 +80,7 @@
         width: 90%;
         border: none;
         padding: 10px;
-        background: rgba(100,100,100,.1);
+        background: rgba(100,100,100,.3);
     }
 
     ::placeholder{

@@ -19,11 +19,13 @@ app.use(cookieParser())
 import baseLimiter from "./mid/baseLimiter.mjs"
 app.use(baseLimiter)
 
-import accountsRouter from "./routers/accountsRouter.mjs"
+import authRouter from "./routers/authRouter.mjs"
 import userRouter from "./routers/userRouter.mjs"
 import coinGeckoRouter from "./routers/cryptocoinsRouter.mjs"
+import adminRouter from "./routers/adminRouter.mjs"
 app.use(coinGeckoRouter)
-app.use(accountsRouter)
+app.use(authRouter)
+app.use(adminRouter)
 app.use(userRouter)
 
 import http from "http"
