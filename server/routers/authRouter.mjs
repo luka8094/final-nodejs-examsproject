@@ -31,15 +31,36 @@ accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck([ROLES.USER, R
 import ip from "ip"
 import bcrypt from "bcrypt"
 import jsonwebtoken from "jsonwebtoken"
+import Attempt from "../model/attempt.mjs"
 accountsRouter.post("/api/login", authLimiter, async (req, res) => {
-    const loginAttempt = ip.address()
-    let attempts = []
-
+    //TODO: PROPER USER DATA VALIDATTION (SIZE, LEXICAL CONTENT, SYNTAX)
     const account = await Account.findOne({email: req.body.email}).select('password')
 
-    if(!account) return res.status(401).send({data: "your email or password doesn't match"})
+    if(!account) return res.status(401).send({data: "email or password doesn't match"})
     if(! await bcrypt.compare(req.body.password, account.password)){
-        return res.status(401).send({data: "email or password doesn't match"})
+        const loginAttempt = {}
+
+        loginAttempt.email = req.body.email
+        loginAttempt.password = req.body.password
+        loginAttempt.location = ip.address()
+
+        console.log(loginAttempt)
+
+        const newAttempt = new Attempt({
+            useremail: loginAttempt.email,
+            password: loginAttempt.password,
+            location: loginAttempt.location
+        })
+
+        const loggedAttempt = await newAttempt.save()
+        delete loginAttempt.email
+        delete loginAttempt.password
+        delete loginAttempt.location
+
+        console.log(loginAttempt)
+
+        if(loggedAttempt) return res.status(401).send({data: "email or password doesn't match"})
+        else res.sendStatus(500)
     }else{
         delete account.password
         delete req.body
@@ -56,10 +77,10 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
 import fs from "fs"
 import path from "path"
 import emailDispatch from "../utils/nodemailer.mjs"
-//import UserSettings from "../model/settings.mjs"
 const {SALT_ROUNDS} = process.env
 accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
     //TODO: !IMPORTANT - proper evalutation of user input prior to registration
+    //PROPER USER DATA VALIDATTION (SIZE, LEXICAL CONTENT, SYNTAX)
 
             const exists = await Account.findOne({email: req.body.email})
         if(!exists){

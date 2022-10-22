@@ -27,7 +27,6 @@ coinGeckoRouter.get("/api/coins", async (req, res) => {
         per_page: 20, 
         page: 0
     })
-    console.log(list)
     const listTest = await client.global()
     const events = await client.events({
         country_code: "US", 

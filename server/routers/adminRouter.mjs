@@ -10,6 +10,12 @@ adminRouter.get("/api/chatlogs", [authLimiter, jwtCheck, roleCheck([ROLES.ADMIN]
     res.send({data: "reached get all chatlogs endpoint."})
 })
 
+import Attempt from "../model/attempt.mjs"
+adminRouter.get("/api/attempts", [authLimiter, jwtCheck, roleCheck([ROLES.ADMIN])], async(req, res) => {
+    console.log(Attempt)
+    res.send({data: "reached attempts endpoint."})
+})
+
 adminRouter.get("/api/users", [authLimiter, jwtCheck, roleCheck([ROLES.ADMIN])], async (req, res) => {
     const result = await Account.find({})
     res.send({data: result})

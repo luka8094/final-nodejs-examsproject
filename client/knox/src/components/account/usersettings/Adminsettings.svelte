@@ -1,9 +1,27 @@
 <script>
     import {fade} from "svelte/transition"
+    import {io} from "socket.io-client"
 
     async function getUsers(){
         const result = await fetch("/api/users")
-        console.log(result.json())
+        const {data} = await result.json()
+        console.log(data)
+    }
+
+    async function getChatlogs(){
+        const result = await fetch("/api/chatlogs")
+        const {data} = await result.json()
+        console.log(data)
+    }
+
+    async function getAttempts(){
+        const result = await fetch("/api/attempts")
+        const {data} = await result.json()
+        console.log(data)
+    }
+
+    function broadcastMessage(){
+        console.log("clicked broadcast message")
     }
 </script>
 
@@ -17,25 +35,29 @@
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Get all system users</h2>
         </div>
-        <button on:click={getUsers()}>Show users</button>
+        <p>List all currently registered users on the platform.</p>
+        <button on:click={getUsers}>Show users</button>
     </article>
     <article id="attempts-overview">
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Get system login attempts</h2>
         </div>
-        <button on:click={getAttempts()}>Show attempts</button>
+        <p>Get an overview of unauthorized login activity.</p>
+        <button on:click={getAttempts}>Show attempts</button>
     </article>
     <article id="chatlogs-overview">
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Get All chatlogs</h2>
         </div>
-        <button on:click={getChatlogs()}>Show chatlogs</button>
+        <p>Gain an overview of conversations from specific chatrooms.</p>
+        <button on:click={getChatlogs}>Show chatlogs</button>
     </article>
     <article id="broadcast-message">
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Broadcast message</h2>
         </div>
-        <button on:click={broadcastMessage()}>Broadcast message</button>
+        <p>Broadcast a tailor-made message to all chatrooms.</p>
+        <button on:click={broadcastMessage}>Broadcast message</button>
     </article>
 </div>  
 
@@ -78,7 +100,7 @@
         display: flex;
         flex-direction: column;
         height: 250px;
-        width: 100%;
+        width: calc(100% - 15px);
         background: rgba(255,255,255,.5);
         align-items: center;
         justify-content: center;
@@ -87,11 +109,10 @@
     .admin-options-title-container{
         display: flex;
         height: 50px;
-        width: 90%;
+        width: 100%;
         margin-right: auto;
         border-bottom: solid 1px black;
         align-items: center;
-        justify-content: space-between;
     }
 
     .admin-options-title{
@@ -99,7 +120,9 @@
     }
 
     button{
+        display: flex;
         border-radius: 50px;
         height: 35px;
+        margin: 10px 10px 10px auto;
     }
 </style>

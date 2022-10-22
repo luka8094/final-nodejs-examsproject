@@ -6,8 +6,9 @@ const chatlogsSchema = new mongoose.Schema({
             required: true
         },
         log: {
-            type: [],
-            required: true
+            type: Array,
+            required: true,
+            select: false
         }
     },
     { timestamps: true })
