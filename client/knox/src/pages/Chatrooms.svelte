@@ -5,7 +5,7 @@
     onMount(async () => {
         const result = await fetch("/api/coins")
         const {data} = await result.json()
-        console.log(data)
+        console.log(data.slice(0,20))
     })
     let testElements = [1,2,3,4,5,6,7,8,9,10]
 </script>

@@ -15,7 +15,7 @@
     }
     
     onMount(async () => {
-        console.log(coinName)
+        console.log(coinName, chart.Utils)
         const coinId = 'bitcoin'
         const result = await fetch(`/api/coins${coinId}`)
         const {data} = await result.json()
@@ -26,18 +26,22 @@
         const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y
         const coinChart = new Chart(ctx, { 
             type: 'line',
+            labels:[["1","2","3","4","5","6","7"]],
             data:{
-                labels:["1","2","3","4","5","6","7"],
+                labels:[["1","2","3","4","5","6","7"]],
                 datasets: [{
                     label: "Bitcoin",
                     data: prices,
-                    backgroundColor: "rgba(0,0,0,.5)",
+                    backgroundColor: Utils.transparentize(rgba(0,0,0,.5)),
                     borderWidth: 1,
                     borderColor:"dimgrey",
                     radius: 1.5,
                     pointHoverRadius: 5,
                     tension: 0
                 }]
+            },
+            Tooltip:{
+
             },
             options:{
                 title: {
@@ -55,7 +59,11 @@
                     }
                 },
                 plugins:{
-                    legend: false
+                    legend: false,
+                    title: {
+                        display: true,
+                        text: "Recent 7 days movements for Bitcoin"
+                    }
                 },
                 animation:{
                     x:{
@@ -85,7 +93,6 @@
                 scales: {
                     x:{
                         type: 'linear',
-                        display: true,
                         grid:{
                             borderColor: "lightgrey",
                           
@@ -93,10 +100,6 @@
                         min: prices[0][0],
                         max: prices[prices.length -1 ][0]
                     },
-                    y: {
-                        display: false,
-                        offset: false
-                    }
                 }
             }
         })
@@ -139,7 +142,7 @@
         flex-direction: column;
         height: 600px;
         width: 800px;
-        background: rgba(50,50,100,.5)
+        background: white;
     }
 
     #subscription-options{
@@ -166,7 +169,7 @@
         height: 100%;
         justify-content: center;
         margin: auto;
-        z-index: -1;
+        z-index: 0;
     }
     
     #coinChart{

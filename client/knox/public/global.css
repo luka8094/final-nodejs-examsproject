@@ -21,6 +21,7 @@ body{
 	width: 5px;
 }
 
+#administrator-settings-container::-webkit-scrollbar,
 #milestones-container::-webkit-scrollbar{
 	display: flex;
 	background: rgba(255,255,255,.5);
