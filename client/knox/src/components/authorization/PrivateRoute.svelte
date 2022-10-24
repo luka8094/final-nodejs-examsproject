@@ -7,7 +7,7 @@
 </script>
 
 <Route {path} let:params let:location let:navigate>
-    <ProtectedRoute>
+    <ProtectedRoute id={params.id}>
         <slot {params} {location} {navigate} />
     </ProtectedRoute>
 </Route>

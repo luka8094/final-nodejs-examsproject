@@ -4,6 +4,7 @@
     import {user, account, milestones} from "../../stores/systemd"
     import Chatmessage from "../components/chatroom/Chatmessage.svelte"
     import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
+    import {useParams, useLocation} from "svelte-navigator";
 
     const socket = io()
     export let COIN_ID
@@ -11,7 +12,11 @@
     let chatroomMessages = []
     let color
     let milestonesArray = $milestones
-    
+    let params = useParams()
+    let location = useLocation()
+
+    console.log(COIN_ID, $params, $location, $location.search, window.location.href)
+
     $: if(message){
         if(message.length <= 255 | message === '') color = "black"
         if(message.length === 255) color = "red"
@@ -97,7 +102,7 @@
         height: 600px;
         width: 400px;
         padding-left: 10px;
-        background: rgba(50,50,150,.5)
+        background: rgba(50,50,150,.5);
     }
 
     #chatlog-history{

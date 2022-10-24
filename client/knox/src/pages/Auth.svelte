@@ -1,3 +1,7 @@
+<script>
+    
+</script>
+
 <section>
     <h1>Authenticating</h1>
     <p>Please wait...</p>

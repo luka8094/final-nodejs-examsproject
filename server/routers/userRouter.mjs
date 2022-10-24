@@ -53,9 +53,27 @@ userRouter.patch("/api/password", jwtCheck, async (req,res) =>{
     else return res.sendStatus(403)
 })
 
+import Stripe from "stripe"
+const {STRIPE_PRIVATE_KEY} = process.env
+const stripe = new Stripe(STRIPE_PRIVATE_KEY,{apiVersion: '2022-08-01'})
 userRouter.post("/api/payment", async (req, res) => {
     const {number, month, year, cvc} = req.body
+    const testItems = new Map([
+        [1, {priceInCents: 10000000, name: 'bitcoin'}],
+        [2, {priceInCents: 2000000, name: 'dogecoin'}]
+    ])
 
+    try{
+        const paymentSession = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode: "payment",
+            line_items: testItems.map(),
+            success_url: '/account',
+            cancel_url: '/cryptobag'
+        })
+    }catch(e){
+        console.log("Error: %s",e.message)
+    }
     res.send({data:"connected to the payment endpoint"})
 })
 

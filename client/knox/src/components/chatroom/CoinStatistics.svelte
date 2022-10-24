@@ -1,10 +1,12 @@
 <script>
     //Progressive line chart animation inspired from source: https://www.youtube.com/watch?v=0_jpfai4_4A
     import {onMount} from "svelte"
+    import {useParams} from "svelte-navigator"
     import {Chart, registerables} from "chart.js"
     Chart.register(...registerables)
     let chart
     export let coinName
+    const params = useParams()
 
     function subscribeWatch(){
         console.log("Clicked on 'subscribe to watch'.")
@@ -15,7 +17,7 @@
     }
     
     onMount(async () => {
-        console.log(coinName, chart.Utils)
+        console.log(coinName, $params.id, $params)
         const coinId = 'bitcoin'
         const result = await fetch(`/api/coins${coinId}`)
         const {data} = await result.json()
@@ -26,13 +28,12 @@
         const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y
         const coinChart = new Chart(ctx, { 
             type: 'line',
-            labels:[["1","2","3","4","5","6","7"]],
+            labels:["1","2","3","4","5","6","7"],
             data:{
-                labels:[["1","2","3","4","5","6","7"]],
                 datasets: [{
                     label: "Bitcoin",
                     data: prices,
-                    backgroundColor: Utils.transparentize(rgba(0,0,0,.5)),
+                    backgroundColor: "rgba(0,0,0,.5)",
                     borderWidth: 1,
                     borderColor:"dimgrey",
                     radius: 1.5,
@@ -92,6 +93,7 @@
                 },
                 scales: {
                     x:{
+                        display: false,
                         type: 'linear',
                         grid:{
                             borderColor: "lightgrey",
@@ -186,7 +188,7 @@
         position: absolute;
         height: 100%;
         width: 600px;
-        background: rgba(50,100,150,.5);
+        background: rgba(0,0,0,.1);
         overflow: hidden;
         z-index: -1;
     }

@@ -1,12 +1,16 @@
 <script>
-    import {useNavigate} from "svelte-navigator"
+    import {useNavigate, useLocation, useParams} from "svelte-navigator"
     
-    export let coin, image, symbol
+    export let coin, coinName
     let description = "This is a description placeholder for the cryptocurrency coin."
     let navigate = useNavigate() 
+    let params = useParams()
+    let location = useLocation()
 
     function forward(){
-        navigate(`/chatrooms/:${coin}`, {replace: true})
+        console.log(coinName, coin, $params, $params.id, $location)
+        console.log(`localhost:3000/chatrooms/${coinName}`)
+        navigate(`/chatrooms/${coinName}`, {replace: true})
     }
 </script>
 
@@ -14,7 +18,7 @@
     <div id="coin-image"></div>
     <div id="chatroom-description">
         <p>{description}</p>
-        <button on:click={forward}>Join {coin}</button>
+        <button on:click={forward}>Join {coinName}</button>
     </div>
 </div>
 

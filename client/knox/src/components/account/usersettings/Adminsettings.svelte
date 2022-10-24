@@ -35,28 +35,28 @@
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Get all system users</h2>
         </div>
-        <p>List all currently registered users on the platform.</p>
-        <button on:click={getUsers}>Show users</button>
+        <p class="settings-description">List all currently registered users on the platform.</p>
+        <button on:click={getUsers}>List users</button>
     </article>
     <article id="attempts-overview">
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Get system login attempts</h2>
         </div>
-        <p>Get an overview of unauthorized login activity.</p>
-        <button on:click={getAttempts}>Show attempts</button>
+        <p class="settings-description">Get an overview of unauthorized login activity.</p>
+        <button on:click={getAttempts}>List attempts</button>
     </article>
     <article id="chatlogs-overview">
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Get All chatlogs</h2>
         </div>
-        <p>Gain an overview of conversations from specific chatrooms.</p>
-        <button on:click={getChatlogs}>Show chatlogs</button>
+        <p class="settings-description">Gain an overview of conversations from specific chatrooms.</p>
+        <button on:click={getChatlogs}>List chatlogs</button>
     </article>
     <article id="broadcast-message">
         <div class="admin-options-title-container">
             <h2 class="admin-options-title">Broadcast message</h2>
         </div>
-        <p>Broadcast a tailor-made message to all chatrooms.</p>
+        <p class="settings-description">Broadcast a tailor-made message to all chatrooms.</p>
         <button on:click={broadcastMessage}>Broadcast message</button>
     </article>
 </div>  
@@ -117,6 +117,10 @@
 
     .admin-options-title{
         border: none;
+    }
+
+    .settings-description{
+        margin-right: auto;
     }
 
     button{

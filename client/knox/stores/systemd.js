@@ -6,6 +6,9 @@ export const account = writable({})
 
 export const visited = writable(localStorage.getItem('_kc'))
 export const trending = writable([])
+export const coinsList = writable([])
 
 export const milestones = writable([])
 export const preferences = writable([])
+
+export const cryptoBag = writable([])

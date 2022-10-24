@@ -30,10 +30,13 @@ accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck([ROLES.USER, R
 
 import ip from "ip"
 import bcrypt from "bcrypt"
+import {loginValidation} from "../mid/inputValidation.mjs"
 import jsonwebtoken from "jsonwebtoken"
 import Attempt from "../model/attempt.mjs"
-accountsRouter.post("/api/login", authLimiter, async (req, res) => {
+accountsRouter.post("/api/login", [authLimiter, loginValidation], async (req, res) => {
     //TODO: PROPER USER DATA VALIDATTION (SIZE, LEXICAL CONTENT, SYNTAX)
+    const {email, password} = req.body
+
     const account = await Account.findOne({email: req.body.email}).select('password')
 
     if(!account) return res.status(401).send({data: "email or password doesn't match"})
@@ -43,8 +46,6 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
         loginAttempt.email = req.body.email
         loginAttempt.password = req.body.password
         loginAttempt.location = ip.address()
-
-        console.log(loginAttempt)
 
         const newAttempt = new Attempt({
             useremail: loginAttempt.email,
@@ -56,8 +57,6 @@ accountsRouter.post("/api/login", authLimiter, async (req, res) => {
         delete loginAttempt.email
         delete loginAttempt.password
         delete loginAttempt.location
-
-        console.log(loginAttempt)
 
         if(loggedAttempt) return res.status(401).send({data: "email or password doesn't match"})
         else res.sendStatus(500)
