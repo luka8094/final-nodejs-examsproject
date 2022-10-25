@@ -16,7 +16,7 @@ import cookieParser from "cookie-parser"
 app.use(express.json())
 app.use(cookieParser())
 
-import baseLimiter from "./mid/baseLimiter.mjs"
+import baseLimiter from "./middleWare/baseLimiter.mjs"
 app.use(baseLimiter)
 
 import authRouter from "./routers/authRouter.mjs"
@@ -30,7 +30,7 @@ app.use(userRouter)
 
 import http from "http"
 import {Server} from "socket.io"
-import sessionMiddleware from "./mid/session.mjs"
+import sessionMiddleware from "./middleWare/session.mjs"
 const server = http.createServer(app)
 const io = new Server(server)
 const wrapper = middleWare => (socket, next) => middleWare(socket.request, {}, next)

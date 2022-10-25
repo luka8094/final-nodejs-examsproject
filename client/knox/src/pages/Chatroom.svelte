@@ -48,6 +48,17 @@
         const message = `${$account.username} has left the chatroom.`
         socket.emit("chatmessageSent",{data: {message: message, user: undefined}})
     })
+
+    onDestroy(async () => {
+        const saveMilestones = $milestones
+        const milestonesWorker = new Worker('/scripts/milestonesWorker.js')
+
+        milestonesWorker.postMessage(saveMilestones)
+
+        milestonesWorker.onmessage = function(message){
+            console.log(message)
+        }
+    })
 </script>
 
 <section id="chatroom-container">

@@ -1,1 +1,11 @@
-[]
+[
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""},
+    {"firstname":"", "lastname":"", "username":"", "email":"","password":"","role":""}
+]

@@ -2,9 +2,9 @@ import {Router} from "express"
 const accountsRouter = Router()
 
 import "dotenv/config"
-import authLimiter from "../mid/authLimiter.mjs"
-import jwtCheck from "../mid/jwtCheck.mjs"
-import roleCheck from "../mid/roleCheck.mjs"
+import authLimiter from "../middleWare/authLimiter.mjs"
+import jwtCheck from "../middleWare/jwtCheck.mjs"
+import roleCheck from "../middleWare/roleCheck.mjs"
 import ROLES from "../data/presets/ROLES.mjs"
 import Account from "../model/account.mjs"
 import CryptoJS from "crypto-js"
@@ -19,21 +19,21 @@ accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck([ROLES.USER, R
 
     data.name = CryptoJS.AES.decrypt(data.name, AES_KEY_A).toString(CryptoJS.enc.Utf8)
     data.username = CryptoJS.AES.decrypt(data.username, AES_KEY_B).toString(CryptoJS.enc.Utf8)
-    data.milestones = JSON.parse(data.userSettings.milestones.toString())
+    data.milestones = data.userSettings.milestones
     data.description = data.userSettings.description.toString()
-    data.preferences = JSON.parse(data.userSettings.preferences.toString())
+    data.preferences = data.userSettings.preferences
 
     delete data.userSettings
-    
+
     return res.status(201).send({data})
 })
 
 import ip from "ip"
 import bcrypt from "bcrypt"
-import {loginValidation} from "../mid/inputValidation.mjs"
+import {loginValidation} from "../middleWare/inputValidation.mjs"
 import jsonwebtoken from "jsonwebtoken"
 import Attempt from "../model/attempt.mjs"
-accountsRouter.post("/api/login", [authLimiter, loginValidation], async (req, res) => {
+accountsRouter.post("/api/login", [authLimiter], async (req, res) => {
     //TODO: PROPER USER DATA VALIDATTION (SIZE, LEXICAL CONTENT, SYNTAX)
     const {email, password} = req.body
 
@@ -75,7 +75,8 @@ accountsRouter.post("/api/login", [authLimiter, loginValidation], async (req, re
 
 import fs from "fs"
 import path from "path"
-import emailDispatch from "../utils/nodemailer.mjs"
+import {MILESTONES,PREFERENCES} from "../data/presets/SETTINGS.mjs"
+import emailDispatch from "../utilities/nodemailer.mjs"
 const {SALT_ROUNDS} = process.env
 accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
     //TODO: !IMPORTANT - proper evalutation of user input prior to registration
@@ -102,8 +103,8 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
             const {_id, ...savedAccount} = await newAccount.save()
 
             if(savedAccount){
-                const MILESTONES = fs.readFileSync(path.resolve("./data/presets/milestones.json"))
-                const PREFERENCES = fs.readFileSync(path.resolve("./data/presets/preferences.json"))
+                /*const MILESTONES = fs.readFileSync(path.resolve("./data/presets/milestones.json"))
+                const PREFERENCES = fs.readFileSync(path.resolve("./data/presets/preferences.json"))*/
                 const proppedAccount = await Account.findByIdAndUpdate(
                     {_id: _id},
                     {userSettings: {milestones: MILESTONES, preferences: PREFERENCES}}

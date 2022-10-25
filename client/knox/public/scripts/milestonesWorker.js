@@ -1,12 +1,12 @@
-import {milestones} from "../../stores/systemd"
+self.onmessage = async function(message){
+    console.log("Reached milestones worker", message)
+    const result = await fetch("/api/milestones",{
+        method:'PATCH',
+        headers:{'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify({milestones: message.data})
+    })
 
-self.postMessage("updating milestones")
-const result = await fetch("/api/milestones",{
-    method:'PATCH',
-    credentials: 'include',
-    body :{
-        milestones: JSON.stringify(milestones)
-    }
-})
-
-if(result.created) self.postMessage("milestones updated")
+    if(result.status === 204)return self.postMessage("process complete")
+    else return self.postMessage("process interrupted")
+}

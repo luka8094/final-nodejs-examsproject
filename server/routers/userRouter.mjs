@@ -1,21 +1,28 @@
+import fs from "fs"
 import "dotenv/config"
 import {Router} from "express"
 import jsonwebtoken from "jsonwebtoken"
-import jwtCheck from "../mid/jwtCheck.mjs"
+import authLimiter from "../middleWare/authLimiter.mjs"
+import jwtCheck from "../middleWare/jwtCheck.mjs"
+import roleCheck from "../middleWare/roleCheck.mjs"
+import ROLES from "../data/presets/ROLES.mjs"
 import Account from "../model/account.mjs"
 const userRouter = Router()
 const {JWT_TOKEN_KEY} = process.env
 
-userRouter.patch("/api/milestones", async (req,res) =>{
-    console.log("milestones api", req.body)
-    const token = req.cookies('jwt')
-    const claims = jsonwebtoken.verify(token, JWT_TOKEN_KEY)
+userRouter.patch("/api/milestones", [jwtCheck, roleCheck([ROLES.ADMIN, ROLES.USER])] ,async (req, res) =>{
+    console.log("milestones api")
     
-    if(!claims) return res.sendStatus(403)
     const {milestones} = req.body
-
-    const updated = await Account.findOneAndUpdate({_id: claims._id},{userSettings: {milestones: milestones}})
-    if(updated) return res.sendStatus(204)
+    console.log(milestones)
+    
+    const account = await Account.findById({_id: req.body.id})
+    const updated = await account.set("userSettings.milestones", milestones).save()
+    console.log(updated)
+    if(updated){ 
+        delete req.body
+        return res.sendStatus(204)
+    }
     else res.sendStatus(503)
 })
 
