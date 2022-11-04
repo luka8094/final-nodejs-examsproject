@@ -1,24 +1,22 @@
 <script>
-    import {useNavigate, useLocation, useParams} from "svelte-navigator"
+    import {useNavigate} from "svelte-navigator"
     
     export let coin, coinName
-    let description = "This is a description placeholder for the cryptocurrency coin."
     let navigate = useNavigate() 
-    let params = useParams()
-    let location = useLocation()
 
     function forward(){
-        console.log(coinName, coin, $params, $params.id, $location)
-        console.log(`localhost:3000/chatrooms/${coinName}`)
         navigate(`/chatrooms/${coinName}`, {replace: true})
     }
 </script>
 
 <div id="chatroom-box-container">
-    <div id="coin-image"></div>
+    <div id="coin-image">
+        <img src={coin.image} alt={coin.name}/>
+    </div>
     <div id="chatroom-description">
-        <p>{description}</p>
-        <button on:click={forward}>Join {coinName}</button>
+        <h1>{coin.name}</h1>
+        <p>Brief overview:</p>
+        <button on:click={forward}>Join the {coin.name} chat!</button>
     </div>
 </div>
 
@@ -26,9 +24,11 @@
     #chatroom-box-container{
         display: flex;
         height: fit-content;
-        width: 250px;
+        width: 500px;
         margin: 10px;
-        background: rgba(50,50,50,.5);
+        padding-right: 10px;
+        background: white;
+        box-shadow: 1px 1px 10px 1px;
     }
 
     #coin-image{
@@ -36,22 +36,31 @@
         height: 90px;
         width: 90px;
         margin: 10px;
-        background: rgba(50,100,50,.5);
+    }
+
+    img{
+        object-fit: contain;
+        width: 80px;
+        margin: auto;
+        border-radius: 50px;
     }
 
     #chatroom-description{
         display: flex;
         flex-direction: column;
         height: 100%;
-        width: 150px;
+        width: 100%;
+    }
+
+    h1{
+        margin: 0;
     }
 
     #chatroom-description p{
         display: flex;
-        height: fit-content;
-        width: 130px;
+        height: 100px;
+        width: 100%;
         margin: 10px 0 0;
-        background: rgba(50,50,50,.5);
     }
 
     button{
@@ -60,10 +69,12 @@
         width: 100%;
         height: 100%;
         justify-content: center;
-        background: rgba(10,10,10,.1);
+        background: lightgrey;
+        transition: background 1s ease-in;
+        border-radius: 50px;
     }
 
     button:hover{
-        text-decoration: underline;
-    }
+       background: rgba(100,100,100,.1);
+    }   
 </style>

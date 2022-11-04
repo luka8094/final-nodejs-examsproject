@@ -1,21 +1,38 @@
 <script>
+    import {onDestroy} from "svelte"
+    import {subscriptions} from "../../stores/systemd"
     import SubscriptionContainer from "../components/subscriptions/SubscriptionContainer.svelte"
-
-    let testArray = [1,2,3,4,5,6,7,8,9,10]
 
     function removeThis(event){
         console.log(event, event.detail.value)
-        if(event.detail)testArray.pop()
-        testArray = testArray
-        
+
     }
+
+    onDestroy(async () => {
+        const saveSubscriptions = $subscriptions
+        const subscriptionsWorker = new Worker('/scripts/subscriptionsWorker.js')
+
+        subscriptionsWorker.postMessage(saveSubscriptions)
+
+        subscriptionsWorker.onmessage = function(message){
+            console.log(message)
+        }
+    })
 </script>
 
 <section>
     <div id="subscriptions-container">
         <h1>Subscriptions</h1>
-        {#each testArray as sub }
-            <SubscriptionContainer on:removeSubscription={removeThis}/>
+        {#each $subscriptions as sub}
+            <SubscriptionContainer 
+                image={sub.image}
+                name={sub.name}
+                rank={sub.rank}
+                marketCap={sub.marketCap}
+                price={sub.price}
+                volume={sub.volume}
+                supply={sub.supply}
+            on:removeSubscription={removeThis}/>
         {/each}
     </div>
 </section>

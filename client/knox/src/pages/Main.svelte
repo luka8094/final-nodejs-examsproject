@@ -1,7 +1,9 @@
 <script>
     import {useNavigate, useLocation} from "svelte-navigator"
     import {user} from "../../stores/systemd"
+    import SplashBackground from "../components/main/SplashBackground.svelte"
     import Trends from "../components/main/Trends.svelte"
+    import NewsReel from "../components/main/NewsReel.svelte"
     import Footer from "../components/Footer.svelte"
 
     let title = "52FA20224A2B4171"
@@ -61,10 +63,11 @@
                 </div>
             </div>
         </aside>
-        Main
      </div>
+     <SplashBackground/>
 </section>
 <Trends/>
+<NewsReel/>
 <Footer/>
 
 <style>
@@ -72,10 +75,10 @@
         display:flex;
         height: 85vh;
         width: 100%;
-        background: rgba(100,200,250,.5);
         padding-top: var(--menu-padding);
         align-items: center;
         justify-content: center;
+        overflow: hidden;
     }
 
     #splash-container{
@@ -83,8 +86,6 @@
         height: 500px;
         width: calc(100% - 450px);
         margin: auto;
-        background: rgba(100,110,150,.5);
-        border: dashed 1px black;
     }
 
     #splash-welcome-message{
@@ -92,8 +93,6 @@
         flex-direction: column;
         height: 370px;
         width: 300px;
-        background: rgba(100,150,100,.5);
-        border: dashed 1px black;
         border-left: solid 2px black;
         margin: 10px auto auto 10px;
         padding: 10px;
@@ -101,6 +100,10 @@
 
     h1, article{
         color: black;
+    }
+
+    h1:focus{
+        outline: none;
     }
 
     h1{
@@ -135,7 +138,7 @@
         border: none;
         border-radius: 0;
         margin: 0 auto auto 0;;
-        background: var(--button-background);
+        background: lightgrey;
         color: var(--button-text);
     }
 
@@ -202,7 +205,7 @@
 
     @media screen and (max-width: 1000px){ 
         section{
-            height: 110vh;
+            height: 100vh;
         }
 
         #splash-container{

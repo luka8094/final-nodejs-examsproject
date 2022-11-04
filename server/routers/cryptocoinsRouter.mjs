@@ -27,13 +27,7 @@ coinsRouter.get("/api/coins", async (req, res) => {
         page: 0
     })
     const listTest = await client.global()
-    const events = await client.events({
-        country_code: "US", 
-        page: 1, 
-        upcoming_events_only: false, 
-        from_date: currentDate
-    })
-    res.send({data: {list, listTest, events}})
+    res.send({data: {list, listTest}})
 })
 
 coinsRouter.get("/api/coins/trending", async (req, res) => {

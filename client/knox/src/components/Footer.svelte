@@ -1,39 +1,24 @@
+<script>
+    import {Router, Route, Link} from "svelte-navigator"
+    import Login from '../pages/Login.svelte'
+    import Register from '../pages/Register.svelte'
+</script>
+
 <section>
-    Footer
     <div id="footer-container">
         <aside>
-            <h2>Company</h2>
+            <h2>Contact</h2>
             <ul>
-                <li>info</li>
-                <li>info</li>
-                <li>info</li>
-                <li>info</li>
-            </ul>
-        </aside>
-        <aside>
-            <h2>Sitemap</h2>
-            <ul>
-                <li>info</li>
-                <li>info</li>
-                <li>info</li>
-                <li>info</li>
-            </ul>
-        </aside>
-        <aside>
-            <h2>Customer service</h2>
-            <ul>
-                <li>info</li>
-                <li>info</li>
-                <li>info</li>
-                <li>info</li>
+                <li><p>City street 1234</p></li>
+                <li><p>10 flr.</p></li>
+                <li><p>Postbox 1234</p></li>
+                <li><p>Copenhagen</p></li>
             </ul>
         </aside>
     </div>
     <div id="socials">
-        Social media
     </div>
     <div id="signature">
-        Signature
     </div>
 </section>
 
@@ -43,7 +28,7 @@
         flex-direction: column;
         height: fit-content;
         width: 100%;
-        background: rgba(10,10,10,.5);
+        background: black;
         padding: 10px 0;
     }
 
@@ -52,6 +37,7 @@
         height: 300px;
         width: calc(100% - 450px);
         margin: 0 auto;
+        padding-top: 50px;
         justify-content: space-evenly;
     }
 
@@ -62,8 +48,9 @@
         height: fit-content;
         width: 300px;
         margin-left: 10px;
-        border-top: solid 2px black;
-        border-bottom: solid 2px black;
+        border-top: solid 2px white;
+        border-bottom: solid 2px white;
+        color: white;
     }
 
     #footer-container > aside:first-child{
@@ -83,14 +70,14 @@
         display: flex;
         height: 60px;
         width: 100%;    
-        background: rgba(50,50,10,.5);
+        background: black;
     }
 
     #signature{
         display: flex;
         height: 20px;
         width: 100%;
-        background: rgba(20,30,40,.5);
+        background: black;
     }
 
     @media screen and (max-width: 1000px){

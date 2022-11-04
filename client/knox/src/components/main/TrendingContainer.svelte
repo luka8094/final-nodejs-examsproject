@@ -24,10 +24,10 @@
                 </tr>
             </tbody>
         </table>
-        <div id="coin-data-buttons-container">
+        <!--<div id="coin-data-buttons-container">
             <button>Watch</button> 
             <button>buy</button>
-        </div>
+        </div>-->
     </div>
 </div>
 

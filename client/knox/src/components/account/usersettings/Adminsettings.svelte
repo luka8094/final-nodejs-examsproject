@@ -1,11 +1,18 @@
 <script>
-    import {fade} from "svelte/transition"
     import {io} from "socket.io-client"
+    import {fade} from "svelte/transition"
+    import AttemptsOverview from "./admin/AttemptsOverview.svelte"
+    import {privileged} from "../../../../stores/systemd"
+
+    const socket = io()
+    let users
+    let attempts
+
 
     async function getUsers(){
         const result = await fetch("/api/users")
         const {data} = await result.json()
-        console.log(data)
+        users = data
     }
 
     async function getChatlogs(){
@@ -17,55 +24,44 @@
     async function getAttempts(){
         const result = await fetch("/api/attempts")
         const {data} = await result.json()
-        console.log(data)
+        attempts = data
     }
 
     function broadcastMessage(){
-        console.log("clicked broadcast message")
+        socket.emit('serviceAnnouncement',{data: message})
     }
 </script>
 
-<div id="administrator-settings-container">
-    <h2>Administrator tools</h2>
-    <article>
-        <p id="quote" in:fade>"With great power comes great responsibility"</p>
-        Administer operations and settings on the KNOX webapp.
-    </article>
-    <article id="users-overview">
-        <div class="admin-options-title-container">
-            <h2 class="admin-options-title">Get all system users</h2>
-        </div>
-        <p class="settings-description">List all currently registered users on the platform.</p>
-        <button on:click={getUsers}>List users</button>
-    </article>
-    <article id="attempts-overview">
-        <div class="admin-options-title-container">
-            <h2 class="admin-options-title">Get system login attempts</h2>
-        </div>
-        <p class="settings-description">Get an overview of unauthorized login activity.</p>
-        <button on:click={getAttempts}>List attempts</button>
-    </article>
-    <article id="chatlogs-overview">
-        <div class="admin-options-title-container">
-            <h2 class="admin-options-title">Get All chatlogs</h2>
-        </div>
-        <p class="settings-description">Gain an overview of conversations from specific chatrooms.</p>
-        <button on:click={getChatlogs}>List chatlogs</button>
-    </article>
-    <article id="broadcast-message">
-        <div class="admin-options-title-container">
-            <h2 class="admin-options-title">Broadcast message</h2>
-        </div>
-        <p class="settings-description">Broadcast a tailor-made message to all chatrooms.</p>
-        <button on:click={broadcastMessage}>Broadcast message</button>
-    </article>
-</div>  
+{#if $privileged}
+    <div id="administrator-settings-container">
+        <h2>Administrator tools</h2>
+        <article id="attempts-overview">
+            <div class="admin-options-title-container">
+                <h2 class="admin-options-title">Get system login attempts</h2>
+            </div>
+            <p class="settings-description">Get an overview of unauthorized login activity.</p>
+            {#if attempts}
+                {#each attempts as attempt}
+                    <AttemptsOverview 
+                    date={attempt.createdAt}
+                    email={attempt.useremail} 
+                    password={attempt.password}
+                    ipVFour={attempt.ipvFour}
+                    ipVSix={attempt.ipvSix}
+                    machine={attempt.machine}
+                    />
+                {/each}
+            {/if}
+            <button on:click|preventDefault={getAttempts}>List attempts</button>
+        </article>
+    </div>  
+{/if}
 
 <style>
     #administrator-settings-container{
         display: flex;
         flex-direction: column;
-        height: 600px;
+        height: 550px;
         width: 900px;
         padding-left: 20px;
         background: rgba(255,255,255,.5);
@@ -77,7 +73,6 @@
         width: 300px;
         padding-bottom: 20px;
         margin-bottom: 20px;
-        font-size: 20px;
     }
 
     article{
@@ -88,10 +83,6 @@
         padding-bottom: 10px;
     }
 
-    #quote{
-        font-style: italic;
-    }
-
     #users-overview,
     #chatlogs-overview,
     #attempts-overview,
@@ -99,8 +90,8 @@
     {
         display: flex;
         flex-direction: column;
-        height: 250px;
-        width: calc(100% - 15px);
+        width: 90%;
+        padding: 10px;
         background: rgba(255,255,255,.5);
         align-items: center;
         justify-content: center;
@@ -120,6 +111,15 @@
     }
 
     .settings-description{
+        margin-right: auto;
+    }
+
+    #service-announcement-box{
+        display: flex;
+        min-height: 50px;
+        max-height: 100px;
+        min-width: 70px;
+        max-width: 200px;
         margin-right: auto;
     }
 

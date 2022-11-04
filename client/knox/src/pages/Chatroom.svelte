@@ -1,21 +1,16 @@
 <script>
     import {onDestroy, afterUpdate} from "svelte"
     import {io} from "socket.io-client"
-    import {user, account, milestones} from "../../stores/systemd"
+    import {account, milestones} from "../../stores/systemd"
     import Chatmessage from "../components/chatroom/Chatmessage.svelte"
     import CoinStatistics from "../components/chatroom/CoinStatistics.svelte"
-    import {useParams, useLocation} from "svelte-navigator";
 
     const socket = io()
-    export let COIN_ID
+    export let id
     let message
     let chatroomMessages = []
     let color
     let milestonesArray = $milestones
-    let params = useParams()
-    let location = useLocation()
-
-    console.log(COIN_ID, $params, $location, $location.search, window.location.href)
 
     $: if(message){
         if(message.length <= 255 | message === '') color = "black"
@@ -23,16 +18,15 @@
     }
 
     socket.on("connect", () => {
-        console.log("Weclome %s. Your socket id is: &s", $account.username, socket.id)
         const message = `${$account.username} has joined the chatroom. Say hi!`
         socket.emit("chatmessageSent", {data: {message: message, user: undefined}})
     })
 
     function sendMessage(){
-        console.log(++milestonesArray[1].currentValue, milestonesArray)
         message.trim()
-        console.log(message.trim())
+
         if(message.length === 0) return
+        console.log(++milestonesArray[1].currentValue, milestonesArray)
         socket.emit("chatmessageSent", {data: {message: message, user: $account.username}})
 
         message = ''
@@ -44,7 +38,6 @@
     })
 
     socket.on("disconnect", () =>{
-        console.log(socket.id)
         const message = `${$account.username} has left the chatroom.`
         socket.emit("chatmessageSent",{data: {message: message, user: undefined}})
     })
@@ -66,7 +59,6 @@
         participants
     </aside>-->
     <aside id="chatlog-container">
-        <!--<h2>Welcome to the room</h2>-->
         <div id="chatlog-history">
             {#each chatroomMessages as data}
                 {#if data.user === undefined}
@@ -86,7 +78,7 @@
             <button on:click={sendMessage}>send</button>
         </aside>
     </aside>
-    <CoinStatistics coinName={COIN_ID}/>
+    <CoinStatistics coinId={id}/>
 </section>
 
 <style>
@@ -95,16 +87,9 @@
         height: 100vh;
         width: 100%;
         padding: 90px 0 50px 0;
-        background: rgba(100,100,100,.5);
+        background: white;
         justify-content: center;
         -webkit-scrollbar-track: transparent;
-    }
-
-    #chatroom-participants-container{
-        display: flex;
-        height: 600px;
-        width: 150px;
-        background: rgba(255,55,255,.5);
     }
 
     #chatlog-container{
@@ -112,8 +97,8 @@
         flex-direction: column;
         height: 600px;
         width: 400px;
-        padding-left: 10px;
-        background: rgba(50,50,150,.5);
+        padding: 10px;
+        background: white;
     }
 
     #chatlog-history{
@@ -121,15 +106,16 @@
         flex-direction: column;
         height: 500px;
         width: 400px;
-        background: rgba(50,100,50,.5);
+        background: rgba(0,0,0,.1);
         overflow-y: scroll;
+        border: solid 1px black;
     }
 
     #chat-panel{
         display: flex;
         flex-direction: column;
         width: 350px;
-        background: rgba(100,100,100,.5);
+        background: white;
         justify-content: space-around;
     }
 
@@ -137,7 +123,7 @@
         display: flex;
         width: 400px;
         padding: 10px 0;
-        background: rgba(200,200,200,.5);
+        background: white;
     }
 
     textarea{
@@ -157,6 +143,14 @@
         display: flex;
         width: 70px;
         height: fit-content;
+        border-radius: 50px;
+        align-items: center;
         justify-content: center;
+        background: lightgrey;
+        transition: background .5s ease-in;
+    }
+    
+    button:hover{
+        background: rgba(100,100,100,.2);
     }
 </style>

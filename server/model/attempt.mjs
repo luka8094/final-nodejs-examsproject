@@ -16,10 +16,6 @@ const attemptsSchema = new mongoose.Schema({
         ipvSix:{
             type: String,
             required: true
-        },
-        machine:{
-            type: String,
-            required: true
         }
     },
     { timestamps: true })

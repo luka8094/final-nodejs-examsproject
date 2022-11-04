@@ -1,27 +1,23 @@
 <script>
     import gsap from "gsap/dist/gsap"
-    import {createEventDispatcher} from "svelte"
-    import {onMount, beforeUpdate} from "svelte"
-    import {Router, Link, link, Route, createHistory, createMemorySource} from 'svelte-navigator'
+    import {onMount} from "svelte"
+    import {Router, Link, Route, createHistory, createMemorySource} from 'svelte-navigator'
     import PrivateRoute from './authorization/PrivateRoute.svelte'
     import {user, visited} from "../../stores/systemd"
     import Main from '../pages/Main.svelte'
     import Account from '../pages/Account.svelte'
     import Subscriptions from '../pages/Subscriptions.svelte'
-    import Cryptobag from "../pages/Cryptobag.svelte"
     import Chatroom from '../pages/Chatroom.svelte'
     import Chatrooms from '../pages/Chatrooms.svelte'
     import Login from '../pages/Login.svelte'
     import Register from '../pages/Register.svelte'
-    import Market from '../pages/Market.svelte'
     import AccessDenied from './authorization/AccessDenied.svelte'
     import Success from '../pages/Success.svelte'
-    import About from "../pages/About.svelte"
 
     const history = createHistory(createMemorySource())
 
     let navigationBar, logo, logoName, logoImage, menuOverlay
-    let menuMain, menuMarket, menuLogin, menuRegister, menuChatrooms
+    let menuMain, menuService, menuLogin, menuRegister, menuChatrooms
 
     let screenWidth = window.innerWidth / 2
     let screenHeight = window.innerHeight / 2
@@ -37,7 +33,7 @@
             .set(navigationBar, {position: "absolute", boxShadow: "0"})
             .set(menuOverlay, {height: "100%"})
             .set(menuMain, {top: "-100%"})
-            .set(menuMarket, {top: "-100%"})
+            .set(menuService, {top: "-100%"})
             .set(menuLogin, {top: "-100%"})
             .set(menuRegister, {top: "-100%"})
             .set(menuChatrooms, {top: "-100%"})
@@ -54,11 +50,11 @@
             .fromTo(logo, {opacity: 1, fontSize: "2em", x: screenWidth , y: screenHeight}, {duration: 2, height: 60, fontSize: "1.2em", x: 0 , y:0, xPercent:"0", yPercent:"0"}, "+=1")
             .add('overlay')
             .to(menuOverlay, {duration: .5, opacity: 0}, "+=1", 'overlay')
-            .to(menuOverlay, {display: "none", zIndex: "1"}, "+=1", 'overlay')
+            .to(menuOverlay, {display: "none", zIndex: "5"}, "+=1", 'overlay')
             .to(navigationBar, {duration: .5, position: "fixed", zIndex: 10, boxShadow: "1px 1px 5px 1px"}, "+=1.2", 'overlay')
             .add('menu-rollout', 5)
             .to(menuMain, {duration: 1, top: "0%", ease: "power2.easeOut", delay: 1}, "-=.970", 'menu-rollout')
-            .to(menuMarket, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .9}, "-=.975", 'menu-rollout')
+            .to(menuService, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .9}, "-=.975", 'menu-rollout')
             .to(menuLogin, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .7}, "-=.95", 'menu-rollout')
             .to(menuRegister, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .5}, "-=.925", 'menu-rollout')
             .to(menuChatrooms, {duration: 1, top: "0%", ease: "power2.easeOut", delay: .3},"-=.9", 'menu-rollout')
@@ -88,8 +84,8 @@
             <div class="menu-element" bind:this={menuChatrooms}>
                 <Link customBinding={menuChatrooms} to="about">About KNOX</Link>
             </div>
-            <div class="menu-element" bind:this={menuMarket}>
-                <Link to="market">Market</Link>
+            <div class="menu-element" bind:this={menuService}>
+                <Link to="service">Service</Link>
             </div>
         </div>
         <div id="menu-container-account">
@@ -122,8 +118,6 @@
             
     </div>
     <Route path="/" component={Main}/>
-    <Route path="/about" component={About}/>    
-    <Route path="/market" component={Market}/>
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>    
     <PrivateRoute path="/account">
@@ -133,15 +127,12 @@
         <PrivateRoute path="/">
             <Chatrooms/>
         </PrivateRoute>
-        <PrivateRoute id="/?id" let:params>
-            <Chatroom COIN_ID={params.id} let:params/>   
+        <PrivateRoute path=":id" let:params>
+            <Chatroom id={params.id}/>   
         </PrivateRoute>
     </PrivateRoute>
     <PrivateRoute path="/subscriptions">
         <Subscriptions/>
-    </PrivateRoute>
-    <PrivateRoute path="/cryptobag">
-        <Cryptobag/>
     </PrivateRoute>
     <Route path="/unauthorized" component={AccessDenied}/>
     <Route path="/success" component={Success}/>    

@@ -34,10 +34,10 @@ accountsRouter.get("/api/user", [authLimiter, jwtCheck, roleCheck([ROLES.USER, R
 
 import address from "address"
 import bcrypt from "bcrypt"
-import {loginValidation} from "../middleWare/inputValidation.mjs"
+import {loginValidation, registrationValidation} from "../middleWare/inputValidation.mjs"
 import jsonwebtoken from "jsonwebtoken"
 import Attempt from "../model/attempt.mjs"
-accountsRouter.post("/api/login", authLimiter, loginValidation, async (req, res) => {
+accountsRouter.post("/api/login", [authLimiter, loginValidation], async (req, res) => {
     //TODO: PROPER USER DATA VALIDATTION (SIZE, LEXICAL CONTENT, SYNTAX)
     const {email, password} = req.body
 
@@ -52,14 +52,12 @@ accountsRouter.post("/api/login", authLimiter, loginValidation, async (req, res)
         loginAttempt.password = password
         loginAttempt.ipvFour = address.ip()
         loginAttempt.ipvSix = address.ipv6()
-        loginAttempt.machine = address.mac()
 
         const newAttempt = new Attempt({
             useremail: loginAttempt.email,
             password: loginAttempt.password,
             ipvFour: loginAttempt.ipvFour,
-            ipvSix: loginAttempt.ipvSix,
-            machine: loginAttempt.machine
+            ipvSix: loginAttempt.ipvSix
         })
 
         const loggedAttempt = await newAttempt.save()
@@ -67,7 +65,6 @@ accountsRouter.post("/api/login", authLimiter, loginValidation, async (req, res)
         delete loginAttempt.password
         delete loginAttempt.ipvFour
         delete loginAttempt.ipvSix
-        delete loginAttempt.machine
         delete req.body
 
         if(loggedAttempt) return res.status(401).send({data: "email or password doesn't match"})
@@ -79,9 +76,8 @@ accountsRouter.post("/api/login", authLimiter, loginValidation, async (req, res)
         const {role} = await Account.findOne({_id: account._id}).select('role')
         const isAdmin = await bcrypt.compare(ROLES.ADMIN, role)
         const token = jsonwebtoken.sign({_id: account._id, role: role}, JWT_TOKEN_KEY)
-
         delete account._id
-        console.log(isAdmin)
+
         res.cookie('jwt', token, {httpOnly: true, maxAge: 5 * 60 * 1000})
         res.status(202).send({loggedIn: true, admin: isAdmin, message: "Login success!"})
     }
@@ -90,17 +86,12 @@ accountsRouter.post("/api/login", authLimiter, loginValidation, async (req, res)
 import {MILESTONES,PREFERENCES} from "../data/presets/SETTINGS.mjs"
 import emailDispatch from "../utilities/nodemailer.mjs"
 const {SALT_ROUNDS} = process.env 
-accountsRouter.post("/api/register", authLimiter, async (req, res) => {  
-    //TODO: !IMPORTANT - proper evalutation of user input prior to registration
-    //PROPER USER DATA VALIDATTION (SIZE, LEXICAL CONTENT, SYNTAX)
+accountsRouter.post("/api/register", [authLimiter, registrationValidation], async (req, res) => {
         const exists = await Account.findOne({email: req.body.email})
 
         if(!exists){
             const fullname = req.body.firstname.concat(" ", req.body.lastname)
-            let ROLE
-            //NOTE DANGEROUS: THIS MUST BE MOVED TO THE POPULATE FILE EVENTUALLY
-            if(await Account.count({}) === 0) ROLE = ROLES.ADMIN
-            else ROLE = ROLES.USER
+            const ROLE = ROLES.USER
             console.log(ROLE)
             const newAccount = new Account({
                 name: CryptoJS.AES.encrypt(fullname, AES_KEY_A).toString(),
@@ -111,8 +102,8 @@ accountsRouter.post("/api/register", authLimiter, async (req, res) => {
             })
 
             const sentMail = await emailDispatch(req.body.email)
-            console.log(sentMail)
             delete req.body
+
             const {_id, ...savedAccount} = await newAccount.save()
 
             if(savedAccount){

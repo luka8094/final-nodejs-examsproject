@@ -1,14 +1,13 @@
 <script>
     import {account} from "../../../../stores/systemd"
+    import {toast} from "../../../modules/ToastContainer.svelte"
 
     const username = $account.username
-    let currentPassword, newPassword, message
-    let color = "red"
+    let currentPassword, newPassword
 
     const changePassword = async () =>{
-        console.log("clicked change password button.")
         if(!currentPassword||!newPassword){ 
-            return message = "Fields can not be empty."
+            toast("Fields can not be empty.",1)
         }
         const result = await fetch("/api/password",{
             method: 'PATCH',
@@ -21,16 +20,14 @@
             })
         })
 
-        color = result.status === 200 ? "green" : "red"
-
         if(result.status === 200){
             const {data} = await result.json()
-            return message = data
+            toast(data, 0)
         }
-        if(result.status === 403){ 
-            return message = "Permission denied"
+        if(result.status === 403 || result.status == 503){ 
+            const {data} = await result.json()
+            toast(data, 1) 
         }
-        else return message = "The password could not be changed.\nPlease try again later."
     }
 </script>
 
@@ -41,12 +38,15 @@
     </article>
     <form>
         <label for="current">Current password:</label>
-        <input bind:value={currentPassword} type="text" name="current"/>
+        <input bind:value={currentPassword} 
+        type="password" 
+        name="current"/>
         <label for="new">New password:</label>
-        <input bind:value={newPassword} type="text" name="new"/>
+        <input bind:value={newPassword} 
+        type="password" 
+        name="new"/>
         <button type="button" on:click|preventDefault={changePassword}>confirm</button>
     </form>
-    <p id="message" style="color:{color};">{message === undefined ? "": message}</p>
 </div>
 
 <style>

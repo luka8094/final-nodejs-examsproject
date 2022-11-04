@@ -1,5 +1,6 @@
 <section>
-    Access denied
+    <h1>404</h1>
+    <h2>Access denied</h2>
 </section>
 
 <style>
@@ -7,6 +8,8 @@
         display: flex;
         height: 100%;
         width: 100%;
-        background: rgba(100,10,150,.5);
+        background: white;
+        align-items: center;
+        justify-content: center;
     }
 </style>

@@ -1,39 +1,55 @@
 <script>
-    import {onMount, onDestroy} from "svelte"
+    import {onDestroy} from "svelte"
     import {useNavigate} from "svelte-navigator"
-    import {user, account, milestones, preferences} from "../../stores/systemd"
+    import {user, privileged, account, milestones, preferences, cancelSignal, requestCanceller} from "../../stores/systemd"
     import Dashboard from "../components/account/Dashboard.svelte"
 
     let navigate = useNavigate()
     
-    onMount(async () => {
-            const result = await fetch("/api/user")
+    ;(async function(){
+        const result = await fetch("/api/user", {$cancelSignal})
 
-            if(result.status === 201){
-                const {data} = await result.json()
-                console.log(data)
-                if($milestones.length === 0) $milestones = data.milestones
-                $preferences = data.preferences
-                console.log($milestones, $preferences)
-                return $account = data
-            }
-            if(result.status === 401 || result.status === 403){ navigate("/login")}
-    })
+        if(result.status === 201){
+        const {data} = await result.json()
+        if($milestones.length === 0){
+            $milestones = data.milestones
+            $milestones[0].currentValue++
+        } 
+        $preferences = data.preferences
+        return $account = data
+        }
+        if(result.status === 401 || result.status === 403) navigate("/login")
+
+    })()
 
     const logout = async () => {
+        $requestCanceller.abort()
+
         const result = await fetch("/api/logout",{
             method: 'DELETE'
         })
 
         if(result.status === 202)
         {   
-            $user = null  
+            $user = null
             $account = []
             $milestones = []
             $preferences = []
+            if($privileged) $privileged = null 
             navigate("/login")
         }
     }
+
+    onDestroy(async () => {
+        const saveMilestones = $milestones
+        const milestonesWorker = new Worker('/scripts/milestonesWorker.js')
+
+        milestonesWorker.postMessage(saveMilestones)
+
+        milestonesWorker.onmessage = function(message){
+            console.log(message)
+        }
+    })
 </script>
 
 <section>

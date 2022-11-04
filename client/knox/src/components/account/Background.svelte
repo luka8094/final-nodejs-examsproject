@@ -1,7 +1,3 @@
-<script>
-
-</script>
-
 <div id="login-background">
     <div id="layer"></div>
     <div id="layer"></div>

@@ -1,5 +1,4 @@
 self.onmessage = async function(message){
-    console.log("Reached milestones worker", message)
     const result = await fetch("/api/milestones",{
         method:'PATCH',
         headers:{'Content-Type': 'application/json'},

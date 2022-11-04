@@ -22,7 +22,6 @@
     article{
         height: fit-content;
         width: 750px;
-        border: dashed .5px black;
         align-items: center;
         margin-bottom: 5px;
         padding: 5px 0;
@@ -37,7 +36,7 @@
         display: flex;
         height: 30px;
         width: 100%;
-        background: rgba(200,200,100,.5);
+        background: rgba(0,0,0,.5);
         align-items: center;
     }
 

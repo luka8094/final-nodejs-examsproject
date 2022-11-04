@@ -1,18 +1,12 @@
 <script>
-    import {rootPrivilege} from "../../../stores/systemd"
+    import {privileged} from "../../../stores/systemd"
     import ProfileSettings from "./usersettings/ProfileSettings.svelte"
     import MilestonesOverview from "./usersettings/MilestonesOverview.svelte"
-    import TransactionsOverview from "./usersettings/TransactionsOverview.svelte"
     import PasswordSettings from "./usersettings/PasswordSettings.svelte"
-    import VisualModeSettings from "./usersettings/VisualModeSettings.svelte"
-    import LanguageSettings from "./usersettings/LanguageSettings.svelte"
     import Adminsettings from "./usersettings/Adminsettings.svelte"
 
     export let username, logout
     let choice = ProfileSettings
-
-    //TODO: IMPORTANT|WARNING - THIS REQUIRES A MORE ROBUST CONTROL VERIFICATION/VALIDATION THAN JUST SETTING 'TRUE' OR 'FALSE'
-    $rootPrivilege = true
 </script>
 
 <div id="dashboard-container">
@@ -25,11 +19,8 @@
         <aside id="user-options">
             <button on:click={() => (choice = ProfileSettings)}>Profile</button>
             <button on:click={() => (choice = MilestonesOverview)}>Milestones</button>
-            <button on:click={() => (choice = TransactionsOverview)}>Transactions</button>
             <button on:click={() => (choice = PasswordSettings)}>Password</button>
-            <button on:click={() => (choice = LanguageSettings)}>Language</button>
-            <button on:click={() => (choice = VisualModeSettings)}>Visual mode</button>
-        {#if $rootPrivilege}
+        {#if $privileged}
             <button on:click={() => (choice = Adminsettings)}>Administrate</button>
         {/if}
         </aside>
@@ -37,7 +28,7 @@
             <svelte:component this={choice}/>
         </aside>
     </div>
-    <button id="logout" on:click={logout}>Log out</button>
+    <button id="logout" on:click|preventDefault={logout}>Log out</button>
 </div>
 
 <style>
@@ -54,6 +45,10 @@
         margin: 10px 0;
         align-self: center;
         color: black;
+    }
+
+    h1:focus{
+        outline: none;
     }
 
     span{
