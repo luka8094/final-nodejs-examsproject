@@ -100,9 +100,6 @@
                         <div>
                             <Link to="chatrooms">Chatrooms</Link>
                         </div>
-                        <div>
-                            <Link to="cryptobag">Cryptobag</Link>
-                        </div>
                     </div>
                 </div>
             {/if}
