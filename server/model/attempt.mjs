@@ -9,7 +9,15 @@ const attemptsSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        location:{
+        ipvFour:{
+            type: String,
+            required: true
+        },
+        ipvSix:{
+            type: String,
+            required: true
+        },
+        machine:{
             type: String,
             required: true
         }

@@ -1,4 +1,6 @@
+import "dotenv/config"
 import mongoose from "mongoose"
+
 const userSettingsSchema = new mongoose.Schema({
     milestones:{
         type: Array,
@@ -12,6 +14,10 @@ const userSettingsSchema = new mongoose.Schema({
     preferences:{
         type: Array,
         required: true
+    },
+    subscriptions:{
+        type: Array,
+        required: false
     }
 },
 { timestamps: true })

@@ -8,9 +8,9 @@ function roleCheck(rolesArray){
             AUTHORIZED = await bcrypt.compare(rolesArray[i], req.body.role)
             if(AUTHORIZED) break
         }
-        if(AUTHORIZED) next()
         
-        else return res.status(401).send({data:"denied"})
+        if(AUTHORIZED) next()
+        else return res.status(401).send({data:"unauthorized"})
     }
 }
 

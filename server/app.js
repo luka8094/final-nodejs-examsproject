@@ -21,9 +21,9 @@ app.use(baseLimiter)
 
 import authRouter from "./routers/authRouter.mjs"
 import userRouter from "./routers/userRouter.mjs"
-import coinGeckoRouter from "./routers/cryptocoinsRouter.mjs"
+import coinsRouter from "./routers/cryptocoinsRouter.mjs"
 import adminRouter from "./routers/adminRouter.mjs"
-app.use(coinGeckoRouter)
+app.use(coinsRouter)
 app.use(authRouter)
 app.use(adminRouter)
 app.use(userRouter)
