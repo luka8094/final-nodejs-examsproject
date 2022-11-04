@@ -81,12 +81,6 @@
             <div class="menu-element" bind:this={menuMain}>
                 <Link to="/">Main</Link>
             </div>
-            <div class="menu-element" bind:this={menuChatrooms}>
-                <Link customBinding={menuChatrooms} to="about">About KNOX</Link>
-            </div>
-            <div class="menu-element" bind:this={menuService}>
-                <Link to="service">Service</Link>
-            </div>
         </div>
         <div id="menu-container-account">
             {#if !$user}

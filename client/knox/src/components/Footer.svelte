@@ -1,9 +1,3 @@
-<script>
-    import {Router, Route, Link} from "svelte-navigator"
-    import Login from '../pages/Login.svelte'
-    import Register from '../pages/Register.svelte'
-</script>
-
 <section>
     <div id="footer-container">
         <aside>

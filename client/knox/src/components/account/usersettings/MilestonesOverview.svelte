@@ -1,9 +1,6 @@
 <script>
-    import {onDestroy} from "svelte"
     import {milestones} from "../../../../stores/systemd"
     import MilestonesLine from "./milestones/MilestonesLine.svelte"
-
-    console.log($milestones)
 </script>
 
 <div id="milestones-container">

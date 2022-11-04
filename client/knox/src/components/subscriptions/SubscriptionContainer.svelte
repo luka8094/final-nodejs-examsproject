@@ -2,19 +2,6 @@
     import {createEventDispatcher} from "svelte"
     import {useNavigate} from "svelte-navigator"
     export let image, rank, name, marketCap, price, volume, supply
-
-    const dispatch = createEventDispatcher()
-    const navigate = useNavigate()
-
-    function removeSubscription(){
-        dispatch('removeSubscription',{value: true})
-    }
-
-    function toChatroom(e){
-        console.log(e.target)
-        console.log("Clicked on to chatroom")
-        navigate(`/chatrooms/${name}`, {replace: true})
-    }
 </script>
 
 <div id="subscription-container">
@@ -38,10 +25,6 @@
                 <td>{supply}</td>
             </tbody>
         </div>
-    </div>
-    <div id="subscription-options">
-        <button on:click|preventDefault={toChatroom}>watch</button>
-        <button on:click|preventDefault={removeSubscription}>remove</button>
     </div>
 </div>
 
@@ -92,22 +75,5 @@
     td{
         width: 100px;
         margin: auto;
-    }
-
-    #subscription-options{
-        display: flex;
-        height: 50px;
-        margin-left: auto;
-        width: 150px;
-        align-self: center;
-        justify-content: center;
-        align-items: center;
-    }
-
-    button{
-        display: flex;
-        width: fit-content;
-        height: 35px;
-        margin: 0 5px;
     }
 </style>

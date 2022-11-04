@@ -15,7 +15,6 @@
     </div>
     <div id="chatroom-description">
         <h1>{coin.name}</h1>
-        <p>Brief overview:</p>
         <button on:click={forward}>Join the {coin.name} chat!</button>
     </div>
 </div>
@@ -56,18 +55,12 @@
         margin: 0;
     }
 
-    #chatroom-description p{
-        display: flex;
-        height: 100px;
-        width: 100%;
-        margin: 10px 0 0;
-    }
-
     button{
         display: flex;
         align-self: center;
         width: 100%;
         height: 100%;
+        margin-top: 20px;
         justify-content: center;
         background: lightgrey;
         transition: background 1s ease-in;

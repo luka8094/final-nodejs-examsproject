@@ -1,23 +1,6 @@
 <script>
-    import {onDestroy} from "svelte"
     import {subscriptions} from "../../stores/systemd"
     import SubscriptionContainer from "../components/subscriptions/SubscriptionContainer.svelte"
-
-    function removeThis(event){
-        console.log(event, event.detail.value)
-
-    }
-
-    onDestroy(async () => {
-        const saveSubscriptions = $subscriptions
-        const subscriptionsWorker = new Worker('/scripts/subscriptionsWorker.js')
-
-        subscriptionsWorker.postMessage(saveSubscriptions)
-
-        subscriptionsWorker.onmessage = function(message){
-            console.log(message)
-        }
-    })
 </script>
 
 <section>
@@ -32,7 +15,7 @@
                 price={sub.price}
                 volume={sub.volume}
                 supply={sub.supply}
-            on:removeSubscription={removeThis}/>
+                />
         {/each}
     </div>
 </section>

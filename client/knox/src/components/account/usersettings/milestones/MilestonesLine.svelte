@@ -22,6 +22,7 @@
     article{
         height: fit-content;
         width: 750px;
+        background: white;
         align-items: center;
         margin-bottom: 5px;
         padding: 5px 0;
@@ -36,7 +37,6 @@
         display: flex;
         height: 30px;
         width: 100%;
-        background: rgba(0,0,0,.5);
         align-items: center;
     }
 
@@ -49,7 +49,7 @@
         display: flex;
         height: 10px;
         width: 100%;
-        background: rgba(255,255,255,.5);
+        background: rgba(0,0,0,.1);
         align-items: center;
     }
 

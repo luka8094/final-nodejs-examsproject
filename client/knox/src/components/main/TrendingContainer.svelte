@@ -24,10 +24,6 @@
                 </tr>
             </tbody>
         </table>
-        <!--<div id="coin-data-buttons-container">
-            <button>Watch</button> 
-            <button>buy</button>
-        </div>-->
     </div>
 </div>
 
@@ -88,27 +84,5 @@
 
     #coin-price{
         text-overflow: ellipsis;
-    }
-
-    
-    #coin-data-buttons-container{
-        display: flex;
-        height: 55px;
-        width: 190px;
-        margin: 0 20px 0 auto;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    button{
-        display: flex;
-        border: none;
-        border-radius: 20px;
-        width: 60px;
-        justify-content: center;
-    }
-
-    button:hover{
-        border-bottom: solid 1px black;
     }
 </style>

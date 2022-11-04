@@ -1,4 +1,7 @@
 <script>
+    //Scrambling effect inspired by source(s): 
+    //https://stackoverflow.com/questions/58325771/how-to-generate-random-hex-string-in-javascript
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield
     import {useNavigate, useLocation} from "svelte-navigator"
     import {user} from "../../stores/systemd"
     import SplashBackground from "../components/main/SplashBackground.svelte"

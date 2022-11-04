@@ -17,6 +17,7 @@
         height: fit-content;
         width: 100%;
         background: rgba(100,100,100,.1);
+        margin: 10px;
         padding: 10px 0;
         box-shadow: 1px 1px 5px 1px lightgrey;
     }
